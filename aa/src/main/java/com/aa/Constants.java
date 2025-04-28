@@ -6,16 +6,16 @@ import org.springframework.stereotype.Component;
 public class Constants {
 	
 	// Url Path
-	public static String ABBREVIATION_HO_XDM = "hoxdm";	// 본사(Head Office)
-	public static String ABBREVIATION_WH_XDM = "whxdm";	// 창고(Warehouse)
+	public static String ABBREVIATION_XDM = "xdm";	// 어드민
+	public static String ABBREVIATION_USR = "usr";	// 유저
 	
 	// Login Form URL
-	public static String URL_LOGIN_FORM_HO_XDM = "/hoxdm/member/MemberHOXdmSignIn";
-	public static String URL_LOGIN_FORM_WH_XDM = "/whxdm/member/MemberWHXdmSignIn";
+	public static String URL_LOGIN_FORM_XDM = "/xdm/member/MemberXdmSignIn";
+	public static String URL_LOGIN_FORM_USR = "/usr/member/MemberUsrSignIn";
 	
 	// Login User Seq
-	public static String SESSION_SEQ_NAME_HO_XDM = "sessSeqHOXdm";
-	public static String SESSION_SEQ_NAME_WH_XDM = "sessSeqWHXdm";
+	public static String SESSION_SEQ_NAME_XDM = "sessSeqXdm";
+	public static String SESSION_SEQ_NAME_USR = "sessSeqUsr";
 	
 	// Login Session Time
 	public static int SESSION_MINUTE = 60 * 30; // 30분

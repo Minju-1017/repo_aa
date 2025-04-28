@@ -20,48 +20,8 @@ public class OrderService {
 		return dao.selectOneCount(vo);
 	}
 	
-	public int selectTwoCount(OrderVo vo) {
-		return dao.selectTwoCount(vo);
-	}
-	
-	public int selectThreeCount(OrderVo vo) {
-		return dao.selectThreeCount(vo);
-	}
-	
-	public int selectFourCount(OrderVo vo) {
-		return dao.selectFourCount(vo);
-	}
-	
-	public int selectFiveCount(OrderVo vo) {
-		return dao.selectFiveCount(vo);
-	}
-	
-	public int selectSixCount(OrderVo vo) {
-		return dao.selectSixCount(vo);
-	}
-	
 	public List<OrderDto> selectOne(OrderDto orderDto) {
 		return dao.selectOne(orderDto);
-	}
-	
-	public List<OrderDto> selectTwo(OrderVo vo) {
-		return dao.selectTwo(vo);
-	}
-	
-	public List<OrderDto> selectThree(OrderVo vo) {
-		return dao.selectThree(vo);
-	}
-	
-	public List<OrderDto> selectFour(OrderVo vo) {
-		return dao.selectFour(vo);
-	}
-	
-	public List<OrderDto> selectFive(OrderVo vo) {
-		return dao.selectFive(vo);
-	}
-	
-	public List<OrderDto> selectSix(OrderVo vo) {
-		return dao.selectSix(vo);
 	}
 	
 	public int update(OrderDto orderDto) {

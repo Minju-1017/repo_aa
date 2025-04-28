@@ -19,10 +19,10 @@ import com.aa.module.member.MemberDto;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping(value="/hoxdm/code/")
+@RequestMapping(value="/xdm/code/")
 public class CodeController {
 	
-	private String path = "hoxdm/code/";
+	private String path = "xdm/code/";
 	
 	@Autowired
 	CodeService service;
@@ -35,8 +35,8 @@ public class CodeController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "CodeHOXdmList")
-	public String codeHOXdmList(Model model, @ModelAttribute("vo") CodeVo vo,
+	@RequestMapping(value = "CodeXdmList")
+	public String codexdmList(Model model, @ModelAttribute("vo") CodeVo vo,
 			HttpSession httpSession) throws Exception {
 		// addAttribute 하기 전에 미리 실행되야함
 		vo.setParamsPaging(service.selectOneCount(vo));
@@ -45,15 +45,15 @@ public class CodeController {
 			model.addAttribute("codeList", service.selectList(vo));
 		}
 		
-		return path + "CodeHOXdmList";
+		return path + "CodeXdmList";
 	}
 	
 	/**
 	 * 데이터 추가/수정 폼
 	 * @return
 	 */
-	@RequestMapping(value = "CodeHOXdmForm")
-	public String codeHOXdmForm(@ModelAttribute("vo") CodeVo vo, Model model, CodeDto codeDto) 
+	@RequestMapping(value = "CodeXdmForm")
+	public String codeXdmForm(@ModelAttribute("vo") CodeVo vo, Model model, CodeDto codeDto) 
 			throws Exception {
 		model.addAttribute("codeGroupList", codeGroupService.selectListWithoutPaging());
 		
@@ -64,53 +64,53 @@ public class CodeController {
 			model.addAttribute("codeItem", service.selectOne(codeDto));
 		}
 		
-		return path + "CodeHOXdmForm";
+		return path + "CodeXdmForm";
 	}
 	
 	/**
 	 * 입력한 데이터 추가하기
 	 * @return redirect: 데이터 저장 후 돌아갈 주소(List)
 	 */
-	@RequestMapping(value = "CodeHOXdmInst")
-	public String codeHOXdmInst(CodeDto codeDto) {
+	@RequestMapping(value = "CodeXdmInst")
+	public String codeXdmInst(CodeDto codeDto) {
 		service.insert(codeDto);
 		
-		return "redirect:CodeHOXdmList";
+		return "redirect:CodeXdmList";
 	}
 	
 	/**
 	 * 입력한 데이터 수정하기
 	 * @return redirect: 데이터 저장 후 돌아갈 주소(List)
 	 */
-	@RequestMapping(value = "CodeHOXdmUpdt")
-	public String codeHOXdmUpdt(CodeDto codeDto) {
+	@RequestMapping(value = "CodeXdmUpdt")
+	public String codeXdmUpdt(CodeDto codeDto) {
 		service.update(codeDto);	
 
-		return "redirect:CodeHOXdmList";
+		return "redirect:CodeXdmList";
 	}
 	
 	/**
 	 * 데이터 삭제하기
 	 * @return redirect: 데이터 삭제 후 돌아갈 주소(List)
 	 */
-	@RequestMapping(value = "CodeHOXdmDele")
-	public String codeHOXdmDele(CodeDto codeDto) {
+	@RequestMapping(value = "CodeXdmDele")
+	public String codeXdmDele(CodeDto codeDto) {
 		System.out.println(codeDto.getcSeq());
 		service.delete(codeDto);	
 
-		return "redirect:CodeHOXdmList";
+		return "redirect:CodeXdmList";
 	}
 	
 	/**
 	 * 데이터 삭제하기
 	 * @return redirect: 데이터 삭제 후 돌아갈 주소(List)
 	 */
-	@RequestMapping(value = "CodeHOXdmUele")
-	public String codeHOXdmUele(CodeDto codeDto) {
+	@RequestMapping(value = "CodeXdmUele")
+	public String codeXdmUele(CodeDto codeDto) {
 		System.out.println(codeDto.getcSeq());
 		service.uelete(codeDto);	
 
-		return "redirect:CodeHOXdmList";
+		return "redirect:CodeXdmList";
 	}
 	
 	/**
@@ -120,8 +120,8 @@ public class CodeController {
 	 * @throws Exception
 	 */
 	@ResponseBody
-	@RequestMapping(value = "CodeListHOXdmDeleProc")
-	public Map<String, Object> codeListHOXdmDeleProc(
+	@RequestMapping(value = "CodeListXdmDeleProc")
+	public Map<String, Object> codeListXdmDeleProc(
 			@RequestParam(value="chbox") List<String> seqList) throws Exception {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		
@@ -147,8 +147,8 @@ public class CodeController {
 	 * @throws Exception
 	 */
 	@ResponseBody
-	@RequestMapping(value = "CodeListHOXdmUeleProc")
-	public Map<String, Object> codeListHOXdmUeleProc(
+	@RequestMapping(value = "CodeListXdmUeleProc")
+	public Map<String, Object> codeListXdmUeleProc(
 			@RequestParam(value="chbox") List<String> seqList) throws Exception {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		

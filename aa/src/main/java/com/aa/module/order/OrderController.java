@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class OrderController {
 	
-	private String path = "hoxdm/order/";
+	private String path = "xdm/order/";
 	
 	@Autowired //인터페이스
 	OrderService service;
 	
 	//유저
-	@RequestMapping(value = "/hoxdm/order/UserOrderHOXdmList")
-	public String UserOrderHOXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
+	@RequestMapping(value = "/xdm/order/UserOrderXdmList")
+	public String UserOrderXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
 		
 		vo.setParamsPaging(service.selectOneCount(vo));
 		
@@ -31,11 +31,11 @@ public class OrderController {
 			model.addAttribute("orderList", service.selectList(vo));
 		}
 		
-		return path + "UserOrderHOXdmList"; 
+		return path + "UserOrderXdmList"; 
 	}
 	
-	@RequestMapping(value = "/hoxdm/order/UserOrderHOXdmForm")
-	public String UserOrderHOXdmForm(@ModelAttribute("vo") OrderVo vo,
+	@RequestMapping(value = "/xdm/order/UserOrderXdmForm")
+	public String UserOrderXdmForm(@ModelAttribute("vo") OrderVo vo,
 			Model model, OrderDto orderDto) throws Exception {
 		
 		if (vo.getoSeq().equals("0") || vo.getoSeq().equals("")) {
@@ -47,25 +47,25 @@ public class OrderController {
 			model.addAttribute("orderItem", dto);
 			model.addAttribute("orderList", dtoList);
 		}
-		return path + "UserOrderHOXdmForm";
+		return path + "UserOrderXdmForm";
 	}
 	
-	@RequestMapping(value = "/hoxdm/order/UserOrderProductHOXdmForm")
-	public String UserOrderProductHOXdmForm(Model model) {
+	@RequestMapping(value = "/xdm/order/UserOrderProductXdmForm")
+	public String UserOrderProductXdmForm(Model model) {
 		model.addAttribute("productList",service.productList());
-		return "hoxdm/order/UserOrderProductHOXdmForm";
+		return "xdm/order/UserOrderProductXdmForm";
 	}
 	
-	@RequestMapping(value = "/hoxdm/order/UserOrderProductHOXdmInst")
-	public String UserOrderProductHOXdmInst(OrderDto orderDto) {
+	@RequestMapping(value = "/xdm/order/UserOrderProductXdmInst")
+	public String UserOrderProductXdmInst(OrderDto orderDto) {
 		service.ordersInsert(orderDto);
 		service.ordersProductInsert(orderDto);
-		return "redirect:/hoxdm/order/UserOrderHOXdmList";
+		return "redirect:/xdm/order/UserOrderXdmList";
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/hoxdm/order/UserOrderHOXdmUpdt")
-	public Map<String, Object> UserOrderHOXdmUpdt(OrderDto orderDto, 
+	@RequestMapping(value = "/xdm/order/UserOrderXdmUpdt")
+	public Map<String, Object> UserOrderXdmUpdt(OrderDto orderDto, 
 			@RequestParam(value="opSeqList") List<String> opSeqList,
 			@RequestParam(value="opStateCdList") List<String> opStateCdList) {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
@@ -103,51 +103,12 @@ public class OrderController {
 
 		return returnMap;
 	}
-	
-	//거래처
-	@RequestMapping(value = "/hoxdm/order/ClientOrderHOXdmList")
-	public String ClientOrderHOXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
-		
-		vo.setParamsPaging(service.selectTwoCount(vo));
-		
-		if (vo.getTotalRows() > 0) {
-			model.addAttribute("orderList", service.selectTwo(vo));
-		}
-		
-		return path + "ClientOrderHOXdmList"; 
-		}
-	
 
-	@RequestMapping(value = "/hoxdm/order/ClientOrderHOXdmInst")
-	public String ClientOrderHOXdmInst(OrderDto orderDto) {
+	@RequestMapping(value = "/xdm/order/ClientOrderXdmInst")
+	public String ClientOrderXdmInst(OrderDto orderDto) {
 		
 		service.insert(orderDto);
-		return path + "ClientOrderHOXdmInst";
-	}
-	
-	@RequestMapping(value = "/hoxdm/order/WarehouseOrderHOXdmList")
-	public String WraehouseOrderHOXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
-		
-		vo.setParamsPaging(service.selectThreeCount(vo));
-		
-		if (vo.getTotalRows() > 0) {
-			model.addAttribute("orderList", service.selectThree(vo));
-		}
-		
-		return path + "WarehouseOrderHOXdmList"; 
-	}
-	
-	//입고관리
-	@RequestMapping(value = "/whxdm/whorder/InOrderWHXdmList")
-	public String InOrderWHXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
-		
-		vo.setParamsPaging(service.selectFourCount(vo));
-		
-		if (vo.getTotalRows() > 0) {
-			model.addAttribute("orderList", service.selectFour(vo));
-		}
-		
-		return "whxdm/whorder/InOrderWHXdmList"; 
+		return path + "ClientOrderXdmInst";
 	}
 	
 	//입고관리 폼
@@ -219,19 +180,6 @@ public class OrderController {
 		return returnMap;
 	}
 	
-	//출고
-	@RequestMapping(value = "/whxdm/whorder/OutOrderWHXdmList")
-	public String OutOrderWHXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
-		
-		vo.setParamsPaging(service.selectFiveCount(vo));
-		
-		if (vo.getTotalRows() > 0) {
-			model.addAttribute("orderList", service.selectFive(vo));
-		}
-		
-		return "whxdm/whorder/OutOrderWHXdmList"; 
-	}
-	
 	//출고 폼
 	@RequestMapping(value = "/whxdm/whorder/OutOrderWHXdmForm")
 	public String OutOrderWHXdmForm(@ModelAttribute("vo") OrderVo vo,
@@ -300,30 +248,6 @@ public class OrderController {
 		return returnMap;
 	}
 	
-	@RequestMapping(value = "/whxdm/whorder/DeliveryOrderWHXdmList")
-	public String DeliveryOrderWHXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
-		
-		vo.setParamsPaging(service.selectSixCount(vo));
-		
-		if (vo.getTotalRows() > 0) {
-			model.addAttribute("orderList", service.selectSix(vo));
-		}
-		
-		return "whxdm/whorder/DeliveryOrderWHXdmList"; 
-	}
-	
-	@RequestMapping(value = "/hoxdm/order/DeliOrderHOXdmList")
-	public String DeliOrderHOXdmList(Model model,@ModelAttribute("vo") OrderVo vo) {
-		
-		vo.setParamsPaging(service.selectSixCount(vo));
-		
-		if (vo.getTotalRows() > 0) {
-			model.addAttribute("orderList", service.selectSix(vo));
-		}
-		
-		return "hoxdm/order/DeliOrderHOXdmList"; 
-	}
-	
 	/**
 	 * Ajax를 통한 여러건 데이터 삭제
 	 * @param seqList
@@ -331,8 +255,8 @@ public class OrderController {
 	 * @throws Exception
 	 */
 	@ResponseBody			
-	@RequestMapping(value = "/hoxdm/order/UserOrderHOXdmDeleProc")
-	public Map<String, Object> userOrderHOXdmDeleProc(
+	@RequestMapping(value = "/xdm/order/UserOrderXdmDeleProc")
+	public Map<String, Object> userOrderXdmDeleProc(
 			@RequestParam(value="chbox") List<String> seqList) throws Exception {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		

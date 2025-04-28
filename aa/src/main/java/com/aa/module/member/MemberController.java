@@ -19,11 +19,11 @@ import com.aa.module.code.CodeService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping(value={"/hoxdm/member/", "/whxdm/member/"})
+@RequestMapping(value={"/xdm/member/"})
 public class MemberController {
 
-	private String path_hoAdmin = "hoxdm/member/";	// 본사(Head Office)
-	private String path_whAdmin = "whxdm/member/";	// 창고(Warehouse)
+	private String path_admin = "xdm/member/";	// Admin
+	private String path_user = "usr/member/";	// User
 	
 	@Autowired
 	MemberService service;
@@ -39,21 +39,21 @@ public class MemberController {
 	 * @param memberDto
 	 * @throws Exception
 	 */
-	private void hoxdmSignIn(HttpSession httpSession, MemberDto memberDto) throws Exception {
+	private void xdmSignIn(HttpSession httpSession, MemberDto memberDto) throws Exception {
 		httpSession.setMaxInactiveInterval(Constants.SESSION_MINUTE);
-		httpSession.setAttribute("sessSeqHOXdm", memberDto.getuSeq());
-		httpSession.setAttribute("sessIdHOXdm", memberDto.getuId());
-		httpSession.setAttribute("sessNameHOXdm", memberDto.getuName());
+		httpSession.setAttribute("sessSeqXdm", memberDto.getuSeq());
+		httpSession.setAttribute("sessIdXdm", memberDto.getuId());
+		httpSession.setAttribute("sessNameXdm", memberDto.getuName());
 	}
 	
 	/**
 	 * 로그아웃 세션 처리 - HO Xdm
 	 * @param httpSession
 	 */
-	private void hoxdmSignOut(HttpSession httpSession) {
-		httpSession.setAttribute("sessSeqHOXdm", null);
-		httpSession.setAttribute("sessIdHOXdm", null);
-		httpSession.setAttribute("sessNameHOXdm", null);
+	private void xdmSignOut(HttpSession httpSession) {
+		httpSession.setAttribute("sessSeqXdm", null);
+		httpSession.setAttribute("sessIdXdm", null);
+		httpSession.setAttribute("sessNameXdm", null);
 	}
 	
 	/**
@@ -62,21 +62,21 @@ public class MemberController {
 	 * @param memberDto
 	 * @throws Exception
 	 */
-	private void whxdmSignIn(HttpSession httpSession, MemberDto memberDto) throws Exception {
+	private void usrSignIn(HttpSession httpSession, MemberDto memberDto) throws Exception {
 		httpSession.setMaxInactiveInterval(Constants.SESSION_MINUTE);
-		httpSession.setAttribute("sessSeqWHXdm", memberDto.getuSeq());
-		httpSession.setAttribute("sessIdWHXdm", memberDto.getuId());
-		httpSession.setAttribute("sessNameWHXdm", memberDto.getuName());
+		httpSession.setAttribute("sessSeqUsr", memberDto.getuSeq());
+		httpSession.setAttribute("sessIdUsr", memberDto.getuId());
+		httpSession.setAttribute("sessNameUsr", memberDto.getuName());
 	}
 	
 	/**
 	 * 로그아웃 세션 처리 - WH Xdm
 	 * @param httpSession
 	 */
-	private void whxdmSignOut(HttpSession httpSession) {
-		httpSession.setAttribute("sessSeqWHXdm", null);
-		httpSession.setAttribute("sessIdWHXdm", null);
-		httpSession.setAttribute("sessNameWHXdm", null);
+	private void usrSignOut(HttpSession httpSession) {
+		httpSession.setAttribute("sessSeqUsr", null);
+		httpSession.setAttribute("sessIdUsr", null);
+		httpSession.setAttribute("sessNameUsr", null);
 	}
 	
 	/**
@@ -105,9 +105,9 @@ public class MemberController {
 	 * 로그인 화면 이동 - HO Xdm
 	 * @return
 	 */
-	@RequestMapping(value = "MemberHOXdmSignIn")	
-	public String memberHOXdmSignIn() throws Exception {				
-		return path_hoAdmin + "MemberHOXdmSignIn";
+	@RequestMapping(value = "MemberXdmSignIn")	
+	public String memberXdmSignIn() throws Exception {				
+		return path_admin + "MemberXdmSignIn";
 	}
 	
 	/**
@@ -117,8 +117,8 @@ public class MemberController {
 	 * @throws Exception
 	 */
 	@ResponseBody // Ajax 코드는 무조건 써준다.
-	@RequestMapping(value = "MemberHOXdmSignInProc")
-	public Map<String, Object> memberHOXdmSignInProc(MemberDto memberDto, HttpSession httpSession) throws Exception {
+	@RequestMapping(value = "MemberXdmSignInProc")
+	public Map<String, Object> memberXdmSignInProc(MemberDto memberDto, HttpSession httpSession) throws Exception {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		
 		MemberDto mDto = service.selectSignInMember(memberDto); // MyBatis에서 디비 검색 후 결과값이 없으면 NULL이 떨어짐
@@ -127,7 +127,7 @@ public class MemberController {
 			returnMap.put("rt", "fail");
 		} else {
 			if (matchesBcrypt(memberDto.getuPwd(), mDto.getuPwd(), 10)) {
-				hoxdmSignIn(httpSession, mDto);
+				xdmSignIn(httpSession, mDto);
 				returnMap.put("rt", "success");
 			} else {
 				returnMap.put("rt", "fail");
@@ -143,11 +143,11 @@ public class MemberController {
 	 * @throws Exception
 	 */
 	@ResponseBody
-	@RequestMapping(value = "MemberHOXdmSignOutProc")	
-	public Map<String, Object> memberHOXdmSignOutProc(HttpSession httpSession) throws Exception {
+	@RequestMapping(value = "MemberXdmSignOutProc")	
+	public Map<String, Object> memberXdmSignOutProc(HttpSession httpSession) throws Exception {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		
-		hoxdmSignOut(httpSession);
+		xdmSignOut(httpSession);
 		returnMap.put("rt", "success");
 		
 		return returnMap;
@@ -156,12 +156,12 @@ public class MemberController {
 	////////////////////////////////////////////////////////////////
 	
 	/**
-	 * 로그인 화면 이동 - WH Xdm
+	 * 로그인 화면 이동 - Usr Xdm
 	 * @return
 	 */
-	@RequestMapping(value = "MemberWHXdmSignIn")	
-	public String memberWHXdmSignIn() throws Exception {				
-		return path_whAdmin + "MemberWHXdmSignIn";
+	@RequestMapping(value = "MemberUsrSignIn")	
+	public String memberUsrSignIn() throws Exception {				
+		return path_user + "MemberUsrSignIn";
 	}
 	
 	/**
@@ -171,8 +171,8 @@ public class MemberController {
 	 * @throws Exception
 	 */
 	@ResponseBody // Ajax 코드는 무조건 써준다.
-	@RequestMapping(value = "MemberWHXdmSignInProc")
-	public Map<String, Object> memberWHXdmSignInProc(MemberDto memberDto, HttpSession httpSession) throws Exception {
+	@RequestMapping(value = "MemberUsrSignInProc")
+	public Map<String, Object> memberUsrSignInProc(MemberDto memberDto, HttpSession httpSession) throws Exception {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		
 		MemberDto mDto = service.selectSignInMember(memberDto); // MyBatis에서 디비 검색 후 결과값이 없으면 NULL이 떨어짐
@@ -181,7 +181,7 @@ public class MemberController {
 			returnMap.put("rt", "fail");
 		} else {
 			if (matchesBcrypt(memberDto.getuPwd(), mDto.getuPwd(), 10)) {
-				whxdmSignIn(httpSession, mDto);
+				usrSignIn(httpSession, mDto);
 				returnMap.put("rt", "success");
 			} else {
 				returnMap.put("rt", "fail");
@@ -197,11 +197,11 @@ public class MemberController {
 	 * @throws Exception
 	 */
 	@ResponseBody
-	@RequestMapping(value = "MemberWHXdmSignOutProc")	
-	public Map<String, Object> memberWHXdmSignOutProc(HttpSession httpSession) throws Exception {
+	@RequestMapping(value = "MemberUsrSignOutProc")	
+	public Map<String, Object> memberUsrSignOutProc(HttpSession httpSession) throws Exception {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		
-		whxdmSignOut(httpSession);
+		usrSignOut(httpSession);
 		returnMap.put("rt", "success");
 		
 		return returnMap;

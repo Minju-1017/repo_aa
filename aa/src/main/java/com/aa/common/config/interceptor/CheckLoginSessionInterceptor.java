@@ -13,17 +13,17 @@ public class CheckLoginSessionInterceptor implements HandlerInterceptor{
 	public boolean preHandle(HttpServletRequest request, 
 			HttpServletResponse response, Object handler) throws Exception {
 		// 관리자용
-		if(request.getRequestURI().contains(Constants.ABBREVIATION_HO_XDM)) {
-			if (request.getSession().getAttribute(Constants.SESSION_SEQ_NAME_HO_XDM) == null) {
-				response.sendRedirect(Constants.URL_LOGIN_FORM_HO_XDM);
+		if(request.getRequestURI().contains(Constants.ABBREVIATION_XDM)) {
+			if (request.getSession().getAttribute(Constants.SESSION_SEQ_NAME_XDM) == null) {
+				response.sendRedirect(Constants.URL_LOGIN_FORM_XDM);
 		        return false;
 			}
 		}
 		
 		// 사용자용
-		if(request.getRequestURI().contains(Constants.ABBREVIATION_WH_XDM)) {
-			if (request.getSession().getAttribute(Constants.SESSION_SEQ_NAME_WH_XDM) == null) {
-				response.sendRedirect(Constants.URL_LOGIN_FORM_WH_XDM);
+		if(request.getRequestURI().contains(Constants.ABBREVIATION_USR)) {
+			if (request.getSession().getAttribute(Constants.SESSION_SEQ_NAME_USR) == null) {
+				response.sendRedirect(Constants.URL_LOGIN_FORM_USR);
 				return false;
 			}
 		}

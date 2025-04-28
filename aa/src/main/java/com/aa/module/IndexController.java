@@ -13,20 +13,20 @@ public class IndexController {
 	@Autowired
 	ProductService productService;
 	
-	private String path_hoAdmin = "hoxdm/";
-	private String path_whAdmin = "whxdm/";
+	private String path_admin = "xdm/";
+	private String path_user = "usr/";
 	
-	@RequestMapping(value = "/hoxdm/index")	
-	public String hoxdmIndex(Model model) {
+	@RequestMapping(value = "/xdm/index")	
+	public String xdmIndex(Model model) {
 		model.addAttribute("totalPrice",productService.totalPrice());
 		model.addAttribute("totalOrder",productService.totalOrder());
-		return path_hoAdmin + "index";
+		return path_admin + "index";
 	}
 	
-	@RequestMapping(value = "/whxdm/index")	
-	public String whxdmIndex(Model model) {	
+	@RequestMapping(value = "/usr/index")	
+	public String usrIndex(Model model) {	
 		model.addAttribute("totalPrice",productService.totalPrice());
 		model.addAttribute("totalOrder",productService.totalOrder());
-		return path_whAdmin + "index";
+		return path_user + "index";
 	}
 }

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{/xdm/include/head :: head}"></div>
+<!-- 중복되는 head 처리 -->
+
+<div class="main-wrapper">
+	<!-- navbar vertical -->
+	<!-- navbar -->
+	<nav class="navbar-vertical-nav d-none d-xl-block">
+		<div class="navbar-vertical">
+			<div class="px-4 py-5">
+				<a href="/xdm/index" class="navbar-brand"> <img
+					src="/assets/xdm/template/FreshCart-1.4.0/images/logo/logo.png"
+					alt="" />
+				</a>
+			</div>
+			<div class="navbar-vertical-content flex-grow-1" data-simplebar="">
+				<ul class="navbar-nav flex-column" id="sideNavbar">
+					<li class="nav-item"><a class="nav-link " href="/xdm/index">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-house"></i></span> <span
+									class="nav-link-text">Home</span>
+							</div>
+					</a></li>
+					<li class="nav-item"><a class="nav-link active"
+						href="/xdm/order/UserOrderXdmList">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-person"></i></span>
+								<span class="nav-link-text">유저 주문관리</span>
+							</div>
+					</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="/productXdmList">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-box"></i></span> <span
+									class="nav-link-text">상품관리</span>
+							</div>
+					</a></li>
+					<li class="nav-item"><a class="nav-link collapsed " href="#"
+						data-bs-toggle="collapse" data-bs-target="#navCategoriesOrders"
+						aria-expanded="false" aria-controls="navCategoriesOrders">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-laptop"></i></span>
+								<span class="nav-link-text">시스템관리</span>
+							</div>
+					</a>
+						<div id="navCategoriesOrders" class="collapse "
+							data-bs-parent="#sideNavbar">
+							<ul class="nav flex-column">
+								<li class="nav-item"><a class="nav-link"
+									href="/xdm/code/CodeXdmList">코드관리</a></li>
+								<!-- Nav item -->
+								<li class="nav-item"><a class="nav-link "
+									href="/xdm/codegroup/CodeGroupXdmList">코드그룹관리</a></li>
+							</ul>
+						</div></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<nav
+		class="navbar-vertical-nav offcanvas offcanvas-start navbar-offcanvac"
+		tabindex="-1" id="offcanvasExample">
+		<div class="navbar-vertical">
+			<div
+				class="px-4 py-5 d-flex justify-content-between align-items-center">
+				<a href="/xdm/index" class="navbar-brand"> <img
+					src="/assets/xdm/template/FreshCart-1.4.0/images/logo/logo.png"
+					alt="" />
+				</a>
+				<button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+					aria-label="Close"></button>
+			</div>
+			<div class="navbar-vertical-content flex-grow-1" data-simplebar="">
+				<ul class="navbar-nav flex-column">
+					<li class="nav-item"><a class="nav-link " href="/xdm/index">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-house"></i></span> <span
+									class="nav-link-text">Home</span>
+							</div>
+					</a></li>
+					<li class="nav-item"><a class="nav-link active"
+						href="/xdm/order/UserOrderXdmList">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-person"></i></span>
+								<span class="nav-link-text">유저 주문관리</span>
+							</div>
+					</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="/productXdmList">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-box"></i></span> <span
+									class="nav-link-text">상품관리</span>
+							</div>
+					</a></li>
+					<li class="nav-item"><a class="nav-link collapsed " href="#"
+						data-bs-toggle="collapse" data-bs-target="#navCategoriesOrders"
+						aria-expanded="false" aria-controls="navCategoriesOrders">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-laptop"></i></span>
+								<span class="nav-link-text">시스템관리</span>
+							</div>
+					</a>
+						<div id="navCategoriesOrders" class="collapse "
+							data-bs-parent="#sideNavbar">
+							<ul class="nav flex-column">
+								<li class="nav-item"><a class="nav-link"
+									href="/xdm/code/CodeXdmList">코드관리</a></li>
+								<!-- Nav item -->
+								<li class="nav-item"><a class="nav-link "
+									href="/xdm/codegroup/CodeGroupXdmList">코드그룹관리</a></li>
+							</ul>
+						</div></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<!-- main wrapper -->
+	<main class="main-content-wrapper">
+		<div class="container">
+			<div class="row mb-8">
+				<div class="col-md-12">
+					<div
+						class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-4">
+						<h2>유저 주문관리</h2>
+					</div>
+				</div>
+			</div>
+			<div class="row mb-8 g-5">
+				<div class="col-lg-12 col-12">
+					<div class="card card-lg border-0">
+						<div class="card-body d-flex flex-column gap-8 p-7">
+							<div class="d-flex flex-column gap-4">
+								<form class="row g-5 needs-validation" novalidate method="post"
+									id="form" name="form">
+									<input type="hidden" name="user_uSeq"
+										th:value="${session.sessSeqXdm}">
+									<div class="col-lg-3 col-12">
+										<label for="oReceiver" class="form-label">수취인</label> <input
+											type="text" class="form-control ss" id="oReceiver"
+											name="oReceiver" autocomplete="off" oninput="validations(this)" required/>
+									</div>
+									<div class="col-lg-3 col-12">
+										<label for="oReceiverTel" class="form-label">수취인 연락처</label> <input
+											type="text" class="form-control ss" id="oReceiverTel"
+											name="oReceiverTel" autocomplete="off" oninput="validations(this)" required/>
+									</div>
+									<div class="col-lg-3 col-12">
+										<label for="oReceiverAddr" class="form-label">수취인 주소</label> <input
+											type="text" class="form-control ss" id="oReceiverAddr"
+											name="oReceiverAddr" autocomplete="off" oninput="validations(this)" required/>
+									</div>
+
+									<div class="table-responsive mt-4" style="padding-top: 30px;">
+										<table
+											class="table table-centered table-hover text-nowrap table-borderless mb-0 table-with-checkbox">
+											<thead class="bg-light">
+												<tr>
+													<th style="min-width: 200px;">상품 선택</th>
+													<th style="min-width: 120px;">수량</th>
+													<th></th>
+													<th><div style="display: flex; justify-content: end;">
+															<button type="button" class="btn-sm btn-primary"
+																id="plusBtn">
+																<i class="bi bi-plus"></i>
+															</button>
+														</div></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td style="width: 300px;"><select
+														class="form-select item" name="items[0].product_pSeq" onchange="distinct(this)">
+															<option value="">상품 선택</option>
+															<option th:each="List:${productList}"
+																th:text="${List.pName}" th:value="${List.pSeq}"></option>
+													</select>
+													<div id="selectInvalid" class="invalid-feedback"></div>
+													</td>
+													<td style="width: 200px"><input
+														class="form-control item ss dd" id="bpAmount"
+														name="items[0].bpAmount" oninput="validate(this)" autocomplete="off" required/></td>
+													<td><a type="button" class="btn btn-outline-secondary"
+														onclick="minus(this)">X</a></td>
+													<td></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+
+									<div class="col-lg-12">
+										<div class="row mt-4">
+											<div class="col-6">
+												<a href="javascript:history.back()"
+													class="btn btn-outline-secondary w-100 w-md-auto"> <i
+													class="bi bi-list-ul"></i>
+												</a>
+											</div>
+											<div class="col-6 text-end">
+												<button class="btn btn-primary w-100 w-md-auto"
+													type="button" id="btnSave">
+													<i class="bi bi-database-add"></i>
+												</button>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</div>
+
+<div th:replace="~{/xdm/include/footer :: footer}"></div>
+<!-- 중복되는 footer 처리 -->
+
+<!-- 변수 정의 / 공통 함수 -->
+<script type="text/javascript">
+	let seq = document.querySelector("input[name=oSeq]");
+
+	// URL
+	let fom = document.querySelector("form[name=form]");
+
+	let listsize = document.getElementById("listsize").value;
+	let arrProductList = new Array(); // Validation 필요한 셀렉트박스 사이즈
+
+	for (let i = 0; i < listsize; i++) {
+		arrProductList[i] = document.getElementById("opStateCd" + i);
+	}
+</script>
+
+<!-- Validation: Bootstrap -->
+<script type="text/javascript">
+	document.querySelector("#plusBtn").onclick = function() {
+		let plusBtn = document.getElementById('plusBtn');
+		let tbody = document.querySelector('table tbody');
+
+		// tbody의 첫 번째 tr (템플릿 행)을 복제
+		let templateRow = tbody.querySelector('tr');
+		let clone = templateRow.cloneNode(true);
+
+		// 복제한 행의 입력값 초기화
+		clone.querySelector('select').selectedIndex = 0;
+		clone.querySelector('select').removeAttribute("name");
+		clone.querySelector('select').classList.remove("is-invalid");
+		clone.querySelector('select').classList.remove("is-valid");
+		clone.querySelector('select').setAttribute("name",
+				"items[" + tbody.rows.length + "].product_pSeq");
+		clone.querySelector('input').value = "";
+		clone.querySelector('input').removeAttribute("name");
+		clone.querySelector('input').classList.remove("is-invalid");
+		clone.querySelector('input').classList.remove("is-valid");
+		clone.querySelector('input').setAttribute("name",
+				"items[" + tbody.rows.length + "].bpAmount");
+
+		// tbody에 행 추가
+		tbody.appendChild(clone);
+	}
+	function distinct(me){
+		let select = document.querySelectorAll(".form-select");
+		let thisSelect = me.value;
+		
+		for(let i = 0 ; i< select.length; i++){
+			if(select[i].value == thisSelect && select[i] != me){
+				me.classList.remove("is-valid");
+				me.classList.add("is-invalid");
+				return false;
+			}else{
+				me.classList.remove("is-invalid");
+				me.classList.add("is-valid");
+				continue;
+			}
+		}
+		for(let i = 0 ; i < select.length; i++){
+			let itemI = select[i].value;
+			for(let j = 0; j < select.length ; j++){
+				let itemJ = select[j].value;
+				if(i !== j && itemI !== itemJ && select[i].value !=null
+					&&	select[j].value !=null && select[i].value != ""
+					&&  select[j].value != ""
+				){
+					select[i].classList.remove("is-invalid");
+					select[i].classList.add("is-valid");
+					select[j].classList.remove("is-invalid");
+					select[j].classList.add("is-valid");
+					continue;
+				}
+			}
+		}
+		for(let i = 0 ; i < select.length; i++){
+			let itemI = select[i].value;
+			for(let j = 0; j < select.length ; j++){
+				let itemJ = select[j].value;
+				if(i !== j && itemI === itemJ && select[i].value !=null
+					&&	select[j].value !=null && select[i].value != ""
+					&&  select[j].value != ""
+				){
+					select[i].classList.remove("is-valid");
+					select[i].classList.add("is-invalid");
+					select[j].classList.remove("is-valid");
+					select[j].classList.add("is-invalid");
+					continue;
+				}
+			}
+		}
+	}
+	
+	
+	
+	function minus(button) {
+		let tbody = document.querySelector("table tbody");
+		let row = button.closest("tr");
+		if (tbody.rows.length > 1) {
+			row.remove();
+		} else {
+			return false;
+		}
+	}
+
+	document.querySelector("#btnSave").onclick = function() {
+		let item = document.querySelectorAll(".item");
+		let ss = document.querySelectorAll(".ss");
+		let invalid = document.getElementsByClassName("is-invalid");
+		let amount = document.querySelectorAll(".dd");
+		let flag = true;
+		for (let i = 0; i < item.length; i++) {
+			if (item[i].value == null || item[i].value == "" ) {
+				item[i].classList.remove("is-valid");
+				item[i].classList.add("is-invalid");
+				flag = false;
+			}else{
+				item[i].classList.remove("is-invalid");
+				item[i].classList.add("is-valid");
+			}
+		}
+		let select = document.querySelectorAll(".form-select");
+		for(let i = 0 ; i < select.length; i++){
+			let itemI = select[i].value;
+			for(let j = 0; j < select.length ; j++){
+				let itemJ = select[j].value;
+				if(i != j && itemI === itemJ){
+					select[i].classList.remove("is-valid");
+					select[i].classList.add("is-invalid");
+					select[j].classList.remove("is-valid");
+					select[j].classList.add("is-invalid");
+					flag = false;
+					continue;
+				}
+			}
+		}
+		for(let i = 0; i < ss.length; i++){
+			if(ss[i].value.trim() === null || ss[i].value.trim() === ""){
+				ss[i].classList.remove("is-valid");
+				ss[i].classList.add("is-invalid");
+				flag = false;
+			}else{
+				ss[i].classList.remove("is-invalid");
+				ss[i].classList.add("is-valid");
+				
+			}
+		}
+		for(let i = 0 ; i< amount.length; i++){
+			if(!positiveNumberValidation(amount[i])){
+				amount[i].classList.remove("is-valid");
+				amount[i].classList.add("is-invalid");
+				
+				flag = false;
+			}else{
+				amount[i].classList.remove("is-invalid");
+				amount[i].classList.add("is-valid");
+			}
+		}
+		
+		if(flag){
+		fom.action = "/xdm/order/UserOrderProductXdmInst"
+		fom.submit();
+		}else{
+			invalid[0].focus();
+		}
+	}
+	function validate(value){
+		if(positiveNumberValidation(value)){
+			value.classList.remove("is-invalid");
+			value.classList.add("is-valid");
+		}else{
+			value.classList.remove("is-valid");
+			value.classList.add("is-invalid");
+		}
+	}
+	function validations(value){
+		if(strValidation(value)){
+			value.classList.remove("is-invalid");
+			value.classList.add("is-valid");
+		}else{
+			value.classList.remove("is-valid");
+			value.classList.add("is-invalid");
+		}
+	}
+</script>
+
+</body>
+</html>
