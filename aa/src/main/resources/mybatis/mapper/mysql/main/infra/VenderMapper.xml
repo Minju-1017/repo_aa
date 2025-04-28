@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.aa.module.vender.VenderDao">
+	<resultMap id="resultMapObj" type="com.aa.module.vender.VenderDto"></resultMap>
+
+	<sql id="selectCommon">
+		FROM 
+			vender a
+		WHERE 1=1				
+	        <choose>
+	            <when test="shOption == 1">AND a.vSeq = #{shValue}</when>
+	            <when test="shOption == 2">AND a.vName LIKE CONCAT('%',#{shValue},'%')</when>
+	        </choose>
+		ORDER BY a.vSeq DESC
+	</sql>
+	
+	<sql id="selectCommonColumn">
+		a.vSeq,
+	    a.vName
+	</sql>
+	
+	<select id="selectOneCount" resultType="Integer">
+		SELECT COUNT(*)
+		<include refid="selectCommon"/>
+	</select>
+
+	<select id="selectList" resultMap="resultMapObj">
+		SELECT
+			<include refid="selectCommonColumn"/>
+		<include refid="selectCommon"/>
+		
+		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
+	</select>
+	
+	<select id="selectListWithoutPaging" resultMap="resultMapObj">
+		SELECT
+			<include refid="selectCommonColumn"/>
+		FROM 
+			vender a
+		WHERE 1=1
+		ORDER BY a.vSeq DESC
+	</select>
+	
+	<select id="selectOne" resultMap="resultMapObj">
+		SELECT
+			<include refid="selectCommonColumn"/>
+		FROM 
+			vender a
+		WHERE 1=1
+		AND a.vSeq=#{vSeq}
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO vender
+		(
+		    vName
+		)
+		VALUES
+		(
+		    #{vName}
+		)
+		
+		<selectKey resultType="String" keyProperty="vSeq" order="AFTER">
+			SELECT last_insert_id()
+		</selectKey>
+	</insert>
+	
+	<update id="update">
+		UPDATE vender
+		SET
+			vName=#{vName}
+		WHERE
+			vSeq=#{vSeq}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM vender
+		WHERE
+			vSeq=#{vSeq}
+	</delete>
+	
+	<delete id="listDelete" parameterType="java.util.List">
+		DELETE FROM vender
+		<where>
+			<foreach collection="list" item="item" separator="or" open="" close="">
+				(vSeq=#{item})
+			</foreach>
+		</where>
+	</delete>
+	
+</mapper>

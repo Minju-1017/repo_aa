@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.aa.module.member.MemberDao">
+	<resultMap id="resultMapObj" type="com.aa.module.member.MemberDto"></resultMap>
+
+	<!-- 공통 구문 selectCommon으로 선언 -->
+	<sql id="selectCommon">
+		FROM 
+			user a
+		WHERE 1=1				
+	        <choose>
+	            <when test="shOption == 1">AND a.uSeq = #{shValue}</when>
+	            <when test="shOption == 2">AND a.uId LIKE CONCAT('%',#{shValue},'%')</when>
+	            <when test="shOption == 3">AND a.uName LIKE CONCAT('%',#{shValue},'%')</when>
+	        </choose>
+		ORDER BY a.uSeq DESC
+	</sql>
+	
+	<sql id="selectCommonColumn">
+		a.uSeq,
+	    a.uId,
+	    a.uName
+	</sql>
+	<!-- End -->
+	
+	<select id="selectOneCount" resultType="Integer">
+		SELECT COUNT(*)
+		<include refid="selectCommon"/>
+	</select>
+
+	<select id="selectList" resultMap="resultMapObj">
+		SELECT
+			<include refid="selectCommonColumn"/>
+		<include refid="selectCommon"/>
+		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
+	</select>
+	
+	<select id="selectOne" resultMap="resultMapObj">
+		SELECT
+			<include refid="selectCommonColumn"/>
+		FROM 
+			user a
+		WHERE 1=1
+			AND a.mSeq=#{uSeq}
+	</select>
+	
+	<select id="selectSignInMember" resultMap="resultMapObj">
+		SELECT
+			<include refid="selectCommonColumn"/>
+			,a.uPwd
+		FROM 
+			user a
+		WHERE 1=1
+			AND BINARY(a.uId)=#{uId}
+	</select>
+	
+</mapper>

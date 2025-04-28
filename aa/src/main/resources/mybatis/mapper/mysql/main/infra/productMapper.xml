@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.aa.module.product.ProductDao">
+
+	<resultMap type="com.aa.module.product.ProductDto"
+		id="resultMapObj"></resultMap>
+	<sql id="selectCommon">
+		from product as a
+		left join vender as b on a.vender_vSeq = b.vSeq
+		left join code as c on a.pCateCd = c.cSeq
+		where 1=1
+		<if test="shDelNy != null and !shDelNy.equals('')">AND a.pDelNy = #{shDelNy}</if>
+		<choose>
+			<when
+				test="shOptionDate != null and !shOptionDate.equals('')
+					and shOptionDate == 1
+					and shDateStart != null and !shDateStart.equals('')
+					and shDateEnd != null and !shDateEnd.equals('')">
+				AND a.pRegDate BETWEEN #{shDateStartDB} AND #{shDateEndDB}
+			</when>
+			<when
+				test="shOptionDate != null and !shOptionDate.equals('')
+					and shOptionDate == 2
+					and shDateStart != null and !shDateStart.equals('')
+					and shDateEnd != null and !shDateEnd.equals('')">
+				AND a.pMofDate BETWEEN #{shDateStartDB} AND #{shDateEndDB}
+			</when>
+		</choose>
+		<choose>
+			<when test="shOption == 1">AND a.pSeq = #{shValue}</when>
+			<when test="shOption == 2">AND a.pName LIKE CONCAT('%',#{shValue},'%')</when>
+			<when test="shOption == 3">AND a.pStock = #{shValue}</when>
+			<when test="shOption == 4">AND c.cName LIKE CONCAT('%',#{shValue},'%')</when>
+		</choose>
+		ORDER BY a.pSeq DESC
+	</sql>
+	<select id="selectCount" resultType="Integer">
+		select count(*)
+		<include refid="selectCommon"></include>
+	</select>
+	<select id="venderList" resultMap="resultMapObj">
+		select 
+		a.vSeq,
+		a.vName
+		from vender as a
+		where 1=1 
+		order by a.vSeq asc
+	</select>
+	<select id="totalPrice" resultType="integer">
+	select
+	sum(pPrice * bpAmount) as totalPrice
+	from ordersproduct as a
+	left join product as b on b.pSeq = a.product_pSeq
+	where 1=1
+	</select>
+	<select id="totalOrder" resultType="integer">
+	select
+	count(*) as totalOrder
+	from ordersproduct as a
+	where 1=1
+	</select>
+	
+	<select id="productList" resultMap="resultMapObj">
+		select
+		a.pSeq,
+		a.pCateCd,
+		a.pName,
+		a.pPrice,
+		a.pOption,
+		a.pStock,
+		a.pRegDate,
+		a.pMofDate,
+		a.vender_vSeq,
+		b.vName,
+		b.vSeq,
+		c.cSeq,
+		c.cName,
+		a.pDelNy
+		<include refid="selectCommon"></include>
+		limit #{startRnumForMysql},#{rowNumToShow}
+	</select>
+	<select id="productOne" resultMap="resultMapObj">
+		select
+		a.pSeq,
+		a.pCateCd,
+		a.pName,
+		a.pPrice,
+		a.pOption,
+		a.pStock,
+		a.pRegDate,
+		a.pMofDate,
+		a.vender_vSeq,
+		b.vName,
+		c.cSeq,
+		c.cName,
+		a.pDelNy
+		from product as a
+		left join vender as b on a.vender_vSeq = b.vSeq
+		left join code as c on a.pCateCd = c.cSeq
+		where 1=1 and
+		a.pSeq = #{pSeq}
+	</select>
+	<select id="codeList" resultMap="resultMapObj">
+	select
+	a.cSeq,
+	a.cName
+	from code as a
+	where 1=1 and
+	a.codegroup_cgSeq = 6
+	</select>
+	<insert id="productInsert">
+	insert into product
+	(
+	pName,
+	pCateCd,
+	pPrice,
+	pOption,
+	pStock,
+	pRegDate,
+	vender_vSeq
+	)values
+	(
+	#{pName},
+	#{pCateCd},
+	#{pPrice},
+	#{pOption},
+	#{pStock},
+	now(),
+	#{vender_vSeq}
+	)
+	</insert>
+	<update id="productUpdate" >
+		update product
+		set
+		pName = #{pName},
+		pCateCd = #{pCateCd},
+		pPrice = #{pPrice},
+		pOption = #{pOption},
+		pStock = #{pStock},
+		pMofDate = now(),
+		vender_vSeq = #{vender_vSeq}
+		where 1=1 
+		and pSeq = #{pSeq}
+	</update>
+	<update id="productUelete" parameterType="list">
+		update product
+		set
+		pDelNy = 1
+		where pSeq in
+		<foreach collection="seqList" item="pSeq" open="(" separator="," close=")">
+		#{pSeq}
+		</foreach>
+	</update>
+</mapper>

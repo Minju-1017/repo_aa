@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.aa.module.code.CodeDao">
+	<resultMap id="resultMapObj"
+		type="com.aa.module.code.CodeDto"></resultMap>
+
+	<!-- 공통 구문 selectCommon으로 선언 -->
+	<sql id="selectCommon">
+		FROM
+		code a
+		LEFT JOIN
+		codeGroup b
+		ON
+		a.codeGroup_cgSeq = b.cgSeq
+		WHERE 1=1
+		<if test="shDelNy != null and !shDelNy.equals('')">AND a.cDelNy = #{shDelNy}</if>
+		<choose>
+			<when
+				test="shOptionDate != null and !shOptionDate.equals('')
+					and shOptionDate == 1
+					and shDateStart != null and !shDateStart.equals('')
+					and shDateEnd != null and !shDateEnd.equals('')">
+				AND a.cRegDate BETWEEN #{shDateStartDB} AND #{shDateEndDB}
+			</when>
+			<when
+				test="shOptionDate != null and !shOptionDate.equals('')
+					and shOptionDate == 2
+					and shDateStart != null and !shDateStart.equals('')
+					and shDateEnd != null and !shDateEnd.equals('')">
+				AND a.cMofDate BETWEEN #{shDateStartDB} AND #{shDateEndDB}
+			</when>
+		</choose>
+		<choose>
+			<when test="shOption == 1">AND a.codeGroup_cgSeq = #{shValue}</when>
+			<when test="shOption == 2">AND b.cgName LIKE CONCAT('%',#{shValue},'%')</when>
+			<when test="shOption == 3">AND a.cSeq = #{shValue}</when>
+			<when test="shOption == 4">AND a.cName LIKE CONCAT('%',#{shValue},'%')</when>
+		</choose>
+		ORDER BY a.cSeq DESC
+	</sql>
+
+	<sql id="selectCommonColumn">
+		a.cSeq,
+		a.cName,
+		a.cRegDate,
+		a.cMofDate,
+		a.codeGroup_cgSeq,
+		b.cgName
+	</sql>
+	<!-- End -->
+
+	<select id="selectListCachedCodeArrayList" resultMap="resultMapObj">
+		SELECT
+		cSeq,
+		cName,
+		codeGroup_cgSeq
+		FROM
+		code
+		WHERE 1=1
+		AND cDelNy = 0
+	</select>
+
+	<select id="selectOneCount" resultType="Integer">
+		SELECT COUNT(*)
+		<include refid="selectCommon" />
+	</select>
+
+	<select id="selectList" resultMap="resultMapObj">
+		SELECT
+		<include refid="selectCommonColumn" />
+		<include refid="selectCommon" />
+		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
+	</select>
+
+	<select id="selectOne" resultMap="resultMapObj">
+		SELECT
+		<include refid="selectCommonColumn" />
+		FROM
+		code a
+		LEFT JOIN
+		codeGroup b
+		ON
+		a.codeGroup_cgSeq = b.cgSeq
+		WHERE 1=1
+		AND a.cSeq=#{cSeq}
+	</select>
+
+	<insert id="insert">
+		INSERT INTO code
+		(
+		cName,
+		cRegDate,
+		cDelNy,
+		codeGroup_cgSeq
+		)
+		VALUES
+		(
+		#{cName},
+		now(),
+		0,
+		#{codeGroup_cgSeq}
+		)
+
+		<selectKey resultType="String" keyProperty="cSeq"
+			order="AFTER">
+			SELECT last_insert_id()
+		</selectKey>
+	</insert>
+
+	<update id="update">
+		UPDATE code
+		SET
+		codeGroup_cgSeq=#{codeGroup_cgSeq},
+		cName=#{cName},
+		cMofDate=now()
+		WHERE
+		cSeq=#{cSeq}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM code
+		WHERE
+		cSeq=#{cSeq}
+	</delete>
+
+	<update id="uelete">
+		UPDATE code
+		SET
+		cMofDate=now(),
+		cDelNy=1
+		WHERE
+		cSeq=#{cSeq}
+	</update>
+
+	<delete id="listDelete" parameterType="java.util.List">
+		DELETE FROM code
+		<where>
+			<foreach collection="list" item="item" separator="or" open=""
+				close="">
+				(cSeq=#{item})
+			</foreach>
+		</where>
+	</delete>
+
+	<delete id="listUelete" parameterType="java.util.List">
+		UPDATE code
+		SET
+		cMofDate=now(),
+		cDelNy=1
+		<where>
+			<foreach collection="list" item="item" separator="or" open=""
+				close="">
+				(cSeq=#{item})
+			</foreach>
+		</where>
+	</delete>
+
+</mapper>

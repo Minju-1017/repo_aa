@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{/hoxdm/include/head :: head}"></div> <!-- 중복되는 head 처리 -->
+
+<div class="main-wrapper">
+	<!-- navbar vertical -->
+	<!-- navbar -->
+	<nav class="navbar-vertical-nav d-none d-xl-block">
+		<div class="navbar-vertical">
+			<div class="px-4 py-5">
+				<a href="/hoxdm/index" class="navbar-brand">
+					<img src="/assets/xdm/template/FreshCart-1.4.0/images/logo/logo.png" alt="" />
+				</a>
+			</div>
+			<div class="navbar-vertical-content flex-grow-1" data-simplebar="">
+				<ul class="navbar-nav flex-column" id="sideNavbar">
+					<li class="nav-item">
+						<a class="nav-link " href="/hoxdm/index">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-house"></i></span>
+								<span class="nav-link-text">Home</span>
+							</div>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link " href="/hoxdm/order/UserOrderHOXdmList">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-person"></i></span>
+								<span class="nav-link-text">유저 주문관리</span>
+							</div>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link " href="/hoxdm/order/ClientOrderHOXdmList">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-cart"></i></span>
+								<span class="nav-link-text">거래처 주문현황</span>
+							</div>
+						</a>
+					</li>
+					
+					
+					
+					
+					<li class="nav-item">
+						<a class="nav-link" href="/hoxdm/order/WarehouseOrderHOXdmList">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-houses"></i></span>
+								<span class="nav-link-text">창고 주문현황</span>
+							</div>
+						</a>
+					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link " href="/hoxdm/order/DeliOrderHOXdmList">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-truck"></i></span>
+								<span class="nav-link-text">배송현황</span>
+							</div>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" href="/hoxdm/vender/VenderHOXdmList">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-building"></i></span>
+								<span class="nav-link-text">거래처관리</span>
+							</div>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/productHOXdmList">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-box"></i></span>
+								<span class="nav-link-text">상품관리</span>
+							</div>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a
+							class="nav-link collapsed "
+							href="#"
+							data-bs-toggle="collapse"
+							data-bs-target="#navCategoriesOrders"
+							aria-expanded="false"
+							aria-controls="navCategoriesOrders"
+						>
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-laptop"></i></span>
+								<span class="nav-link-text">시스템관리</span>
+							</div>
+						</a>
+						<div id="navCategoriesOrders" class="collapse" data-bs-parent="#sideNavbar">
+							<ul class="nav flex-column">
+								<li class="nav-item">
+									<a class="nav-link" href="/hoxdm/code/CodeHOXdmList">코드관리</a>
+								</li>
+								<!-- Nav item -->
+								<li class="nav-item">
+									<a class="nav-link" href="/hoxdm/codegroup/CodeGroupHOXdmList">코드그룹관리</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	
+	<nav class="navbar-vertical-nav offcanvas offcanvas-start navbar-offcanvac" tabindex="-1" id="offcanvasExample">
+		<div class="navbar-vertical">
+			<div class="px-4 py-5 d-flex justify-content-between align-items-center">
+				<a href="/xdm/index" class="navbar-brand">
+					<img src="/assets/xdm/template/FreshCart-1.4.0/images/logo/logo.png" alt="" />
+				</a>
+				<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+			</div>
+			<div class="navbar-vertical-content flex-grow-1" data-simplebar="">
+				<ul class="navbar-nav flex-column">
+					<li class="nav-item">
+						<a class="nav-link " href="/hoxdm/index">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-house"></i></span>
+								<span class="nav-link-text">Home</span>
+							</div>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link " href="/hoxdm/order/UserOrderHOXdmList">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-person"></i></span>
+								<span class="nav-link-text">유저 주문관리</span>
+							</div>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link " href="/hoxdm/order/ClientOrderHOXdmList">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-cart"></i></span>
+								<span class="nav-link-text">거래처 주문현황</span>
+							</div>
+						</a>
+					</li>
+					
+					
+					
+					
+					<li class="nav-item">
+						<a class="nav-link" href="/hoxdm/order/WarehouseOrderHOXdmList">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-houses"></i></span>
+								<span class="nav-link-text">창고 주문현황</span>
+							</div>
+						</a>
+					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link " href="/hoxdm/order/DeliOrderHOXdmList">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-truck"></i></span>
+								<span class="nav-link-text">배송현황</span>
+							</div>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" href="/hoxdm/vender/VenderHOXdmList">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-building"></i></span>
+								<span class="nav-link-text">거래처관리</span>
+							</div>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link " href="/productHOXdmList">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-box"></i></span>
+								<span class="nav-link-text">상품관리</span>
+							</div>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a
+							class="nav-link collapsed "
+							href="#"
+							data-bs-toggle="collapse"
+							data-bs-target="#navCategoriesOrders"
+							aria-expanded="false"
+							aria-controls="navCategoriesOrders"
+						>
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-laptop"></i></span>
+								<span class="nav-link-text">시스템관리</span>
+							</div>
+						</a>
+						<div id="navCategoriesOrders" class="collapse" data-bs-parent="#sideNavbar">
+							<ul class="nav flex-column">
+								<li class="nav-item">
+									<a class="nav-link" href="/hoxdm/code/CodeHOXdmList">코드관리</a>
+								</li>
+								<!-- Nav item -->
+								<li class="nav-item">
+									<a class="nav-link" href="/hoxdm/codegroup/CodeGroupHOXdmList">코드그룹관리</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+    <!-- main wrapper -->
+	<main class="main-content-wrapper">
+		<div class="container">
+			<div class="row mb-8">
+				<div class="col-md-12">
+					<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-4">
+						<h2>거래처 관리</h2>
+					</div>
+				</div>
+			</div>
+			<div class="row mb-8 g-5">
+				<div class="col-lg-12 col-12">
+					<div class="card card-lg border-0">
+						<div class="card-body d-flex flex-column gap-8 p-7">
+							<div class="d-flex flex-column gap-4">
+								<form class="row g-5 needs-validation" novalidate 
+									method="post" id="form" name="form">
+									
+									<input type="hidden" name="vSeq" th:value="${vo.vSeq}">
+									
+									<div class="col-lg-4 col-12">
+										<label for="vSeq" class="form-label">
+											거래처 코드
+											<span class="text-danger">*</span>
+										</label>
+										<input type="text" class="form-control" name="vSeq" id="vSeq" 
+											th:value="${venderItem?.vSeq}" placeholder="자동생성" disabled />
+									</div>
+									<div class="col-lg-8 col-12"></div>
+									<div class="col-lg-4 col-12">
+										<label for="vName" class="form-label">
+											거래처 이름
+											<span class="text-danger">*</span>
+										</label>
+										<input type="text" class="form-control" name="vName" id="vName"
+											th:value="${venderItem?.vName}" autocomplete="off" 
+											placeholder="한글, 영대소문자, 숫자" required />
+										<div class="invalid-feedback"> 거래처 이름을 입력해 주세요. 한글/영문/숫자만 허용</div>
+									</div>
+									<div class="col-lg-8 col-12"></div>
+									<div class="col-lg-6 col-12">
+										<div class="d-flex flex-column flex-md-row gap-2">
+											<a href="/hoxdm/vender/VenderHOXdmList" class="btn btn-outline-secondary"><i class="bi bi-list-ul"></i></a>
+										</div>
+									</div>
+									<div class="col-lg-6 col-12" style="text-align: right;">
+										<button th:if="${vo.vSeq != null and vo.vSeq != '' and vo.vSeq != '0'}"
+											class="btn btn-danger" type="button" id="btnDelete">
+											<i class="bi bi-x-lg"></i>
+										</button>
+										<button class="btn btn-primary" type="button" id="btnSave">
+											<i class="bi bi-database-add"></i>
+										</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+      </div>
+    	
+    	<div th:replace="~{/hoxdm/include/footer :: footer}"></div> <!-- 중복되는 footer 처리 -->
+
+<!-- 변수 정의 / 공통 함수 -->
+<script type="text/javascript">
+	// Seq
+	let seq = document.querySelector("input[name=vSeq]");
+	
+	// URL
+	let fom = document.querySelector("form[name=form]");
+	let goUrlXdmInst = "/hoxdm/vender/VenderHOXdmInst";
+	let goUrlXdmUpdt = "/hoxdm/vender/VenderHOXdmUpdt";
+	let goUrlXdmUele = "/hoxdm/vender/VenderHOXdmUele";
+	let goUrlXdmDele = "/hoxdm/vender/VenderHOXdmDele";
+
+	// Input
+	let vName = document.getElementById("vName");
+	
+	function submit(goUrl) {
+		fom.action = goUrl;
+		fom.submit();
+	}
+</script>
+
+<!-- Validation: Bootstrap -->
+<script type="text/javascript">
+	// btnSave 클릭시
+	document.getElementById("btnSave").onclick = function() {
+		var focus = false; // Validation 후 Focus 줘야 하는 Input
+		
+		// vName 체크
+		resetValidation(vName);
+		
+		if (!strKorEngNumberValidation(vName)) {
+			vName.classList.add("is-invalid");
+			
+			if (!focus) {
+				vName.focus();
+				focus = true;
+			}
+		} else {
+			vName.classList.add("is-valid");
+		}
+		
+		// Alert/Modal과 달리 모든  Input창을 한번에 확인해야 하므로 return false 시
+		// Focus 줘야 하는 Input(Validation에 처음으로 걸린 Input)이 있는지 확인
+		if (focus) return false;
+		
+		vName.value = vName.value.trim();
+		
+		if(seq.value == "0" || seq.value == "") {
+			submit(goUrlXdmInst);
+		} else {
+			submit(goUrlXdmUpdt);
+		}
+	}
+	
+	// vName Input 시 체크
+	vName.addEventListener("input", function() {
+		resetValidation(vName);
+		
+		if (!strKorEngNumberValidation(vName)) {
+			vName.classList.add("is-invalid");
+		} else {
+			vName.classList.add("is-valid");
+		}		
+	});
+</script>
+
+<!-- 삭제/삭제(업데이트) 모달 -->
+<script type="text/javascript">
+	if(document.getElementById("btnDelete")){
+		document.getElementById("btnDelete").onclick = function () {
+			showModalDeleteConfirm("확인", "해당 데이터를 삭제하시겠습니까?", 'none', '');     	
+		}
+	}
+
+	document.getElementById("btnModalDelete").onclick = function () {
+		submit(goUrlXdmDele);
+	}
+</script>
+
+</body>
+</html>

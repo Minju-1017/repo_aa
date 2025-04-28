@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{/hoxdm/include/head :: head}"></div> <!-- 중복되는 head 처리 -->
+
+<div class="main-wrapper">
+	<!-- navbar vertical -->
+	<!-- navbar -->
+	<nav class="navbar-vertical-nav d-none d-xl-block">
+		<div class="navbar-vertical">
+			<div class="px-4 py-5">
+				<a href="/hoxdm/index" class="navbar-brand">
+					<img src="/assets/xdm/template/FreshCart-1.4.0/images/logo/logo.png" alt="" />
+				</a>
+			</div>
+			<div class="navbar-vertical-content flex-grow-1" data-simplebar="">
+				<ul class="navbar-nav flex-column" id="sideNavbar">
+					<li class="nav-item">
+						<a class="nav-link " href="/hoxdm/index">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-house"></i></span>
+								<span class="nav-link-text">Home</span>
+							</div>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" href="/hoxdm/order/UserOrderHOXdmList">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-person"></i></span>
+								<span class="nav-link-text">유저 주문관리</span>
+							</div>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link " href="/hoxdm/order/ClientOrderHOXdmList">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-cart"></i></span>
+								<span class="nav-link-text">거래처 주문현황</span>
+							</div>
+						</a>
+					</li>
+					
+					
+					
+					
+					<li class="nav-item">
+						<a class="nav-link" href="/hoxdm/order/WarehouseOrderHOXdmList">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-houses"></i></span>
+								<span class="nav-link-text">창고 주문현황</span>
+							</div>
+						</a>
+					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link" href="/hoxdm/order/DeliOrderHOXdmList">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-truck"></i></span>
+								<span class="nav-link-text">배송현황</span>
+							</div>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/hoxdm/vender/VenderHOXdmList">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-building"></i></span>
+								<span class="nav-link-text">거래처관리</span>
+							</div>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/productHOXdmList">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-box"></i></span>
+								<span class="nav-link-text">상품관리</span>
+							</div>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a
+							class="nav-link collapsed "
+							href="#"
+							data-bs-toggle="collapse"
+							data-bs-target="#navCategoriesOrders"
+							aria-expanded="false"
+							aria-controls="navCategoriesOrders"
+						>
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-laptop"></i></span>
+								<span class="nav-link-text">시스템관리</span>
+							</div>
+						</a>
+						<div id="navCategoriesOrders" class="collapse " data-bs-parent="#sideNavbar">
+							<ul class="nav flex-column">
+								<li class="nav-item">
+									<a class="nav-link" href="/hoxdm/code/CodeHOXdmList">코드관리</a>
+								</li>
+								<!-- Nav item -->
+								<li class="nav-item">
+									<a class="nav-link " href="/hoxdm/codegroup/CodeGroupHOXdmList">코드그룹관리</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	
+	<nav class="navbar-vertical-nav offcanvas offcanvas-start navbar-offcanvac" tabindex="-1" id="offcanvasExample">
+		<div class="navbar-vertical">
+			<div class="px-4 py-5 d-flex justify-content-between align-items-center">
+				<a href="/xdm/index" class="navbar-brand">
+					<img src="/assets/xdm/template/FreshCart-1.4.0/images/logo/logo.png" alt=""  />
+				</a>
+				<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+			</div>
+			<div class="navbar-vertical-content flex-grow-1" data-simplebar="">
+				<ul class="navbar-nav flex-column">
+					<li class="nav-item">
+						<a class="nav-link " href="/hoxdm/index">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-house"></i></span>
+								<span class="nav-link-text">Home</span>
+							</div>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" href="/hoxdm/order/UserOrderHOXdmList">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-person"></i></span>
+								<span class="nav-link-text">유저 주문관리</span>
+							</div>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link " href="/hoxdm/order/ClientOrderHOXdmList">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-cart"></i></span>
+								<span class="nav-link-text">거래처 주문현황</span>
+							</div>
+						</a>
+					</li>
+					
+					
+					
+					
+					<li class="nav-item">
+						<a class="nav-link" href="/hoxdm/order/WarehouseOrderHOXdmList">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-houses"></i></span>
+								<span class="nav-link-text">창고 주문현황</span>
+							</div>
+						</a>
+					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link" href="/hoxdm/order/DeliOrderHOXdmList">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-truck"></i></span>
+								<span class="nav-link-text">배송현황</span>
+							</div>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/hoxdm/vender/VenderHOXdmList">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-building"></i></span>
+								<span class="nav-link-text">거래처관리</span>
+							</div>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/productHOXdmList">
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-box"></i></span>
+								<span class="nav-link-text">상품관리</span>
+							</div>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a
+							class="nav-link collapsed "
+							href="#"
+							data-bs-toggle="collapse"
+							data-bs-target="#navCategoriesOrders"
+							aria-expanded="false"
+							aria-controls="navCategoriesOrders"
+						>
+							<div class="d-flex align-items-center">
+								<span class="nav-link-icon"><i class="bi bi-laptop"></i></span>
+								<span class="nav-link-text">시스템관리</span>
+							</div>
+						</a>
+						<div id="navCategoriesOrders" class="collapse " data-bs-parent="#sideNavbar">
+							<ul class="nav flex-column">
+								<li class="nav-item">
+									<a class="nav-link" href="/hoxdm/code/CodeHOXdmList">코드관리</a>
+								</li>
+								<!-- Nav item -->
+								<li class="nav-item">
+									<a class="nav-link " href="/hoxdm/codegroup/CodeGroupHOXdmList">코드그룹관리</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+    <!-- main wrapper -->
+	<main class="main-content-wrapper">
+		<div class="container">
+			<div class="row mb-8">
+				<div class="col-md-12">
+					<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-4">
+						<h2>유저 주문관리</h2>
+					</div>
+				</div>
+			</div>
+			<div class="row mb-8 g-5">
+				<div class="col-lg-12 col-12">
+					<div class="card card-lg border-0">
+						<div class="card-body d-flex flex-column gap-8 p-7">
+							<div class="d-flex flex-column gap-4">
+								<form class="row g-5 needs-validation" novalidate 
+									method="post" id="form" name="form">
+									<input type="hidden" name="oSeq" th:value="${vo.oSeq}">
+									<input type="hidden" name="listsize" id="listsize" th:value="${#lists.size(orderList)}">
+									<input  th:if="${!#lists.isEmpty(orderList)}" th:each="list,listindex : ${orderList}"
+										type="hidden" th:name="|opSeq${listindex.index}|" th:id="|opSeq${listindex.index}|" 
+										th:value="${list?.opSeq}">
+									
+									<div class="col-lg-3 col-12">
+										<label for="oSeq" class="form-label">
+											주문번호
+											<span class="text-danger">*</span>
+										</label>
+										<input type="text" class="form-control" name="oSeq" id="oSeq" 
+											th:value="${orderItem?.oSeq}" placeholder="자동생성" disabled />
+									</div>
+									<div class="col-lg-3 col-12">
+										<label for="oStateCd" class="form-label">주문상태</label>
+										<select th:if="${#strings.equals(orderItem?.oStateCd, @constants.ORDERS_CODE_SEQ_ORDER_STATE_NEW)}" 
+											class="form-select" name="oStateCd" id="oStateCd">
+											<option th:each="codeList : ${@codeService.selectListCachedCode(@constants.ORDERS_CODE_GROUP_SEQ_ORDER_STATE)}"
+												th:value="${codeList.cSeq}" th:text="${codeList.cName}" 
+												th:selected="${#strings.equals(codeList.cSeq, orderItem?.oStateCd)}"></option>
+										</select>
+										<select th:unless="${#strings.equals(orderItem?.oStateCd, @constants.ORDERS_CODE_SEQ_ORDER_STATE_NEW)}"
+											class="form-select" name="oStateCd" id="oStateCd" disabled>
+											<option th:each="codeList : ${@codeService.selectListCachedCode(@constants.ORDERS_CODE_GROUP_SEQ_ORDER_STATE)}"
+												th:value="${codeList.cSeq}" th:text="${codeList.cName}" 
+												th:selected="${#strings.equals(codeList.cSeq, orderItem?.oStateCd)}"></option>
+										</select>
+										<div class="invalid-feedback">배송준비중 상태로만 변경할 수 있습니다.</div>
+									</div>
+									
+									<div class="col-lg-3 col-12">
+										<label for="oDeliveryCompCd" class="form-label">택배사</label>
+										<select class="form-select" name="oDeliveryCompCd" id="oDeliveryCompCd" disabled>
+											<option value ="">선택</option>
+											<option th:each="codeList : ${@codeService.selectListCachedCode(@constants.ORDERSDELIVERY_CODE_GROUP_SEQ_COMPANY)}"
+												th:value="${codeList.cSeq}" th:text="${codeList.cName}" 
+												th:selected="${#strings.equals(codeList.cSeq, orderItem?.oDeliveryCompCd)}" ></option>
+										</select>
+									</div>
+									<div class="col-lg-3 col-12">
+										<label for="oDeliveryNo" class="form-label">송장번호</label>
+										<input type="text" class="form-control" 
+											th:value="${orderItem?.oDeliveryNo}" id="oDeliveryNo" disabled />
+									</div>
+									<div class="col-lg-3 col-12">
+										<label for="oReceiver" class="form-label">수취인</label>
+										<input type="text" class="form-control" 
+											th:value="${orderItem?.oReceiver}" id="oReceiver" disabled />
+									</div>
+									<div class="col-lg-3 col-12">
+										<label for="oReceiverTel" class="form-label">수취인번호</label>
+										<input type="text" class="form-control" 
+											th:value="${orderItem?.oReceiverTel}" id="oReceiverTel" disabled />
+									</div>
+									<div class="col-lg-3 col-12">
+										<label for="oReceiverAddr" class="form-label">수취인주소</label>
+										<input type="text" class="form-control" 
+											th:value="${orderItem?.oReceiverAddr}" id="oReceiverAddr" disabled />
+									</div>
+									<div class="col-lg-3 col-12">
+										<label for="oDate" class="form-label">등록일</label>
+										<input type="text" class="form-control" 
+											th:value="${orderItem?.oDate}" id="oDate" disabled />
+									</div>
+									<div class="table-responsive">
+								<table class="table table-centered table-hover text-nowrap table-borderless mb-0 table-with-checkbox">
+									<thead class="bg-light">
+										<tr>
+											<th>상품번호</th>
+											<th>상품명</th>
+											<th>상품옵션</th>
+											<th>상품가격</th>
+											<th>수량</th>
+											<th>거래처</th>
+											<th>재고</th>
+											<th>주문상태</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:if="${#lists.isEmpty(orderList)}">
+											<td class="text-center" colspan="8">
+												데이터가 없습니다.
+											</td>
+										</tr> 
+										<tr th:if="${!#lists.isEmpty(orderList)}" th:each="list,listindex : ${orderList}">
+											<td th:text="${list?.opSeq}"></td>
+											<td	th:text="${list?.pName}"></td>
+											<td th:text="${list?.pOption}"></td>
+											<td th:text="${@aAUtil.formatWon(list?.pPrice)}"></td>
+											<td th:text="${list?.bpAmount}"></td>
+											<td th:text="${list?.vName}"></td>
+											<td th:text="${list?.pStock}"></td>
+											<td>
+											<select th:if="${#strings.equals(orderItem.oStateCd, @constants.ORDERS_CODE_SEQ_ORDER_STATE_NEW)}" 
+												class="form-select"  th:name="|opStateCd${listindex.index}|" th:id="|opStateCd${listindex.index}|" disabled required>
+												<option value="" >선택</option>
+												<option th:unless="${#strings.equals(codeList.cSeq, @constants.ORDERS_CODE_SEQ_ORDER_PRODUCT_STATE_IN)}"
+													th:each="codeList : ${@codeService.selectListCachedCode(@constants.ORDERSPRODUCT_CODE_GROUP_SEQ_ORDERPRODUCT_STATE)}"
+													th:value="${codeList.cSeq}" th:text="${codeList.cName}" 
+													th:selected="${#strings.equals(codeList.cSeq, list.opStateCd)}"></option>
+											</select>
+											<select th:unless="${#strings.equals(orderItem.oStateCd, @constants.ORDERS_CODE_SEQ_ORDER_STATE_NEW)}" 
+												class="form-select"  th:name="|opStateCd${listindex.index}|" th:id="|opStateCd${listindex.index}|" disabled required>
+												<option th:each="codeList : ${@codeService.selectListCachedCode(@constants.ORDERSPRODUCT_CODE_GROUP_SEQ_ORDERPRODUCT_STATE)}"
+													th:value="${codeList.cSeq}" th:text="${codeList.cName}" 
+													th:selected="${#strings.equals(codeList.cSeq, list.opStateCd)}"></option>
+											</select>
+											<div class="invalid-feedback">입고대기일 때, 거래처발주 1개 이상 포함<br>출고대기일 때, 출고요청만 가능</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+						   	</div>
+									<div class="col-lg-6 col-12">
+										<div class="d-flex flex-column flex-md-row gap-2">
+											<a href="/hoxdm/order/UserOrderHOXdmList" class="btn btn-outline-secondary"><i class="bi bi-list-ul"></i></a>
+										</div>
+									</div>
+									<div class="col-lg-6 col-12" style="text-align: right;">
+										<button class="btn btn-primary" type="button" id="btnSave">
+											<i class="bi bi-database-add"></i>
+										</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</div>
+    	
+<div th:replace="~{/hoxdm/include/footer :: footer}"></div> <!-- 중복되는 footer 처리 -->
+
+<!-- 변수 정의 / 공통 함수 -->
+<script type="text/javascript">
+	let seq = document.querySelector("input[name=oSeq]");
+
+	// URL
+	let fom = document.querySelector("form[name=form]");
+
+	let listsize = document.getElementById("listsize").value;
+	let arrProductList = new Array(); // Validation 필요한 셀렉트박스 사이즈
+	
+	for(let i = 0 ; i < listsize; i++) {
+		arrProductList[i] = document.getElementById("opStateCd" + i);
+	}
+	
+	let oStateCd = document.getElementById("oStateCd");
+</script>
+
+<!-- Validation: Bootstrap -->
+<script type="text/javascript">
+	// btnSave 클릭시
+	document.getElementById("btnSave").onclick = function() {
+		var focus = false; // Validation 후 Focus 줘야 하는 Input
+		
+		// oStateCd(주문상태) 체크
+		var oStateCdValue = oStateCd.value;
+		
+		resetValidation(oStateCd);
+		
+		if (oStateCdValue == 2 || oStateCdValue == 3) { // 배송준비중 상태로만 수정 가능
+			oStateCd.classList.add("is-valid");
+		} else {
+			oStateCd.classList.add("is-invalid");
+			
+			if (!focus) {
+				oStateCd.focus();
+				focus = true;
+			}
+		}
+		
+		// opStateCd(상품상태) 체크 
+		if (oStateCdValue == 2) {
+			var isVenderOrder = false;
+			
+			for(let i = 0 ; i < arrProductList.length; i++) {
+				if (arrProductList[i].value == 7) {
+					isVenderOrder = true;
+					break;
+				}
+			}
+			
+			if (isVenderOrder) {
+				for(let i = 0 ; i < arrProductList.length; i++) {
+					var opStateCd = arrProductList[i];
+		
+					resetValidation(opStateCd);
+					
+					if (!strValidation(opStateCd)) {
+						opStateCd.classList.add("is-invalid");
+						
+						if (!focus) {
+		 					opStateCd.focus();
+		 					focus = true;
+						}
+					} else {
+						opStateCd.classList.add("is-valid");
+					}
+				}
+			} else {
+				var opStateCdFocus = false;
+				
+				for(let i = 0 ; i < arrProductList.length; i++) {
+					var opStateCd = arrProductList[i];
+		
+					resetValidation(opStateCd);
+					opStateCd.classList.add("is-invalid");
+
+					if (!focus && !opStateCdFocus && 
+							(opStateCd.value == 6 || opStateCd.value == '' || opStateCd.value == null)) {
+	 					opStateCd.focus();
+	 					opStateCdFocus = true;
+	 					focus = true;
+					}
+				}
+			}
+		} else if (oStateCdValue == 3) {
+			for(let i = 0 ; i < arrProductList.length; i++) {
+				var opStateCd = arrProductList[i];
+
+				resetValidation(opStateCd);
+				
+				if (!strValidation(opStateCd) || opStateCd.value != 6) {
+					opStateCd.classList.add("is-invalid");
+					
+					if (!focus) {
+	 					opStateCd.focus();
+	 					focus = true;
+					}
+				} else {
+					opStateCd.classList.add("is-valid");
+				}
+			}
+		}
+		
+		// Focus 줘야 하는 Input(Validation에 처음으로 걸린 Input)이 있는지 확인
+		if (focus) return false;
+
+		submit();
+	}
+	
+	// oStateCd Input 시 체크
+	oStateCd.addEventListener("input", function() {
+		resetValidation(oStateCd);
+		
+		if (oStateCd.value == 2 || oStateCd.value == 3) { // 배송준비중 상태로만 수정 가능
+			oStateCd.classList.add("is-valid");
+		
+			for(let i = 0 ; i < arrProductList.length; i++) {
+				var opStateCd = arrProductList[i];
+				
+				resetValidation(opStateCd);
+				opStateCd.disabled = false;
+				opStateCd.value = "";
+			}
+		} else {
+			oStateCd.classList.add("is-invalid");
+			
+			for(let i = 0 ; i < arrProductList.length; i++) {
+				var opStateCd = arrProductList[i];
+				
+				resetValidation(opStateCd);
+				opStateCd.disabled = true;
+				opStateCd.value = "";
+			}
+		}
+	});
+	
+	// opStateCd list Input 시 체크
+	for(let i = 0 ; i < arrProductList.length; i++) {
+		arrProductList[i].addEventListener("input", function() {
+			var opStateCd = arrProductList[i];
+			
+			if (oStateCd.value == 2) {
+				var isVenderOrder = false;
+				
+				for(let j = 0 ; j < arrProductList.length; j++) {
+					if (arrProductList[j].value == 7) {
+						isVenderOrder = true;
+						break;
+					}
+				}
+				
+				for(let j = 0 ; j < arrProductList.length; j++) {
+					var opStateCd2 = arrProductList[j];
+					
+					resetValidation(opStateCd2);
+					
+					if (isVenderOrder) {
+						if (!strValidation(opStateCd2)) {
+							opStateCd2.classList.add("is-invalid");
+						} else {
+							opStateCd2.classList.add("is-valid");
+						}
+					} else {
+						opStateCd2.classList.add("is-invalid");
+					}	
+				}
+			} else {
+				resetValidation(opStateCd);
+				
+				if (!strValidation(opStateCd) || opStateCd.value != 6) {
+					opStateCd.classList.add("is-invalid");
+				} else {
+					opStateCd.classList.add("is-valid");
+				}	
+			}
+			
+		});
+	}
+	
+	function submit() {
+		var opSeqArr = new Array;
+		var opStateCdArr = new Array;
+		
+		for(let i = 0 ; i < listsize; i++) {
+			opSeqArr[i] = document.getElementById("opSeq" + i).value;
+			opStateCdArr[i] = arrProductList[i].value;
+		}
+		  
+		$.ajax({
+			async: true 
+			,cache: false
+			,type : "post"
+			,url : "/hoxdm/order/UserOrderHOXdmUpdt"
+			,traditional: true
+			,data : { 
+				"oSeq" : $("#oSeq").val(), 
+				"oStateCd" : $("#oStateCd").val(), 
+				opSeqList : opSeqArr,
+				opStateCdList : opStateCdArr
+			}
+			,success: function(response) {
+				if(response.rt == "success") {
+					fom.action = "/hoxdm/order/UserOrderHOXdmForm";
+					fom.submit();
+				} else {
+					// by Pass
+				}
+			}
+			,error : function(jqXHR, textStatus, errorThrown){
+				alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
+			}
+		});	
+	}
+</script>
+
+</body>
+</html>
