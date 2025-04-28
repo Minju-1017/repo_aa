@@ -5,7 +5,7 @@ import java.text.DecimalFormat;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AAUtil {
+public class CodeTrioUtil {
 	
 	public final static DecimalFormat DF_WON = new DecimalFormat("#,###");
 	
