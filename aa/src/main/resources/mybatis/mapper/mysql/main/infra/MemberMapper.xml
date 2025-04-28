@@ -20,7 +20,19 @@
 	<sql id="selectCommonColumn">
 		a.uSeq,
 	    a.uId,
-	    a.uName
+	    a.uName,
+	    a.uNickname,
+	    a.uEmail,
+	    a.uPhone,
+	    a.uPostalCode,
+	    a.uStreetAddr,
+	    a.uDetailAddr,
+	    a.uNoteAddr,
+	    a.uLat,
+	    a.uLon,
+	    a.uRegDate,
+	    a.uMofDate,
+	    a.uDelNy
 	</sql>
 	<!-- End -->
 	
