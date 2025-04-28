@@ -24,9 +24,8 @@ public class IndexController {
 	}
 	
 	@RequestMapping(value = "/usr/index")	
-	public String usrIndex(Model model) {	
-		model.addAttribute("totalPrice",productService.totalPrice());
-		model.addAttribute("totalOrder",productService.totalOrder());
+	public String usrIndex() {	
+		
 		return path_user + "index";
 	}
 }
