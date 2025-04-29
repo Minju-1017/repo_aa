@@ -43,7 +43,7 @@ public class MemberController {
 		httpSession.setMaxInactiveInterval(Constants.SESSION_MINUTE);
 		httpSession.setAttribute("sessSeqUsr", memberDto.getuSeq());
 		httpSession.setAttribute("sessIdUsr", memberDto.getuId());
-		httpSession.setAttribute("sessNameUsr", memberDto.getuName());
+		httpSession.setAttribute("sessNicknameUsr", memberDto.getuNickname());
 	}
 	
 	/**
@@ -53,7 +53,7 @@ public class MemberController {
 	private void usrSignOut(HttpSession httpSession) {
 		httpSession.setAttribute("sessSeqUsr", null);
 		httpSession.setAttribute("sessIdUsr", null);
-		httpSession.setAttribute("sessNameUsr", null);
+		httpSession.setAttribute("sessNicknameUsr", null);
 	}
 	
 	/**
@@ -278,7 +278,7 @@ public class MemberController {
 		if (successCnt == 1) {
 			if (httpSession.getAttribute("sessSeqUsr") != null
 					 && String.valueOf(httpSession.getAttribute("sessSeqUsr")).equals(memberDto.getuSeq())) {
-				httpSession.setAttribute("sessNameUsr", memberDto.getuName());
+				httpSession.setAttribute("sessNicknameUsr", memberDto.getuNickname());
 			}
 			
 			returnMap.put("rt", "success");
