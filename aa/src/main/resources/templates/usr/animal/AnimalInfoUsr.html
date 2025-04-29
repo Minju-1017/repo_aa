@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+	
+<div th:replace="~{/usr/include/head :: head}"></div> <!-- 중복되는 head 처리 -->
+
+<main>
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-4 col-12 border-end d-none d-md-block">
+					<div class="pt-10 pe-lg-10">
+						<ul class="nav flex-column nav-pills nav-pills-dark">
+							<li class="nav-item">
+								<ul class="nav flex-column nav-pills nav-pills-dark">
+									<li class="nav-item">
+										<a class="nav-link active" href="/usr/member/MemberUsrAccountForm">
+											<i class="feather-icon icon-settings me-2"></i> 기본 정보 수정
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="/usr/member/MemberUsrAccountPwdForm">
+											<i class="feather-icon icon-key me-2"></i> 비밀번호 수정
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="#">
+											<i class="feather-icon icon-heart me-2"></i> 반려동물 등록/수정
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="/usr/member/MemberUsrWithdrawal">
+											<i class="feather-icon icon-user-x me-2"></i> 회원 탈퇴
+										</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-9 col-md-8 col-12">
+					<div class="py-6 p-md-6 p-lg-10">
+						<div class="row mb-8">
+							<div class="col-md-12">
+								<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-4">
+									<h4>반려동물 등록/수정</h4>
+								</div>
+							</div>
+						</div>
+						<form class="row g-5 needs-validation" novalidate
+											method="post" enctype="multipart/form-data" id="form" name="form">
+						<div class="row mb-8 g-5">
+							<div class="col-lg-4 col-4">
+								<div class="card card-lg border-0" th:each="list : ${animalList}">
+									<div class="card-body d-flex flex-column gap-8 p-8">
+											<input type="hidden" name="uaSeq" id="uaSeq" th:value="${animalList?.uaSeq}">
+											<input type="hidden" id="user_uSeq" name="user_uSeq" th:value="${animalList?.user_uSeq}" />
+											<div class="col-12">
+												<label for="uId" class="form-label">
+													애완동물 종류
+													<span class="text-danger">*</span>
+												</label>
+												<input type="text" class="form-control" name="uId" id="uId"
+													th:value="${animalList?.uaCateCd}"  />
+											</div>
+											<div class="col-12">
+												<label for="uId" class="form-label">
+													애완동물 이름
+													<span class="text-danger">*</span>
+												</label>
+												<input type="text" class="form-control" name="uId" id="uId"
+													th:value="${animalList?.uaName}"  />
+											</div>
+											<div class="col-12">
+												<label for="uId" class="form-label">
+													생년월일
+													<span class="text-danger">*</span>
+												</label>
+												<input type="text" class="form-control" name="uId" id="uId"
+													th:value="${animalList?.uaBOD}"  />
+											</div>
+											<div class="col-12">
+												<label for="uId" class="form-label">
+													성별
+													<span class="text-danger">*</span>
+												</label>
+												<input type="text" class="form-control" name="uId" id="uId"
+													th:value="${animalList?.uaGenderCd}"  />
+											</div>
+											<div class="col-12">
+												<label for="uId" class="form-label">
+													품종
+													<span class="text-danger">*</span>
+												</label>
+												<input type="text" class="form-control" name="uId" id="uId"
+													th:value="${animalList?.uaBreed}"  />
+											</div>
+											<div class="col-12">
+												<label for="uId" class="form-label">
+													등록번호
+													<span class="text-danger">*</span>
+												</label>
+												<input type="text" class="form-control" name="uId" id="uId"
+													th:value="${animalList?.uaRegNo}"  />
+											</div>
+											<div class="col-lg-7 col-12 d-grid">
+												<button class="btn btn-primary" type="button" id="btnSave">저장</button>
+											</div>
+									</div>
+								</div>
+								<div class="card  border-0">
+									<div class="card-body d-flex flex-column gap-8 p-8">
+										<div class="col-lg-7 col-12 d-grid">
+											<a href="/usr/animal/AnimalInfoUsrForm" class="btn btn-primary">+추가하기</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</main>
+
+<div th:replace="~{/usr/include/footer :: footer}"></div> <!-- 중복되는 footer 처리 -->
+
+<!-- 변수 정의 / 공통 함수 -->
+<script type="text/javascript">
+	// Input
+	let uNickname = document.getElementById("uNickname");
+	let uEmail = document.getElementById("uEmail");
+	let uPhone = document.getElementById("uPhone");
+	let uPostalCode = document.getElementById("uPostalCode");
+	let uStreetAddr = document.getElementById("uStreetAddr");
+	let uDetailAddr = document.getElementById("uDetailAddr");
+	let uNoteAddr = document.getElementById("uNoteAddr");
+</script>
+
+<!-- 주소 -->
+
+<!-- Validation: Bootstrap -->
+<script type="text/javascript">
+	// btnSave 클릭시
+	document.getElementById("btnSave").onclick = function() {
+		var focus = false; // Validation 후 Focus 줘야 하는 Input
+		
+		// uNickname 체크
+		resetValidation(uNickname);
+		
+		if (!strKorEngNumberValidation(uNickname)) {
+			uNickname.classList.add("is-invalid");
+			
+			if (!focus) {
+				uNickname.focus();
+				focus = true;
+			}
+		} else {
+			uNickname.classList.add("is-valid");
+		}
+		
+		// uEmail 체크
+		resetValidation(uEmail);
+		
+		if (!emailValidation(uEmail)) {
+			uEmail.classList.add("is-invalid");
+			
+			if (!focus) {
+				uEmail.focus();
+				focus = true;
+			}
+		} else {
+			uEmail.classList.add("is-valid");
+		}
+		
+		// uPhone 체크
+		resetValidation(uPhone);
+		
+		if (!phoneValidation(uPhone)) {
+			uPhone.classList.add("is-invalid");
+			
+			if (!focus) {
+				uPhone.focus();
+				focus = true;
+			}
+		} else {
+			uPhone.classList.add("is-valid");
+		}
+
+		// uPostalCode 체크
+		resetValidation(uPostalCode);
+		
+		if (!strValidation(uPostalCode)) {
+			uPostalCode.classList.add("is-invalid");
+			
+			if (!focus) {
+				uPostalCode.focus();
+				focus = true;
+			}
+		} else {
+			uPostalCode.classList.add("is-valid");
+		}
+		
+		// uStreetAddr 체크
+		resetValidation(uStreetAddr);
+		
+		if (!strValidation(uStreetAddr)) {
+			uStreetAddr.classList.add("is-invalid");
+			
+			if (!focus) {
+				uStreetAddr.focus();
+				focus = true;
+			}
+		} else {
+			uStreetAddr.classList.add("is-valid");
+		}
+		
+		// uDetailAddr 체크
+		resetValidation(uDetailAddr);
+		
+		if (!strValidation(uDetailAddr)) {
+			uDetailAddr.classList.add("is-invalid");
+			
+			if (!focus) {
+				uDetailAddr.focus();
+				focus = true;
+			}
+		} else {
+			uDetailAddr.classList.add("is-valid");
+		}
+		
+		// Alert/Modal과 달리 모든  Input창을 한번에 확인해야 하므로 return false 시
+		// Focus 줘야 하는 Input(Validation에 처음으로 걸린 Input)이 있는지 확인
+		if (focus) return false;
+
+		uNickname.value = uNickname.value.trim();
+		uEmail.value = uEmail.value.trim();
+		uPhone.value = uPhone.value.trim();
+		uDetailAddr.value = uDetailAddr.value.trim();
+		
+		setAccount();
+	}
+	
+	// mNickname Input 시 체크
+	uNickname.addEventListener("input", function(){
+		resetValidation(uNickname);
+		
+		if (!strKorEngNumberValidation(uNickname)) {
+			uNickname.classList.add("is-invalid");
+		} else {
+			uNickname.classList.add("is-valid");
+		}	
+	});
+	
+	// uEmail Input 시 체크
+	uEmail.addEventListener("input", function(){
+		resetValidation(uEmail);
+		
+		if (!emailValidation(uEmail)) {
+			uEmail.classList.add("is-invalid");
+		} else {
+			uEmail.classList.add("is-valid");
+		}	
+	});
+	
+	// uPhone Input 시 체크
+	uPhone.addEventListener("input", function(){
+		resetValidation(uPhone);
+		
+		if (!phoneValidation(uPhone)) {
+			uPhone.classList.add("is-invalid");
+		} else {
+			uPhone.classList.add("is-valid");
+		}	
+	});
+	
+	// uDetailAddr Input 시 체크
+	uDetailAddr.addEventListener("input", function(){
+		resetValidation(uDetailAddr);
+		
+		if (!strValidation(uDetailAddr)) {
+			uDetailAddr.classList.add("is-invalid");
+		} else {
+			uDetailAddr.classList.add("is-valid");
+		}	
+	});
+	
+	
+	$("#modalAlert").on("hidden.bs.modal", function (e) {
+		location.href = "/usr/member/MemberUsrAccountForm";
+	});
+</script>
+
+<!-- 로그아웃 -->
+<script type="text/javascript">
+	$("#btnSignOutAccount").on("click", function(){
+		signOut();
+	});
+</script>
+
+</body>
