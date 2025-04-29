@@ -2,8 +2,10 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <div th:replace="~{/xdm/include/head :: head}"></div> <!-- 중복되는 head 처리 -->
- 	
+
 <div class="main-wrapper">
+	<!-- navbar vertical -->
+	<!-- navbar -->
 	<nav class="navbar-vertical-nav d-none d-xl-block">
 		<div class="navbar-vertical">
 			<div class="px-4 py-5">
@@ -22,36 +24,36 @@
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link " href="/xdm/order/UserOrderXdmList">
+						<a class="nav-link" href="#">
 							<div class="d-flex align-items-center">
-								<span class="nav-link-icon"><i class="bi bi-person"></i></span>
-								<span class="nav-link-text">유저 주문관리</span>
+								<span class="nav-link-icon"><i class="bi bi-bell"></i></span>
+								<span class="nav-link-text">실종신고관리</span>
 							</div>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link active" href="/productXdmList">
+						<a class="nav-link active" href="/xdm/member/MemberXdmList">
 							<div class="d-flex align-items-center">
-								<span class="nav-link-icon"><i class="bi bi-box"></i></span>
-								<span class="nav-link-text">상품관리</span>
+								<span class="nav-link-icon"><i class="bi bi-people"></i></span>
+								<span class="nav-link-text">회원관리</span>
 							</div>
 						</a>
 					</li>
 					<li class="nav-item">
 						<a
-							class="nav-link collapsed "
+							class="nav-link collapsed"
 							href="#"
 							data-bs-toggle="collapse"
-							data-bs-target="#navCategoriesSys"
+							data-bs-target="#navCategoriesOrders"
 							aria-expanded="false"
-							aria-controls="navCategoriesSys"
+							aria-controls="navCategoriesOrders"
 						>
 							<div class="d-flex align-items-center">
 								<span class="nav-link-icon"><i class="bi bi-laptop"></i></span>
 								<span class="nav-link-text">시스템관리</span>
 							</div>
 						</a>
-						<div id="navCategoriesSys" class="collapse" data-bs-parent="#sideNavbar">
+						<div id="navCategoriesOrders" class="collapse" data-bs-parent="#sideNavbar">
 							<ul class="nav flex-column">
 								<li class="nav-item">
 									<a class="nav-link" href="/xdm/code/CodeXdmList">코드관리</a>
@@ -66,12 +68,12 @@
 			</div>
 		</div>
 	</nav>
-	
+
 	<nav class="navbar-vertical-nav offcanvas offcanvas-start navbar-offcanvac" tabindex="-1" id="offcanvasExample">
 		<div class="navbar-vertical">
 			<div class="px-4 py-5 d-flex justify-content-between align-items-center">
 				<a href="/xdm/index" class="navbar-brand">
-					<img src="/assets/usr/template/FreshCart-1.4.0/images/logo/logo.png" alt=""  />
+					<img src="/assets/usr/template/FreshCart-1.4.0/images/logo/logo.png" alt="" />
 				</a>
 				<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 			</div>
@@ -86,36 +88,36 @@
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link " href="/xdm/order/UserOrderXdmList">
+						<a class="nav-link" href="#">
 							<div class="d-flex align-items-center">
-								<span class="nav-link-icon"><i class="bi bi-person"></i></span>
-								<span class="nav-link-text">유저 주문관리</span>
+								<span class="nav-link-icon"><i class="bi bi-bell"></i></span>
+								<span class="nav-link-text">실종신고관리</span>
 							</div>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link active" href="/productXdmList">
+						<a class="nav-link active" href="/xdm/member/MemberXdmList">
 							<div class="d-flex align-items-center">
-								<span class="nav-link-icon"><i class="bi bi-box"></i></span>
-								<span class="nav-link-text">상품관리</span>
+								<span class="nav-link-icon"><i class="bi bi-people"></i></span>
+								<span class="nav-link-text">회원관리</span>
 							</div>
 						</a>
 					</li>
 					<li class="nav-item">
 						<a
-							class="nav-link collapsed "
+							class="nav-link collapsed"
 							href="#"
 							data-bs-toggle="collapse"
-							data-bs-target="#navOrders"
+							data-bs-target="#navCategoriesOrders"
 							aria-expanded="false"
-							aria-controls="navOrders"
+							aria-controls="navCategoriesOrders"
 						>
 							<div class="d-flex align-items-center">
 								<span class="nav-link-icon"><i class="bi bi-laptop"></i></span>
 								<span class="nav-link-text">시스템관리</span>
 							</div>
 						</a>
-						<div id="navOrders" class="collapse" data-bs-parent="#sideNavbar">
+						<div id="navCategoriesOrders" class="collapse" data-bs-parent="#sideNavbar">
 							<ul class="nav flex-column">
 								<li class="nav-item">
 									<a class="nav-link" href="/xdm/code/CodeXdmList">코드관리</a>
@@ -131,18 +133,19 @@
 		</div>
 	</nav>
 
+    <!-- main wrapper -->
 	<main class="main-content-wrapper">
 		<form name="formList" id="formList" method="post" autocomplete="off">
-			<input type="hidden" name="seqList" >
-			<input type="hidden" name="thisPage" th:value="${vo.thisPage}" /> <input
-				type="hidden" id="rowNumToShow" name="rowNumToShow"
-				th:value="${vo.rowNumToShow}" />
-			<input type="hidden" name="pSeq">			
+		
+			<input type="hidden" name="currPage" th:value="${vo.currPage}" default="1"/>
+			<input type="hidden" id="rowNumToShow" name="rowNumToShow" th:value="${vo.rowNumToShow}"/>
+			<input type="hidden" name="uSeq">
+			
 			<div class="container">
 				<div class="row mb-8">
 					<div class="col-md-12">
 						<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-4">
-							<h2>상품 관리</h2>
+							<h2>Member</h2>
 						</div>
 					</div>
 				</div>
@@ -151,7 +154,14 @@
 						<div class="card card-lg border-0">
 							<div class="card-body d-flex flex-column gap-8 p-7">
 								<div class="d-flex flex-column gap-4">
-									<div class="row g-3">
+									<div class="row g-3 needs-validation" novalidate>
+										<div class="col-lg-2 col-12">
+											<select class="form-select" id="shDelNy" name="shDelNy">
+												<option value="" th:selected="${vo.shDelNy == null}">탈퇴여부</option>
+												<option value="1" th:selected="${vo.shDelNy == 1}">Y</option>
+												<option value="0" th:selected="${vo.shDelNy == 0}">N</option>            
+											</select>
+										</div>
 										<div class="col-lg-2 col-12">
 											<select class="form-select"id="shOptionDate" name="shOptionDate">
 												<option value="" th:selected="${vo.shOptionDate == null}">날짜</option>
@@ -160,20 +170,24 @@
 											</select>
 										</div>
 										<div class="col-lg-2 col-12">
-											<input type="text" class="form-control" id="shDateStart"  name="shDateStart"
+											<input type="text" class="form-control" id="shDateStart" name="shDateStart" 
 												th:value="${vo.shDateStart}" placeholder="시작일" autocomplete="off" readonly>
 										</div>
 										<div class="col-lg-2 col-12">
 											<input type="text" class="form-control" id="shDateEnd" name="shDateEnd"
 												th:value="${vo.shDateEnd}" placeholder="종료일" autocomplete="off" readonly>
 										</div>
-											<div class="col-lg-2 col-12">
+										<div class="col-lg-4 col-12"></div>
+										<div class="col-lg-2 col-12">
 											<select class="form-select" id="shOption" name="shOption">
 												<option value="" th:selected="${vo.shOption == null}">검색구분</option>
-												<option value="1" th:selected="${vo.shOption == 1}">상품 번호</option>
-												<option value="2" th:selected="${vo.shOption == 2}">상품 이름</option>
-												<option value="3" th:selected="${vo.shOption == 3}">재고 수량</option>
-												<option value="4" th:selected="${vo.shOption == 4}">상품 카테고리</option>
+												<option value="1" th:selected="${vo.shOption == 1}">고유번호</option>
+												<option value="2" th:selected="${vo.shOption == 2}">아이디</option>
+												<option value="3" th:selected="${vo.shOption == 3}">이름</option>
+												<option value="3" th:selected="${vo.shOption == 4}">닉네임</option>
+												<option value="4" th:selected="${vo.shOption == 5}">이메일</option>
+												<option value="5" th:selected="${vo.shOption == 6}">연락처</option>
+												<option value="5" th:selected="${vo.shOption == 7}">주소</option>
 											</select>
 										</div>
 										<div class="col-lg-2 col-12">
@@ -181,10 +195,10 @@
 												th:value="${vo.shValue}" onkeyup="enterkey()" placeholder="검색어">
 											<div class="invalid-feedback" id="shValueFeedback"></div>
 										</div>
-										<div class="col-lg-2 col-12">
+										<div class="col-lg-4 col-12">
 											<div class="d-flex flex-column flex-md-row gap-2">
-												<button type="submit" id="btnSearch" class="btn btn-secondary"><i class="bi bi-search"></i></button>
-												<a href="/productXdmList" class="btn btn-secondary"><i class="bi bi-arrow-clockwise"></i></a>
+												<button type="submit" id="btnSearch" class="btn btn-primary"><i class="bi bi-search"></i></button>
+												<a href="/xdm/member/MemberXdmList" class="btn btn-secondary"><i class="bi bi-arrow-clockwise"></i></a>
 											</div>
 										</div>
 									</div>
@@ -195,11 +209,14 @@
 				</div>
 				<div class="row">
 					<div class="col-md-12 text-center">
+						<!-- card -->
 						<div class="card h-100 card-lg">
-						
+							
 							<div th:replace="~{/xdm/include/totalAndRowNum :: totalAndRowNum}"></div> <!-- 중복되는 totalAndRowNum 처리 -->
 
+							<!-- card body -->
 							<div class="card-body p-0">
+								<!-- table -->
 								<div class="table-responsive">
 									<table class="table table-centered table-hover text-nowrap table-borderless mb-0 table-with-checkbox">
 										<thead class="bg-light">
@@ -210,40 +227,40 @@
 													</div>
 												</th>
 												<th>#</th>
-												<th>seq</th>
-												<th>카테고리</th>
-												<th>거래처</th>
-												<th>상품 이름</th>
-												<th>상품 옵션</th>
-												<th>상품 재고</th>
+												<th>탈퇴</th>
+												<th>고유번호</th>
+												<th>아이디</th>
+												<th>이름</th>
+												<th>닉네임</th>
 												<th>등록일</th>
 												<th>수정일</th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr th:if="${#lists.isEmpty(list)}">
-												<td class="text-center" colspan="10">
+											<tr th:if="${#lists.isEmpty(memberList)}">
+												<td class="text-center" colspan="9">
 													데이터가 없습니다.
 												</td>
-											</tr> 
-											<tr th:if="${!#lists.isEmpty(list)}" th:each="list : ${list}">
+											</tr>
+											<tr th:if="${!#lists.isEmpty(memberList)}" th:each="list : ${memberList}">
 												<td>
 													<div class="form-check">
-														<input class="form-check-input" th:attr="data-seq=${list.pSeq}" type="checkbox" name="check" th:value="${list?.pSeq}">
+														<input class="form-check-input" type="checkbox" name="check" th:value="${list?.uSeq}">
 													</div>
+			    								</td>
+												<td th:text="${vo.totalRows - ((vo.currPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
+												<td th:text="${list?.uDelNyStr}"></td>
 												</td>
-												<td th:text="${vo.totalRows - ((vo.thisPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
-												<td th:text="${list?.pSeq}"></td>
-												<td th:text="${list?.cName}"></td>
-												<td th:text="${list?.vName}"></td>
-												<td>			
-													<a href="javascript:void(0);" th:text="${list?.pName}"
-														th:attr="onclick=|goForm('${list.pSeq}')|"></a>
+												<td th:text="${list?.uSeq}"></td>
+												<td th:text="${list?.uId}"></td>
+												<td th:text="${list?.uName}"></td>
+												<td>	
+													<a href="javascript:void(0);" th:text="${list?.uNickname}"
+														th:attr="onclick=|goForm('${list.uSeq}')|"></a>
 												</td>
-												<td th:text="${list?.pOption}"></td>
-												<td th:text="${list?.pStock}"></td>
-												<td th:text="${list?.pRegDate}"></td>
-												<td th:text="${list?.pMofDate}"></td>
+												</td>
+												<td th:text="${list?.uRegDate}"></td>
+												<td th:text="${list?.uMofDate}"></td>
 											</tr>
 										</tbody>
 									</table>
@@ -252,84 +269,56 @@
 							<div class="border-top d-md-flex justify-content-between align-items-center px-6 py-6">
 								<div></div>
 								<nav class="mt-2 mt-md-0">
-									<ul class="pagination" >
-								<li th:if="${vo.startPage gt vo.pageNumToShow}"
-									class="page-item" style="cursor: pointer;"><a
-									class="page-link" href="javascript:goList(${vo.startPage - 1})"
-									th:attr="onclick=|goList('${vo.startPage - 1}')|"> <i
-										class="fa-solid fa-angle-left"></i>
-								</a></li>
-								<li
-									th:each="num: ${#numbers.sequence(vo.startPage, vo.endPage)}"
-									th:classappend="${num eq vo.thisPage} ? active : ''"
-									class="page-item" style="cursor: pointer; "><a
-									class="page-link" th:attr="onclick=|goList('${num}')|"
-									th:text="${num}"> <!-- ${i.index} -->
-								</a></li>
-								<li th:if="${vo.endPage ne vo.totalPages}" class="page-item"
-									style="cursor: pointer;"><a class="page-link"
-									th:attr="onclick=|goList('${vo.endPage + 1}')|"> <i
-										class="fa-solid fa-angle-right"></i>
-								</a></li>
-							</ul>
+									<ul class="pagination mb-0">
+										<li th:if="${vo.startPage gt vo.pageNumToShow}" class="page-item" style="cursor: pointer;">
+											<a class="page-link" href="javascript:goList(${vo.startPage - 1})"
+												th:attr="onclick=|goList('${vo.startPage - 1}')|">
+												<span aria-hidden="true">&laquo;</span>
+											</a>
+										</li>
+										<li th:each="num: ${#numbers.sequence(vo.startPage, vo.endPage)}" 
+											th:classappend="${num eq vo.currPage} ? active : ''" 
+											class="page-item" style="cursor: pointer;">
+											<a class="page-link" th:attr="onclick=|goList('${num}')|" th:text="${num}"><!-- ${i.index} --></a>
+										</li>
+										<li th:if="${vo.endPage ne vo.totalPages}" class="page-item" style="cursor: pointer;">
+											<a class="page-link" th:attr="onclick=|goList('${vo.endPage + 1}')|">
+												<span aria-hidden="true">&raquo;</span>
+											</a>
+										</li>
+									</ul>
 								</nav>
 								<div></div>
 							</div>
 							<div class="d-md-flex justify-content-between align-items-center px-6 py-6">
 								<div class="d-flex flex-column flex-md-row gap-2">
 									<a href="#" class="btn btn-danger" id="uelete"><i class="bi bi-trash3"></i></a>
+									<a href="#" class="btn btn-danger" id="delete"><i class="bi bi-x-lg"></i></a>
 								</div>
 								<div class="d-flex flex-column flex-md-row gap-2">
-									<button type="button" id="btnForm" class="btn btn-info"><i class="bi bi-plus-lg"></i></button>
+									<a href="#" class="btn btn-primary" id="excel"><i class="bi bi-table"></i></a>
+									<a href="#" class="btn btn-info" id="modify">U</a>
 								</div>
 							</div>
 						 </div>
 					</div>
 				</div>
 			</div>
-<div class="modal fade" id="modalConfirm" data-bs-backdrop="static"
-		data-bs-keyboard="false" tabindex="-1"
-		aria-labelledby="staticBackdropLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="modalConfirmTitle">title</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close"></button>
-				</div>
-				<div class="modal-body" id="modalConfirmBody">body</div>
-				<div class="modal-footer">
-					<button type="button"
-						class="btn btn-outline-secondary btn-sm btn_custom"
-						data-bs-dismiss="modal">취소</button>
-					<button type="button" class="btn btn-danger btn-sm btn_custom"
-						name="" id="btnModalDelete">
-						<i class="fa-solid fa-x fa-lg"></i>
-					</button>
-					<button type="button" class="btn btn-danger btn-sm btn_custom"
-						name="" id="btnModalUelete">삭제</button>
-				</div>
-			</div>
-		</div>
-	</div>
 		</form>
 	</main>
 </div>
-    	
+
 <div th:replace="~{/xdm/include/footer :: footer}"></div> <!-- 중복되는 footer 처리 -->
-    	
+
 <!-- 변수 정의 / 공통 함수 -->
 <script type="text/javascript">
- 	let seq = document.querySelector("input[name=pSeq]");
-    	
-    // URL
+	let seq = document.querySelector("input[name=uSeq]");
+
 	let fom = document.querySelector("form[name=formList]");
-	let goUrlXdmList = "/productXdmList";
-	let goUrlXdmForm = "/productXdmForm";
-// 	let goUrlXdmUele = "/xdm/code/CodeXdmUele";
-// 	let goUrlXdmDele = "/xdm/code/CodeXdmDele";
-// 	let goUrlXdmListUeleProc = "/xdm/code/CodeListXdmUeleProc";
-// 	let goUrlXdmListDeleProc = "/xdm/code/CodeListXdmDeleProc";
+	let goUrlXdmList = "/xdm/member/MemberXdmList";
+	let goUrlXdmForm = "/xdm/member/MemberXdmForm";
+	let goUrlXdmListUeleProc = "/xdm/member/MemberListXdmUeleProc";
+	let goUrlXdmListDeleProc = "/xdm/member/MemberListXdmDeleProc";
 	
 	function submit(goUrl) {
 		fom.action = goUrl;
@@ -339,64 +328,18 @@
 
 <!-- 데이터 추가/수정 -->
 <script type="text/javascript">
-	// 데이터 추가
-	document.getElementById("btnForm").onclick = function () {
-	    goForm(0);
-	}
-	
 	// 데이터 추가/수정
 	goForm = function (keyValue) {
 	    seq.value = keyValue;
-	    console.log(seq.value);
-	    fom.action="/productXdmForm";
-	    fom.submit();
+	    submit(goUrlXdmForm);
 	}
 </script>
-<script type="text/javascript">
-if(document.getElementById("uelete")){
-	document.getElementById("uelete").onclick = function () {
-		let checkboxes = document.getElementsByName("check");
-		for(var i = 0; i < checkboxes.length ; i++){
-			if(checkboxes[i].checked){
-				document.querySelector("#modalConfirmTitle").textContent = "확 인";
-				document.querySelector("#modalConfirmBody").textContent = "해당 데이터를 삭제하시겠습니까 ?";
-				document.querySelector("#btnModalUelete").style.display = '';
-				document.querySelector("#btnModalDelete").style.display = 'none';
-				$("#modalConfirm").modal("show");  
-			}
-		}
-		  	
-	}
-}
-
-
-document.getElementById("btnModalUelete").onclick = function () {
-	let checkboxes = document.getElementsByName("check");
-	let seqq = new Array();
-	let seqList = document.querySelector("input[name=seqList]");
-	let j = 0;
-	for(var i = 0; i < checkboxes.length ; i++){
-		if(checkboxes[i].checked){
-			var seq = checkboxes[i].getAttribute("data-seq");
-			seqq[j] = seq;
-			j++;
-		}
-	}
-	console.log(seqq);
-	seqList.value = seqq;
-	console.log(seqList.value);
-	fom.action = "/productXdmUele";
-	fom.submit();
-}
-</script>
-
+	
 <!-- Search / Paging -->
 <script type="text/javascript">
-	// 페이지 이동
 	function goList(currPage) {
-		document.querySelector("input[name=thisPage]").value = currPage;
-		console.log(document.querySelector("input[name=thisPage]").value);
-		submit(goUrlXdmList);
+			document.querySelector("input[name=currPage]").value = currPage;
+			submit(goUrlXdmList);
 	}
 	
 	document.getElementById("changeRowNum").onchange = function () {
@@ -404,8 +347,8 @@ document.getElementById("btnModalUelete").onclick = function () {
 	    submit(goUrlXdmList);
 	}
 	
-	document.getElementById("btnSearch").onclick = function () {
-		submit(goUrlXdmList);
+     	document.getElementById("btnSearch").onclick = function () {
+     		submit(goUrlXdmList);
 	};
 </script>
 
@@ -415,12 +358,26 @@ document.getElementById("btnModalUelete").onclick = function () {
 		allCheck("check", this.checked);
 	}
 	
+	document.getElementById("modify").onclick = function() {
+		modifyCheckedElement("1명의 회원");
+	}
 	
+	document.getElementById("uelete").onclick = function() {
+		ueleteCheckedElementsModal("회원을");
+	}
+	
+	document.getElementById("btnModalUelete").onclick = function () {
+		ueleteCheckedElements(goUrlXdmListUeleProc, goUrlXdmList);
+	}
+	
+	document.getElementById("delete").onclick = function() {
+		deleteCheckedElementsModal("회원을");
+	}
 
-	
-	
+	document.getElementById("btnModalDelete").onclick = function () {
+		deleteCheckedElements(goUrlXdmListDeleProc, goUrlXdmList);
+	}
 </script>
-     	
+
 </body>
 </html>
-		

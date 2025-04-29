@@ -40,10 +40,6 @@
 								/>
 							</svg>
 						</a>
-						<!-- <form role="search">
-							<label for="search" class="form-label visually-hidden">Search</label>
-							<input class="form-control" type="search" placeholder="Search" aria-label="Search" id="search" />
-						</form> -->
 					</div>
 					<div th:if="${session.sessSeqXdm ne null}">
 						<ul class="list-unstyled d-flex align-items-center mb-0 ms-5 ms-lg-0">
@@ -55,8 +51,8 @@
 								</a>
 								<div class="dropdown-menu dropdown-menu-end p-0">
 									<div class="lh-1 px-5 py-4 border-bottom">
-										<h5 class="mb-1 h6">[[${session.sessNameXdm}]]</h5>
-										<small>본사 관리자</small>
+										<h5 class="mb-1 h6">[[${session.sessNicknameXdm}]]</h5>
+										<small>관리자</small>
 									</div>
 									<div class="px-5 py-3">
 										<a id="btnSignOut" href="javascript:void(0);">Log Out</a>
