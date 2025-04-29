@@ -10,4 +10,12 @@ public class MissController {
 	public String missUsrList() {
 		return "/usr/miss/MissUsrList";
 	}
+	@RequestMapping(value = "/missUsrView")
+	public String missUsrView() {
+		return "/usr/miss/MissUsrView";
+	}
+	@RequestMapping(value = "/missUsrForm")
+	public String missUsrForm() {
+		return "/usr/miss/MissUsrForm";
+	}
 }
