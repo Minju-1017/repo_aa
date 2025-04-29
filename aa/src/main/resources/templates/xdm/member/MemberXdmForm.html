@@ -161,7 +161,6 @@
 										<input type="text" class="form-control" name="uDelNy" id="uDelNy" 
 											th:value="${memberItem?.uDelNyStr}" disabled />
 									</div>
-									<div class="col-lg-9 col-12"></div>
 									<div class="col-lg-3 col-12">
 										<label for="uSeq" class="form-label">
 											고유번호
@@ -170,6 +169,7 @@
 										<input type="text" class="form-control" name="uSeq" id="uSeq"
 											th:value="${memberItem?.uSeq}" disabled />
 									</div>
+									<div class="col-lg-6 col-12"></div>
 									<div class="col-lg-3 col-12">
 										<label for="uId" class="form-label">
 											아이디
@@ -195,6 +195,7 @@
 											autocomplete="off" th:value="${memberItem?.uNickname}" required />
 										<div class="invalid-feedback"> 이름을 입력해 주세요. 한글/영문/숫자만 허용</div>
 									</div>
+									<div class="col-lg-3 col-12"></div>
 									<div class="col-lg-3 col-12">
 										<label for="uEmail" class="form-label">
 											이메일
@@ -213,6 +214,7 @@
 											autocomplete="off" th:value="${memberItem?.uEmail}" required />
 										<div class="invalid-feedback"> 연락처를 숫자 8~10자리로 입력해 주세요. </div>
 									</div>
+									<div class="col-lg-6 col-12"></div>
 									<div class="col-lg-12 col-12">
 										<label class="form-label">
 											주소
@@ -229,17 +231,17 @@
 											</div>
 										</div>
 										<div class="d-flex gap-2 mt-2">
-											<div class="col-lg-4">
+											<div class="col-lg-3">
 												<input type="text" class="form-control" id="uStreetAddr" name="uStreetAddr" 
 													th:value="${memberItem?.uStreetAddr}" placeholder="도로명주소" readonly required />
 												<div class="invalid-feedback"> 도로명 주소를 입력해 주세요. </div>
 											</div>
-											<div class="col-lg-4">
+											<div class="col-lg-3">
 												<input type="text" class="form-control" id="uDetailAddr" name="uDetailAddr" 
 													th:value="${memberItem?.uDetailAddr}" placeholder="상세주소" required />
 												<div class="invalid-feedback"> 상세 주소를 입력해 주세요. </div>
 											</div>
-											<div class="col-lg-4">
+											<div class="col-lg-3">
 												<input type="text" class="form-control" id="uNoteAddr" name="uNoteAddr" 
 													th:value="${memberItem?.uNoteAddr}" placeholder="참고주소" />
 											</div>
@@ -337,7 +339,7 @@
 		map: map
 	});
 
-	function clickBtnPostcode() {
+    function clickBtnPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -375,13 +377,13 @@
                 
                 // 위도, 경도값 가져오기
                 var geocoder = new kakao.maps.services.Geocoder();
-
+                
                 geocoder.addressSearch(addr, function(results, status) {
                     if(status === daum.maps.services.Status.OK){
                     	var result = results[0]; //첫번째 결과의 값을 활용
                     	
                     	// 위도, 경도
-                    	document.getElementById("mLon").value = result.x;
+                    	document.getElementById("uLon").value = result.x;
                     	document.getElementById("uLat").value = result.y;
                     	
                     	// 해당 주소에 대한 좌표를 받아서
