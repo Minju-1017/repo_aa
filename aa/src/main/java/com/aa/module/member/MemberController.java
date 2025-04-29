@@ -66,7 +66,7 @@ public class MemberController {
 		httpSession.setMaxInactiveInterval(Constants.SESSION_MINUTE);
 		httpSession.setAttribute("sessSeqXdm", memberDto.getuSeq());
 		httpSession.setAttribute("sessIdXdm", memberDto.getuId());
-		httpSession.setAttribute("sessNameXdm", memberDto.getuName());
+		httpSession.setAttribute("sessNicknameXdm", memberDto.getuNickname());
 	}
 	
 	/**
@@ -76,7 +76,7 @@ public class MemberController {
 	private void xdmSignOut(HttpSession httpSession) {
 		httpSession.setAttribute("sessSeqXdm", null);
 		httpSession.setAttribute("sessIdXdm", null);
-		httpSession.setAttribute("sessNameXdm", null);
+		httpSession.setAttribute("sessNicknameXdm", null);
 	}
 	
 	/**
@@ -482,7 +482,7 @@ public class MemberController {
 		if (successCnt == 1
 				 && httpSession.getAttribute("sessSeqXdm") != null
 				 && String.valueOf(httpSession.getAttribute("sessSeqXdm")).equals(memberDto.getuSeq())) {
-			httpSession.setAttribute("sessNameXdm", memberDto.getuName());
+			httpSession.setAttribute("sessNicknameXdm", memberDto.getuNickname());
 		}
 
 		return "redirect:MemberXdmList";

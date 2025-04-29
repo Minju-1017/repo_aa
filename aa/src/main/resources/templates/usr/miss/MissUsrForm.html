@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{/usr/include/head :: head}"></div> 
+
+<div class="row">
+  <div class="d-none d-md-block col-md-2"></div>
+  
+  <div class="col-12 col-md-8" style="display:flex; justify-content:center;">
+<main class="main-content-wrapper ">
+				<div class="container">
+					<div class="row mb-8">
+						<div class="col-md-12">
+							<div>
+								<h2>실종 신고 하기</h2>
+								<!-- breacrumb -->
+								
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12">
+							<div class="card shadow border-0">
+								<div class="card-body d-flex flex-column gap-8 p-7">
+								
+									<div class="d-flex flex-column gap-4">
+										<h3 class="mb-0 h6">회원님의 반려동물 정보</h3>
+										<form class="row g-3 needs-validation" novalidate>
+										<div class="col-lg-4 col-12"><select class="form-select">
+										<option>두식이</option>
+										<option>삼식이</option>
+										</select></div>
+										<div class="col-lg-4 col-12"></div>
+										<div class="col-lg-4 col-12"></div>
+											<div class="col-lg-6 col-12">
+												<div>
+													<!-- input -->
+													<label for="creatCustomerName" class="form-label">
+														반려동물 이름
+														<span class="text-danger">*</span>
+													</label>
+													<input type="text" class="form-control" id="creatCustomerName" placeholder="Customer Name" required />
+													<div class="invalid-feedback">Please enter customer name</div>
+												</div>
+											</div>
+											<div class="col-lg-6 col-12">
+												<div>
+													<!-- input -->
+													<label for="creatCustomerEmail" class="form-label">
+														반려동물 나이
+														<span class="text-danger">*</span>
+													</label>
+													<input type="email" class="form-control" id="creatCustomerEmail" placeholder="Email Address" required />
+													<div class="invalid-feedback">Please enter email</div>
+												</div>
+											</div>
+											<div class="col-lg-6 col-12">
+												<div>
+													<!-- input -->
+													<label for="creatCustomerPhone" class="form-label">반려동물 품종</label>
+													<input type="text" class="form-control" id="creatCustomerPhone" placeholder="Number" required />
+													<div class="invalid-feedback">Please enter phone</div>
+												</div>
+											</div>
+
+											<div class="col-lg-6 col-12">
+												<label class="form-label" for="creatCustomerDate">반려동물 성별</label>
+												<input type="text" class="form-control flatpickr" id="creatCustomerDate" placeholder="dd/mm/yyyy" required />
+												<div class="invalid-feedback">Please enter date</div>
+											</div>
+											<div>
+												<div class="col-12 mt-3">
+													<div class="d-flex flex-column flex-md-row gap-2">
+														<button class="btn btn-primary" type="submit">Create New Customer</button>
+														<button class="btn btn-secondary" type="submit">Cancel</button>
+													</div>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
+</div>
+<div class="d-none d-md-block col-md-2"></div>
+</div>
+
+	<div th:replace="~{/usr/include/footer :: footer}"></div> 
+	</body>
