@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{/usr/include/headLogin :: head}"></div> <!-- 중복되는 head 처리 -->
+
+<body>
+<div class="border-bottom shadow-sm">
+	<nav class="navbar navbar-light py-2">
+		<div class="container justify-content-center justify-content-lg-between">
+			<a class="navbar-brand" href="/usr/index">
+				<img src="/assets/usr/template/FreshCart-1.4.0/images/logo/logo.png" alt="" class="d-inline-block align-text-top">
+			</a>
+		</div>
+	</nav>
+</div>
+
+<main>
+	<section class="my-lg-14 my-8">
+		<div class="container">
+			<div class="row justify-content-center align-items-center">
+				<div class="col-12 col-md-6 col-lg-4 order-lg-1 order-2">
+					<img src="/assets/usr/template/FreshCart-1.4.0/images/svg-graphics/fp-g.svg" alt="" class="img-fluid" />
+				</div>
+				<div class="col-12 col-md-6 offset-lg-1 col-lg-4 order-lg-2 order-1 d-flex align-items-center">
+					<div>
+						<div class="mb-lg-9 mb-5">
+							<h1 class="mb-2 h2 fw-bold">비밀번호 재설정</h1>
+						</div>
+						<form class="needs-validation" novalidate>
+							<div class="row g-3">
+								<div class="col-12">
+									<label for="uId" class="form-label visually-hidden">아이디</label>
+									<input type="text" class="form-control" name="uId" id="uId" 
+										autocomplete="off" placeholder="아이디" required />
+									<div class="invalid-feedback">아이디를 입력해 주세요.</div>
+								</div>
+								<div class="col-12">
+									<label for="uName" class="form-label visually-hidden">이름</label>
+									<input type="text" class="form-control" id="uName" 
+										autocomplete="off" placeholder="이름" required />
+									<div class="invalid-feedback">이름을 입력해 주세요.</div>
+								</div>
+								<div class="col-12">
+									<label for="uEmail" class="form-label visually-hidden">생년월일</label>
+									<input type="text" class="form-control" id="uEmail" name="uEmail" 
+										placeholder="이메일" autocomplete="off" required />
+									<div class="invalid-feedback">이메일을 형식에 맞게 입력해 주세요.</div>
+								</div>
+								<div class="col-12">
+									<div class="password-field position-relative">
+										<label for="uPwd" class="form-label visually-hidden">새로운 비밀번호</label>
+										<div class="password-field position-relative">
+											<input type="password" class="form-control fakePassword" autocomplete="off" 
+												id="uPwd" name="uPwd" placeholder="비밀번호" required />
+											<span><i class="bi bi-eye-slash passwordToggler"></i></span>
+											<div class="invalid-feedback">비밀번호를 입력해 주세요.</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-12">
+									<div class="password-field position-relative">
+										<label for="uPwdRe" class="form-label visually-hidden">비밀번호 확인</label>
+										<div class="password-field position-relative">
+											<input type="password" class="form-control fakePassword" autocomplete="off" 
+												id="uPwdRe" name="uPwdRe" placeholder="비밀번호 확인" required />
+											<span><i class="bi bi-eye-slash passwordToggler"></i></span>
+											<div class="invalid-feedback">비밀번호를 동일하게 입력해 주세요.</div>
+										</div>
+									</div>
+								</div>	
+								<div class="col-12 d-grid gap-2">
+									<button type="button" class="btn btn-primary" id="btnSave">비밀번호 재설정</button>
+									<a href="/usr/member/MemberUsrSignIn" class="btn btn-light">돌아가기</a>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</main>
+
+<div th:replace="~{/usr/include/footer :: footer}"></div> <!-- 중복되는 footer 처리 -->
+   
+<!-- 변수 정의 / 공통 함수 -->
+<script type="text/javascript">
+	// Input
+	let uId = document.getElementById("uId");
+	let uName = document.getElementById("uName");
+	let uEmail = document.getElementById("uEmail");
+	let uPwd = document.getElementById("uPwd");
+	let uPwdRe = document.getElementById("uPwdRe");
+	
+	// DB 체크 후 Focus 줘야 하는 Object
+	let focusObj = null;
+</script>
+
+<!-- Validation: Bootstrap -->
+<script type="text/javascript">
+	// btnSave 클릭시
+	document.getElementById("btnSave").onclick = function() {
+		var focus = false; // Validation 후 Focus 줘야 하는 Input
+		
+		// uId 체크
+		resetValidation(uId);
+
+		if (!strValidation(uId)) {
+			uId.classList.add("is-invalid");
+			
+			if (!focus) {
+				uId.focus();
+				focus = true;
+			}
+		} else {
+			uId.classList.add("is-valid");
+		}
+		
+		// uName 체크
+		resetValidation(uName);
+		
+		if (!strValidation(uName)) {
+			uName.classList.add("is-invalid");
+			
+			if (!focus) {
+				uName.focus();
+				focus = true;
+			}
+		} else {
+			uName.classList.add("is-valid");
+		}
+		
+		// uEmail 체크
+		resetValidation(uEmail);
+		
+		if (!emailValidation(uEmail)) {
+			uEmail.classList.add("is-invalid");
+			
+			if (!focus) {
+				uEmail.focus();
+				focus = true;
+			}
+		} else {
+			uEmail.classList.add("is-valid");
+		}
+		
+		// uPwd 체크
+		resetValidation(uPwd);
+		
+		if (!strValidation(uPwd)) {
+			uPwd.classList.add("is-invalid");
+			
+			if (!focus) {
+				uPwd.focus();
+				focus = true;
+			}
+		} else {
+			uPwd.classList.add("is-valid");
+		}
+		
+		// uPwdRe 체크
+		resetValidation(uPwdRe);
+		
+		if (!strValidation(uPwdRe) 
+				|| uPwd.value.trim() != uPwdRe.value.trim()) {
+			uPwdRe.classList.add("is-invalid");
+			
+			if (!focus) {
+				uPwdRe.focus();
+				focus = true;
+			}
+		} else {
+			uPwdRe.classList.add("is-valid");
+		}
+		
+		if (focus) return false;
+		
+		uId.value = uId.value.trim();
+		uName.value = uName.value.trim();
+		uEmail.value = uEmail.value.trim();
+		uPwd.value = uPwd.value.trim();
+		
+		setPassword();
+	}	
+	
+	// uId Input 시 체크
+	uId.addEventListener("input", function() {
+		resetValidation(uId);
+		
+		if (!strValidation(uId)) {
+			uId.classList.add("is-invalid");
+		} else {
+			uId.classList.add("is-valid");
+		}
+	});
+	
+	// uName Input 시 체크
+	uName.addEventListener("input", function() {
+		resetValidation(uName);
+		
+		if (!strValidation(uName)) {
+			uName.classList.add("is-invalid");
+		} else {
+			uName.classList.add("is-valid");
+		}
+	});
+	
+	// uEmail Input 시 체크
+	uEmail.addEventListener("input", function(){
+		resetValidation(uEmail);
+		
+		if (!emailValidation(uEmail)) {
+			uEmail.classList.add("is-invalid");
+		} else {
+			uEmail.classList.add("is-valid");
+		}	
+	});
+	
+	// uPwd Input 시 체크
+	uPwd.addEventListener("input", function() {
+		pwdCheck();
+	});
+	
+	// uPwdRe Input 시 체크
+	uPwdRe.addEventListener("input", function() {
+		pwdCheck();	
+	});
+	
+	// pwd 입력창, 재입력 창 세트로 확인
+	function pwdCheck() {
+		// mPwd 체크
+		resetValidation(uPwd);
+		
+		if (!strValidation(uPwd)) {
+			uPwd.classList.add("is-invalid");
+		} else {
+			uPwd.classList.add("is-valid");
+		}	
+		
+		// uPwdRe 체크
+		resetValidation(uPwdRe);
+		
+		if (!strValidation(uPwdRe) || uPwd.value.trim() != uPwdRe.value.trim()) {
+			uPwdRe.classList.add("is-invalid");
+		} else {
+			uPwdRe.classList.add("is-valid");
+		}
+	}
+	
+	function setPassword() {
+		focusObj = null;
+		
+		$.ajax({
+			async: true 
+			,cache: false
+			,type: "post"
+			,url: "/usr/member/MemberUsrSignInForgotPwdProc"
+			,data : { 
+				"uId" : $("#uId").val(), 
+				"uName" : $("#uName").val(), 
+				"uEmail" : $("#uEmail").val(),
+				"uPwd" : $("#uPwd").val()
+			}
+			,success: function(response) {
+				if (response.rt == "success") {
+					location.href = "/usr/member/MemberUsrSignIn";
+				} else {
+					focusObj = mId;
+					resetValidation(uId);
+					resetValidation(uName);
+					resetValidation(uEmail);
+					resetValidation(uPwd);
+					resetValidation(uPwdRe);
+					showModalAlert("확인", "비밀번호 재설정 실패하였습니다. 정확한 정보를 입력해 주세요.");
+				}
+			}
+			,error : function(jqXHR, textStatus, errorThrown){
+				alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
+			}
+		});
+	}
+	
+	$("#modalAlert").on("hidden.bs.modal", function (e) {
+		if (focusObj != null) {
+			resetValidation(uId);
+			resetValidation(uName);
+			resetValidation(uEmail);
+			resetValidation(uPwd);
+			resetValidation(uPwdRe);
+			
+			uId.value = '';
+			uName.value = '';
+			uEmail.value = '';
+			uPwd.value = '';
+			uPwdRe.value = '';
+			
+			focusObj.focus();
+		}
+		
+	});
+</script>
+    
+</body>
+</html>

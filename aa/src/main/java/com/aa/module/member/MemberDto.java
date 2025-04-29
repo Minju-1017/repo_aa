@@ -17,8 +17,8 @@ public class MemberDto {
 	private Double uLon;
 	private String uRegDate;
 	private String uMofDate;
-	private int mDelNy;
-	private String mDelNyStr;
+	private int uDelNy;
+	private String uDelNyStr;
 	
 	public String getuSeq() {
 		return uSeq;
@@ -139,21 +139,18 @@ public class MemberDto {
 	public void setuMofDate(String uMofDate) {
 		this.uMofDate = uMofDate;
 	}
-	
-	public int getmDelNy() {
-		return mDelNy;
+
+	public int getuDelNy() {
+		return uDelNy;
 	}
-	
-	public void setmDelNy(int mDelNy) {
-		this.mDelNy = mDelNy;
+
+	public void setuDelNy(int uDelNy) {
+		this.uDelNy = uDelNy;
+		this.uDelNyStr = uDelNy == 1 ? "Y" : "N";
 	}
-	
-	public String getmDelNyStr() {
-		return mDelNyStr;
-	}
-	
-	public void setmDelNyStr(String mDelNyStr) {
-		this.mDelNyStr = mDelNyStr;
+
+	public String getuDelNyStr() {
+		return uDelNyStr;
 	}
 	
 }

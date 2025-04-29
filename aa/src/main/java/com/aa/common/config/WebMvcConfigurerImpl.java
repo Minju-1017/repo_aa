@@ -16,7 +16,15 @@ public class WebMvcConfigurerImpl implements WebMvcConfigurer {
 				.excludePathPatterns(
 					"/assets/**", // static/assets 폴더안 모든 것은 허용하겠다는 것
 					"/xdm/member/MemberXdmSignIn",
-					"/xdm/member/MemberXdmSignInProc"
+					"/xdm/member/MemberXdmSignInProc",
+					"/usr/index",
+					"/usr/member/MemberUsrSignUpForm",
+					"/usr/member/MemberUsrInstIdCheckProc",
+					"/usr/member/MemberUsrInstProc",
+					"/usr/member/MemberUsrSignIn",
+					"/usr/member/MemberUsrSignInProc",
+					"/usr/member/MemberUsrSignInForgotPwdForm",
+					"/usr/member/MemberUsrSignInForgotPwdProc"
 		);
 	}
 

@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{/usr/include/headLogin :: head}"></div> <!-- 중복되는 head 처리 -->
+
+<body>
+<!-- navigation -->
+<div class="border-bottom shadow-sm">
+	<nav class="navbar navbar-light py-2">
+		<div class="container justify-content-center justify-content-lg-between">
+			<a class="navbar-brand" href="/usr/index">
+				<img src="/assets/usr/template/FreshCart-1.4.0/images/logo/logo.png" alt="" class="d-inline-block align-text-top">
+			</a>
+			<span class="navbar-text">이미 회원인가요? <a href="/usr/member/MemberUsrSignIn">로그인</a></span>
+		</div>
+	</nav>
+</div>
+
+<main>
+	<section class="my-lg-14 my-8">
+		<div class="container">
+			<div class="row justify-content-center align-items-center">
+				<div class="col-12 col-md-6 col-lg-4 order-lg-1 order-2">
+					<img src="/assets/usr/template/FreshCart-1.4.0/images/svg-graphics/signup-g.svg" 
+						alt="" class="img-fluid" />
+				</div>
+				<div class="col-12 col-md-6 offset-lg-1 col-lg-4 order-lg-2 order-1">
+					<div class="mb-lg-9 mb-5">
+						<h1 class="mb-1 h2 fw-bold">회원가입</h1>
+						<p>AA에 오신 것을 환영합니다!</p>
+					</div>
+					<form class="needs-validation" novalidate>
+						<div class="row g-3">
+							<div class="col-12">
+								<label for="uId" class="form-label visually-hidden">아이디</label>
+								<input type="text" class="form-control" name="uId" id="uId" 
+									placeholder="아이디" autocomplete="off" onblur="onblurEventId();" required />
+								<div class="invalid-feedback">중복된 아이디거나, 잘못 입력 되었습니다. 영문/숫자만 허용</div>
+							</div>
+							<div class="col-12">
+								<div class="password-field position-relative">
+									<label for="uPwd" class="form-label visually-hidden">비밀번호</label>
+									<div class="password-field position-relative">
+										<input type="password" class="form-control fakePassword" id="uPwd" name="uPwd" 
+											autocomplete="off" placeholder="비밀번호" required />
+										<span><i class="bi bi-eye-slash passwordToggler"></i></span>
+										<div class="invalid-feedback">비밀번호를 입력해 주세요.</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="password-field position-relative">
+									<label for="uPwdRe" class="form-label visually-hidden">비밀번호 확인</label>
+									<div class="password-field position-relative">
+										<input type="password" class="form-control fakePassword" id="uPwdRe" name="uPwdRe" 
+											autocomplete="off" placeholder="비밀번호 확인" required />
+										<span><i class="bi bi-eye-slash passwordToggler"></i></span>
+										<div class="invalid-feedback">비밀번호를 동일하게 입력해 주세요.</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-12">
+								<label for="uName" class="form-label visually-hidden">이름</label>
+								<input type="text" class="form-control" id="uName" autocomplete="off" placeholder="이름" required />
+								<div class="invalid-feedback">이름을 입력해 주세요. 한글/영문/숫자만 허용</div>
+							</div>
+							<div class="col-12">
+								<label for="uNickname" class="form-label visually-hidden">닉네임</label>
+								<input type="text" class="form-control" id="uNickname" autocomplete="off" placeholder="닉네임" required />
+								<div class="invalid-feedback">닉네임을 입력해 주세요. 한글/영문/숫자만 허용</div>
+							</div>
+							<div class="col-12">
+								<label for="uEmail" class="form-label visually-hidden">이메일</label>
+								<input type="email" class="form-control" id="uEmail" 
+									autocomplete="off" placeholder="이메일" required />
+								<div class="invalid-feedback">이메일을 형식에 맞게 입력해 주세요.</div>
+							</div>
+							<div class="col-12">
+								<label for="uPhone" class="form-label visually-hidden">연락처</label>
+								<input type="text" class="form-control" id="uPhone" 
+									autocomplete="off" placeholder="연락처" required />
+								<div class="invalid-feedback">연락처를 8~10자리 숫자로 입력해 주세요.</div>
+							</div>
+							<div class="col-12 d-flex gap-2">
+								<div>
+									<label for="uPostalCode" class="form-label visually-hidden">우편번호</label>
+									<input type="text" class="form-control" id="uPostalCode" 
+										autocomplete="off" placeholder="우편번호" readonly required />
+									<div class="invalid-feedback">우편번호를 입력해 주세요.</div>
+								</div>
+								<div>
+									<button class="btn btn-secondary" type="button" onclick="clickBtnPostcode()">우편번호 찾기</button>
+								</div>
+							</div>
+							<div class="col-12">
+								<label for="uStreetAddr" class="form-label visually-hidden">도로명주소</label>
+								<input type="text" class="form-control" id="uStreetAddr" 
+									autocomplete="off" placeholder="도로명주소" readonly required />
+								<div class="invalid-feedback">도로명주소를 입력해 주세요.</div>
+							</div>
+							<div class="col-12">
+								<label for="uDetailAddr" class="form-label visually-hidden">상세주소</label>
+								<input type="text" class="form-control" id="uDetailAddr" 
+									autocomplete="off" placeholder="상세주소" required />
+								<div class="invalid-feedback">상세주소를 입력해 주세요.</div>
+							</div>
+							<div class="col-12">
+								<label for="uNoteAddr" class="form-label visually-hidden">참고주소</label>
+								<input type="text" class="form-control" id="uNoteAddr" 
+									autocomplete="off" placeholder="참고주소" readonly />
+							</div>
+							<div class="col-12" id="map" style="width:300px;height:300px;display:none"></div>
+							<div class="col-12 d-grid"><button type="button" id="btnSave" class="btn btn-primary">회원가입</button></div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+</main>
+
+<div th:replace="~{/usr/include/footer :: footer}"></div> <!-- 중복되는 footer 처리 -->
+   
+<!-- 변수 정의 / 공통 함수 -->
+<script type="text/javascript">
+	// Input
+	let uId = document.getElementById("uId");
+	let uPwd = document.getElementById("uPwd");
+	let uPwdRe = document.getElementById("uPwdRe");
+	let uName = document.getElementById("uName");
+	let uNickname = document.getElementById("uNickname");
+	let uEmail = document.getElementById("uEmail");
+	let uPhone = document.getElementById("uPhone");
+	let uPostalCode = document.getElementById("uPostalCode");
+	let uStreetAddr = document.getElementById("uStreetAddr");
+	let uDetailAddr = document.getElementById("uDetailAddr");
+	let uNoteAddr = document.getElementById("uNoteAddr");
+</script>
+
+<!-- 주소 -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=73d5a4f6e79c017e97e6ec3b058999cd&libraries=services"></script>
+
+<script type="text/javascript">
+	var mapContainer = document.getElementById("map"), // 지도를 표시할 div
+		mapOption = {
+		    center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+		    level: 5 // 지도의 확대 레벨
+		};	
+	
+	var map = new daum.maps.Map(mapContainer, mapOption); //지도를 미리 생성
+	
+	//마커를 미리 생성
+	var marker = new daum.maps.Marker({
+		position: new daum.maps.LatLng(37.537187, 127.005476),
+		map: map
+	});
+
+    function clickBtnPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = data.address; // 최종 주소 변수
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+                var extraRoadAddr = ''; // 참고 항목 변수
+                
+            	// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                uPostalCode.value = data.zonecode;
+                uStreetAddr.value = roadAddr;
+                
+             	// 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+                if(roadAddr !== ''){
+                	uNoteAddr.value = extraRoadAddr;
+                } else {
+                	uNoteAddr.value = '';
+                }
+                
+                // 위도, 경도값 가져오기
+                var geocoder = new kakao.maps.services.Geocoder();
+
+                geocoder.addressSearch(addr, function(results, status) {
+                    if(status === daum.maps.services.Status.OK){
+                    	var result = results[0]; //첫번째 결과의 값을 활용
+                    	
+                    	// 위도, 경도
+                    	document.getElementById("mLon").value = result.x;
+                    	document.getElementById("uLat").value = result.y;
+                    	
+                    	// 해당 주소에 대한 좌표를 받아서
+                        var coords = new daum.maps.LatLng(result.y, result.x);
+                    	
+                        // 지도를 보여준다.
+                        mapContainer.style.display = "block";
+                        map.relayout();
+                        
+                        // 지도 중심을 변경한다.
+                        map.setCenter(coords);
+                        
+                        // 마커를 결과값으로 받은 위치로 옮긴다.
+                        marker.setPosition(coords)
+                    }
+                });
+                
+                // 상세주소 초기화
+                uDetailAddr.value = "";
+                
+                // Validation
+                resetValidation(uPostalCode);
+                resetValidation(uStreetAddr);
+                resetValidation(uDetailAddr);
+                uPostalCode.classList.add("is-valid");
+                uStreetAddr.classList.add("is-valid");
+            }
+        }).open();
+    }
+</script>
+
+<!-- Validation: Bootstrap -->
+<script type="text/javascript">
+	// btnSave 클릭시
+	document.getElementById("btnSave").onclick = function() {
+		var focus = false; // Validation 후 Focus 줘야 하는 Input
+		
+		// uId 체크
+		// submit 시 ajax로 체크하므로, else 패스
+		resetValidation(uId);
+
+		if (!strEngNumberValidation(uId)) {
+			uId.classList.add("is-invalid");
+			
+			if (!focus) {
+				uId.focus();
+				focus = true;
+			}
+		}
+		
+		// uPwd 체크
+		resetValidation(uPwd);
+		
+		if (!strValidation(uPwd)) {
+			uPwd.classList.add("is-invalid");
+			
+			if (!focus) {
+				uPwd.focus();
+				focus = true;
+			}
+		} else {
+			uPwd.classList.add("is-valid");
+		}
+		
+		// uPwdRe 체크
+		resetValidation(uPwdRe);
+		
+		if (!strValidation(uPwdRe) 
+				|| uPwd.value.trim() != uPwdRe.value.trim()) {
+			uPwdRe.classList.add("is-invalid");
+			
+			if (!focus) {
+				uPwdRe.focus();
+				focus = true;
+			}
+		} else {
+			uPwdRe.classList.add("is-valid");
+		}
+		
+		// uName 체크
+		resetValidation(uName);
+		
+		if (!strKorEngNumberValidation(uName)) {
+			uName.classList.add("is-invalid");
+			
+			if (!focus) {
+				uName.focus();
+				focus = true;
+			}
+		} else {
+			uName.classList.add("is-valid");
+		}
+		
+		// uNickname 체크
+		resetValidation(uNickname);
+		
+		if (!strKorEngNumberValidation(uNickname)) {
+			uNickname.classList.add("is-invalid");
+			
+			if (!focus) {
+				uNickname.focus();
+				focus = true;
+			}
+		} else {
+			uNickname.classList.add("is-valid");
+		}
+		
+		// uEmail 체크
+		resetValidation(uEmail);
+		
+		if (!emailValidation(uEmail)) {
+			uEmail.classList.add("is-invalid");
+			
+			if (!focus) {
+				uEmail.focus();
+				focus = true;
+			}
+		} else {
+			uEmail.classList.add("is-valid");
+		}
+		
+		// uPhone 체크
+		resetValidation(uPhone);
+		
+		if (!phoneValidation(uPhone)) {
+			uPhone.classList.add("is-invalid");
+			
+			if (!focus) {
+				uPhone.focus();
+				focus = true;
+			}
+		} else {
+			uPhone.classList.add("is-valid");
+		}
+		
+		// uPostalCode 체크
+		resetValidation(uPostalCode);
+		
+		if (!strValidation(uPostalCode)) {
+			uPostalCode.classList.add("is-invalid");
+			
+			if (!focus) {
+				uPostalCode.focus();
+				focus = true;
+			}
+		} else {
+			uPostalCode.classList.add("is-valid");
+		}
+		
+		// uStreetAddr 체크
+		resetValidation(uStreetAddr);
+		
+		if (!strValidation(uStreetAddr)) {
+			uStreetAddr.classList.add("is-invalid");
+			
+			if (!focus) {
+				uStreetAddr.focus();
+				focus = true;
+			}
+		} else {
+			uStreetAddr.classList.add("is-valid");
+		}
+		
+		// uDetailAddr 체크
+		resetValidation(uDetailAddr);
+		
+		if (!strValidation(uDetailAddr)) {
+			uDetailAddr.classList.add("is-invalid");
+			
+			if (!focus) {
+				uDetailAddr.focus();
+				focus = true;
+			}
+		} else {
+			uDetailAddr.classList.add("is-valid");
+		}
+		
+		if (focus) return false;
+		
+		uId.value = uId.value.trim();
+		uPwd.value = uPwd.value.trim();
+		uName.value = uName.value.trim();
+		uNickname.value = uNickname.value.trim();
+		uEmail.value = uEmail.value.trim();
+		uPhone.value = uPhone.value.trim();
+		uDetailAddr.value = uDetailAddr.value.trim();
+		
+		signUp();
+	}	
+	
+	// uId Input 시 체크
+	uId.addEventListener("input", function() {
+		resetValidation(uId);
+		
+		// onblur 시 ajax로 체크하므로, else 패스
+		if (!strEngNumberValidation(uId)) {
+			uId.classList.add("is-invalid");
+		}
+	});
+	
+	// uPwd Input 시 체크
+	uPwd.addEventListener("input", function() {
+		pwdCheck();
+	});
+	
+	// uPwdRe Input 시 체크
+	uPwdRe.addEventListener("input", function() {
+		pwdCheck();	
+	});
+	
+	// pwd 입력창, 재입력 창 세트로 확인
+	function pwdCheck() {
+		// uPwd 체크
+		resetValidation(uPwd);
+		
+		if (!strValidation(uPwd)) {
+			uPwd.classList.add("is-invalid");
+		} else {
+			uPwd.classList.add("is-valid");
+		}	
+		
+		// uPwdRe 체크
+		resetValidation(uPwdRe);
+		
+		if (!strValidation(uPwdRe) || uPwd.value.trim() != uPwdRe.value.trim()) {
+			uPwdRe.classList.add("is-invalid");
+		} else {
+			uPwdRe.classList.add("is-valid");
+		}
+	}
+	
+	// uName Input 시 체크
+	uName.addEventListener("input", function() {
+		resetValidation(uName);
+		
+		if (!strKorEngNumberValidation(uName)) {
+			uName.classList.add("is-invalid");
+		} else {
+			uName.classList.add("is-valid");
+		}
+	});
+	
+	// uNickname Input 시 체크
+	uNickname.addEventListener("input", function() {
+		resetValidation(uNickname);
+		
+		if (!strKorEngNumberValidation(uNickname)) {
+			uNickname.classList.add("is-invalid");
+		} else {
+			uNickname.classList.add("is-valid");
+		}
+	});
+	
+	// uEmail Input 시 체크
+	uEmail.addEventListener("input", function(){
+		resetValidation(uEmail);
+		
+		if (!emailValidation(uEmail)) {
+			uEmail.classList.add("is-invalid");
+		} else {
+			uEmail.classList.add("is-valid");
+		}
+	});
+	
+	// uPhone Input 시 체크
+	uPhone.addEventListener("input", function(){
+		resetValidation(uPhone);
+		
+		if (!phoneValidation(uPhone)) {
+			uPhone.classList.add("is-invalid");
+		} else {
+			uPhone.classList.add("is-valid");
+		}	
+	});
+	
+	// uDetailAddr Input 시 체크
+	uDetailAddr.addEventListener("input", function(){
+		resetValidation(uDetailAddr);
+		
+		if (!strValidation(uDetailAddr)) {
+			uDetailAddr.classList.add("is-invalid");
+		} else {
+			uDetailAddr.classList.add("is-valid");
+		}	
+	});
+	
+	// uId Focus Out 시 체크
+	function onblurEventId() {
+		resetValidation(uId);
+		
+		if (!strEngNumberValidation(uId)) {
+			uId.classList.add("is-invalid");
+			return;
+		}
+		
+		signUpCheckId();
+	}
+	
+	function signUpCheckId() {
+		$.ajax({
+			async: true 
+			,cache: false
+			,type: "post"
+			,url: "/usr/member/MemberUsrInstIdCheckProc"
+			,data : { 
+				"uId" : $("#uId").val()
+			}
+			,success: function(response) {
+				if (response.rt == "success") {
+					uId.classList.add("is-valid");
+				} else if (response.rt == "fail_id") {
+					uId.classList.add("is-invalid");
+					uId.value = '';
+					uId.focus();
+				}
+			}
+			,error : function(jqXHR, textStatus, errorThrown){
+				alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
+			}
+		});
+	}
+	
+	function signUp() {
+		$.ajax({
+			async: true 
+			,cache: false
+			,type: "post"
+			,url: "/usr/member/MemberUsrInstProc"
+			,data : { 
+				"uId" : $("#uId").val(), 
+				"uPwd" : $("#uPwd").val(),
+				"uName" : $("#uName").val(), 
+				"uNickname" : $("#uNickname").val(),
+				"uEmail" : $("#uEmail").val(), 
+				"uPhone" : $("#uPhone").val(),
+				"uPostalCode" : $("#uPostalCode").val(),
+				"uStreetAddr" : $("#uStreetAddr").val(),
+				"uDetailAddr" : $("#uDetailAddr").val(),
+				"uNoteAddr" : $("#uNoteAddr").val(),
+				"uLat" : $("#uLat").val(),
+				"uLon" : $("#uLon").val()
+			}
+			,success: function(response) {
+				if (response.rt == "success") {
+					location.href = "/usr/member/MemberUsrSignIn";
+				} else if (response.rt == "fail_id") {
+					uId.classList.add("is-invalid");
+					uId.value = '';
+					uId.focus();
+				} else {
+					resetValidation(uId);
+					resetValidation(uPwd);
+					resetValidation(uPwdRe);
+					resetValidation(uName);
+					resetValidation(uNickname);
+					resetValidation(uEmail);
+					resetValidation(uPhone);
+					resetValidation(uPostalCode);
+	                resetValidation(uStreetAddr);
+	                resetValidation(uDetailAddr);
+	                resetValidation(uNoteAddr);
+	                resetValidation(uLat);
+	                resetValidation(uLon);
+					showModalAlert("확인", "회원가입 실패하였습니다. 다시 시도해 주세요.");
+				}
+			}
+			,error : function(jqXHR, textStatus, errorThrown){
+				alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
+			}
+		});
+	}
+</script>
+    
+</body>
+</html>

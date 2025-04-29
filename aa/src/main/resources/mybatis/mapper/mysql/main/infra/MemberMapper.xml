@@ -8,11 +8,27 @@
 	<sql id="selectCommon">
 		FROM 
 			user a
-		WHERE 1=1				
-	        <choose>
+		WHERE 1=1
+			<if test="shDelNy != null and !shDelNy.equals('')">AND a.uDelNy = #{shDelNy}</if> 
+			<choose>
+				<when test="shOptionDate != null and !shOptionDate.equals('')
+					and shOptionDate == 1
+					and shDateStart != null and !shDateStart.equals('')
+					and shDateEnd != null and !shDateEnd.equals('')">
+					AND a.uRegDate BETWEEN #{shDateStartDB} AND #{shDateEndDB}
+				</when>
+				<when test="shOptionDate != null and !shOptionDate.equals('')
+					and shOptionDate == 2
+					and shDateStart != null and !shDateStart.equals('')
+					and shDateEnd != null and !shDateEnd.equals('')">
+					AND a.uMofDate BETWEEN #{shDateStartDB} AND #{shDateEndDB}
+				</when>
+			</choose>
+			<choose>
 	            <when test="shOption == 1">AND a.uSeq = #{shValue}</when>
 	            <when test="shOption == 2">AND a.uId LIKE CONCAT('%',#{shValue},'%')</when>
 	            <when test="shOption == 3">AND a.uName LIKE CONCAT('%',#{shValue},'%')</when>
+	            <when test="shOption == 4">AND a.uEmail LIKE CONCAT('%',#{shValue},'%')</when>
 	        </choose>
 		ORDER BY a.uSeq DESC
 	</sql>
@@ -54,7 +70,7 @@
 		FROM 
 			user a
 		WHERE 1=1
-			AND a.mSeq=#{uSeq}
+			AND a.uSeq=#{uSeq}
 	</select>
 	
 	<select id="selectSignInMember" resultMap="resultMapObj">
@@ -64,7 +80,136 @@
 		FROM 
 			user a
 		WHERE 1=1
+			AND a.uDelNy=0
 			AND BINARY(a.uId)=#{uId}
 	</select>
+	
+	<select id="insertCheckId" resultType="Integer">
+		SELECT COUNT(*) FROM 
+			user 
+		WHERE 1=1
+			AND uId=#{uId}
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO user
+		(
+		    uId,
+		    uName,
+		    uNickname,
+		    uEmail,
+		    uPwd,
+		    uPhone,
+		    uPostalCode,
+		    uStreetAddr,
+		    uDetailAddr,
+		    uNoteAddr,
+		    uLat,
+		    uLon,
+		    uRegDate
+		)
+		VALUES
+		(
+		    #{uId},
+		    #{uName},
+		    #{uNickname},
+		    #{uEmail},
+		    #{uPwd},
+		    #{uPhone},
+		    #{uPostalCode},
+			#{uStreetAddr},
+			#{uDetailAddr},
+			#{uNoteAddr},
+			#{uLat},
+			#{uLon},
+		    now()
+		)
+		
+		<selectKey resultType="String" keyProperty="uSeq" order="AFTER">
+			SELECT last_insert_id()
+		</selectKey>
+	</insert>
+
+	<update id="update">
+		UPDATE user
+		SET
+			uNickname=#{uNickname},
+			uEmail=#{uEmail},
+			uPhone=#{uPhone},
+			uPostalCode=#{uPostalCode},
+			uStreetAddr=#{uStreetAddr},
+			uDetailAddr=#{uDetailAddr},
+			uNoteAddr=#{uNoteAddr},
+			uLat=#{uLat},
+			uLon=#{uLon},
+			uMofDate=now()
+		WHERE 1=1
+			AND uSeq=#{uSeq}
+	</update>
+	
+	<update id="updateForgotPwd">
+		UPDATE user
+		SET
+			uPwd=#{uPwd},
+			uMofDate=now()
+		WHERE 1=1
+			AND uDelNy=0
+			AND BINARY(uId)=#{uId}
+			AND BINARY(uName)=#{uName}
+			AND uEmail=#{uEmail}
+	</update>
+	
+	<select id="updatePwdCheck" resultMap="resultMapObj">
+		SELECT
+			uPwd
+		FROM 
+			user
+		WHERE 1=1
+			AND uSeq=#{uSeq}
+	</select>
+	
+	<update id="updatePwd">
+		UPDATE user
+		SET
+			uPwd=#{uPwd},
+			uMofDate=now()
+		WHERE 1=1
+			AND uSeq=#{uSeq}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM user
+		WHERE
+			uSeq=#{uSeq}
+	</delete>
+	
+	<update id="uelete">
+		UPDATE user
+		SET
+			uDelNy=1
+		WHERE
+			uSeq=#{uSeq}
+	</update>
+	
+	<delete id="listDelete" parameterType="java.util.List">
+		DELETE FROM user
+		<where>
+			<foreach collection="list" item="item" separator="or" open="" close="">
+				(uSeq=#{item})
+			</foreach>
+		</where>
+	</delete>
+	
+	<delete id="listUelete" parameterType="java.util.List">
+		UPDATE user
+		SET
+			uMofDate=now(),
+			uDelNy=1
+		<where> 
+			<foreach collection="list" item="item" separator="or" open="" close="">
+				(uSeq=#{item})
+			</foreach>
+		</where>
+	</delete>
 	
 </mapper>

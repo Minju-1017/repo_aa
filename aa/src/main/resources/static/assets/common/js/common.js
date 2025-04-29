@@ -11,6 +11,7 @@ const REGEX_yyyyMMdd = RegExp(/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/
 const REGEX_EMAIL = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/; // Email
 const REGEX_URL = /^(http|https):\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/;
 const REGEX_IMG_FILE = /(.*?)\.(jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF)$/;
+const REGEX_PHONE = /^0\d{8,10}$/;
 
 // 이미지 파일 최대 사이즈
 const IMG_MAX_SIZE = 2 * 1024 * 1024; // 2MB
@@ -106,6 +107,18 @@ function realNumberValidation(obj) {
 function imgFileValidation(fileObj, fileNameInputObj) {
 	var value = fileNameInputObj.value.trim();
 	if(!value.match(REGEX_IMG_FILE) || fileObj.size >= IMG_MAX_SIZE) return false;
+	
+	return true;
+}
+
+// 연락처 체크 - 양의 정수/8-10자리만 가능
+function phoneValidation(obj) {
+	if (obj == null || (obj != null && obj.value == null)) return false;
+	
+	var value = obj.value.trim();				
+	if (value == ""
+			|| !REGEX_PHONE.test(value)
+			|| parseInt(value) < 1 || isNaN(value)) return false;
 	
 	return true;
 }

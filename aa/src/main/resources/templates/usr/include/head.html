@@ -3,284 +3,174 @@
 
 <th:block th:fragment="head">
 <head>
-   <!-- Required meta tags -->
-   <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-   <meta content="Codescandy" name="author">
-   <title>AA</title>
-   <link href="/assets/usr/template/FreshCart-1.4.0/libs/tiny-slider/dist/tiny-slider.css" rel="stylesheet" />
-   <link href="/assets/usr/template/FreshCart-1.4.0/libs/slick-carousel/slick/slick.css" rel="stylesheet" />
-   <link href="/assets/usr/template/FreshCart-1.4.0/libs/slick-carousel/slick/slick-theme.css" rel="stylesheet" />
-   <!-- Favicon icon-->
-   <link rel="shortcut icon" type="image/x-icon" href="/assets/usr/template/FreshCart-1.4.0/images/favicon/favicon.ico">
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta content="Codescandy" name="author">
+	<title>AA</title>
+	
+	<link href="/assets/usr/template/FreshCart-1.4.0/libs/tiny-slider/dist/tiny-slider.css" rel="stylesheet" />
+	<link href="/assets/usr/template/FreshCart-1.4.0/libs/slick-carousel/slick/slick.css" rel="stylesheet" />
+	<link href="/assets/usr/template/FreshCart-1.4.0/libs/slick-carousel/slick/slick-theme.css" rel="stylesheet" />
+	
+	<!-- Favicon icon-->
+	<link rel="shortcut icon" type="image/x-icon" href="/assets/usr/template/FreshCart-1.4.0/images/favicon/favicon.ico">
+	
+	<!-- Libs CSS -->
+	<link href="/assets/usr/template/FreshCart-1.4.0/libs/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet">
+	<link href="/assets/usr/template/FreshCart-1.4.0/libs/feather-webfont/dist/feather-icons.css" rel="stylesheet">
+	<link href="/assets/usr/template/FreshCart-1.4.0/libs/simplebar/dist/simplebar.min.css" rel="stylesheet">
+	
+	<!-- Theme CSS -->
+	<link rel="stylesheet" href="/assets/usr/template/FreshCart-1.4.0/css/theme.min.css">
 
-
-   <!-- Libs CSS -->
-   <link href="/assets/usr/template/FreshCart-1.4.0/libs/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet">
-   <link href="/assets/usr/template/FreshCart-1.4.0/libs/feather-webfont/dist/feather-icons.css" rel="stylesheet">
-   <link href="/assets/usr/template/FreshCart-1.4.0/libs/simplebar/dist/simplebar.min.css" rel="stylesheet">
-
-
-   <!-- Theme CSS -->
-   <link rel="stylesheet" href="/assets/usr/template/FreshCart-1.4.0/css/theme.min.css">
+	<!-- Date Time Picker CSS (https://xdsoft.net/jqplugins/datetimepicker/) -->
+	<link rel="stylesheet" type="text/css" href="/assets/common/css/jquery.datetimepicker.css">
 </head>
 
 <body>
-   <!-- navigation -->
-   <nav class="navbar py-lg-4 py-3 px-0 border-bottom navbar-menu">
-      <div class="container-fluid">
-         <div class="row w-100 align-items-center g-0 gx-lg-3">
-            <div class="col-xxl-9 col-lg-8">
-               <div class="d-flex align-items-center">
-                  <button class="navbar-toggler collapsed d-none d-lg-block" type="button" data-bs-toggle="offcanvas"
-                     data-bs-target="#navbar-default2" aria-controls="navbar-default2">
-                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
-                        class="bi bi-text-indent-right text-primary" viewBox="0 0 16 16">
-                        <path
-                           d="M2 3.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm10.646 2.146a.5.5 0 0 1 .708.708L11.707 8l1.647 1.646a.5.5 0 0 1-.708.708l-2-2a.5.5 0 0 1 0-.708l2-2zM2 6.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z" />
-                     </svg>
-                  </button>
-                  <a class="navbar-brand d-none d-lg-block ms-4" href="../index.html">
-                     <img src="/assets/usr/template/FreshCart-1.4.0/images/logo/freshcart-logo.svg" alt="eCommerce HTML Template" />
-                  </a>
-               </div>
-               <div class="d-flex justify-content-between w-100 d-lg-none align-items-center">
-                  <button class="navbar-toggler collapsed" type="button" data-bs-toggle="offcanvas"
-                     data-bs-target="#navbar-default2" aria-controls="navbar-default2">
-                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                        class="bi bi-text-indent-left text-primary" viewBox="0 0 16 16">
-                        <path
-                           d="M2 3.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm.646 2.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L4.293 8 2.646 6.354a.5.5 0 0 1 0-.708zM7 6.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm-5 3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z" />
-                     </svg>
-                  </button>
-                  <a class="navbar-brand" href="../index.html">
-                     <img src="/assets/usr/template/FreshCart-1.4.0/images/logo/freshcart-logo.svg" alt="eCommerce HTML Template" />
-                  </a>
-                  <div class="d-flex align-items-center lh-1">
-                     <div class="list-inline me-2">
-                        <div class="list-inline-item">
-                           <a href="#!" class="text-muted" data-bs-toggle="modal" data-bs-target="#userModal">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                 stroke-linejoin="round" class="feather feather-user">
-                                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                 <circle cx="12" cy="7" r="4"></circle>
-                              </svg>
-                           </a>
-                        </div>
-                        <div class="list-inline-item">
-                           <a class="text-muted position-relative" data-bs-toggle="offcanvas"
-                              data-bs-target="#offcanvasRight" href="#offcanvasExample" role="button"
-                              aria-controls="offcanvasRight">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                 stroke-linejoin="round" class="feather feather-shopping-bag">
-                                 <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                                 <line x1="3" y1="6" x2="21" y2="6"></line>
-                                 <path d="M16 10a4 4 0 0 1-8 0"></path>
-                              </svg>
-                              <span
-                                 class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
-                                 1
-                                 <span class="visually-hidden">unread messages</span>
-                              </span>
-                           </a>
-                        </div>
-                     </div>
-                     <!-- Button -->
-                  </div>
-               </div>
-            </div>
-
-            <div class="col-xxl-3 col-lg-4 d-flex align-items-center justify-content-end">
-               <!-- Button trigger modal -->
-               <div class="list-inline d-lg-block d-none">
-
-                  <div class="list-inline-item me-5">
-                     <a href="#!" class="text-reset" data-bs-toggle="modal" data-bs-target="#userModal">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                           class="feather feather-user">
-                           <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                           <circle cx="12" cy="7" r="4"></circle>
-                        </svg>
-                     </a>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <div class="offcanvas offcanvas-start p-4 w-xxl-20 w-lg-30" id="navbar-default2">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-               <a href="../index.html"><img src="/assets/usr/template/FreshCart-1.4.0/images/logo/freshcart-logo.svg"
-                     alt="eCommerce HTML Template" /></a>
-               <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="h-100" data-simplebar="">
-               <ul class="navbar-nav navbar-nav-offcanvac">
-                  <li class="nav-item dropdown">
-                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">실종신고</a>
-                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="../index.html">Home 1</a></li>
-                        <li><a class="dropdown-item" href="../pages/index-2.html">Home 2</a></li>
-                        <li><a class="dropdown-item" href="../pages/index-3.html">Home 3</a></li>
-                        <li><a class="dropdown-item" href="../pages/index-4.html">Home 4</a></li>
-                        <li>
-                           <a class="dropdown-item" href="../pages/index-5.html">Home 5</a>
-                        </li>
-                     </ul>
-                  </li>
-                  <li class="nav-item dropdown">
-                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">마이페이지</a>
-                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="../pages/shop-grid.html">Shop Grid - Filter</a></li>
-                        <li><a class="dropdown-item" href="../pages/shop-grid-3-column.html">Shop Grid - 3 column</a>
-                        </li>
-                        <li><a class="dropdown-item" href="../pages/shop-list.html">Shop List - Filter</a></li>
-                        <li><a class="dropdown-item" href="../pages/shop-filter.html">Shop - Filter</a></li>
-                        <li><a class="dropdown-item" href="../pages/shop-fullwidth.html">Shop Wide</a></li>
-                        <li><a class="dropdown-item" href="../pages/shop-single.html">Shop Single</a></li>
-                        <li>
-                           <a class="dropdown-item" href="../pages/shop-single-2.html">Shop Single v2</a>
-                        </li>
-                        <li><a class="dropdown-item" href="../pages/shop-wishlist.html">Shop Wishlist</a></li>
-                        <li><a class="dropdown-item" href="../pages/shop-cart.html">Shop Cart</a></li>
-                        <li><a class="dropdown-item" href="../pages/shop-checkout.html">Shop Checkout</a></li>
-                     </ul>
-                  </li>
-               </ul>
-            </div>
-         </div>
-      </div>
-   </nav>
-   <!-- Modal -->
-   <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-         <div class="modal-content p-4">
-            <div class="modal-header border-0">
-               <h5 class="modal-title fs-3 fw-bold" id="userModalLabel">Sign Up</h5>
-
-               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-               <form>
-                  <div class="mb-3">
-                     <label for="fullName" class="form-label">Name</label>
-                     <input type="text" class="form-control" id="fullName" placeholder="Enter Your Name" required="" />
-                  </div>
-                  <div class="mb-3">
-                     <label for="email" class="form-label">Email address</label>
-                     <input type="email" class="form-control" id="email" placeholder="Enter Email address"
-                        required="" />
-                  </div>
-
-                  <div class="mb-5">
-                     <label for="password" class="form-label">Password</label>
-                     <input type="password" class="form-control" id="password" placeholder="Enter Password"
-                        required="" />
-                     <small class="form-text">
-                        By Signup, you agree to our
-                        <a href="#!">Terms of Service</a>
-                        &
-                        <a href="#!">Privacy Policy</a>
-                     </small>
-                  </div>
-
-                  <button type="submit" class="btn btn-primary">Sign Up</button>
-               </form>
-            </div>
-            <div class="modal-footer border-0 justify-content-center">
-               Already have an account?
-               <a href="#">Sign in</a>
-            </div>
-         </div>
-      </div>
-   </div>
-
-   <!-- Shop Cart -->
-
-
-   <!-- Modal -->
-   <div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-sm modal-dialog-centered">
-         <div class="modal-content">
-            <div class="modal-body p-6">
-               <div class="d-flex justify-content-between align-items-start">
-                  <div>
-                     <h5 class="mb-1" id="locationModalLabel">Choose your Delivery Location</h5>
-                     <p class="mb-0 small">Enter your address and we will specify the offer you area.</p>
-                  </div>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-               </div>
-               <div class="my-5">
-                  <input type="search" class="form-control" placeholder="Search your area" />
-               </div>
-               <div class="d-flex justify-content-between align-items-center mb-2">
-                  <h6 class="mb-0">Select Location</h6>
-                  <a href="#" class="btn btn-outline-gray-400 text-muted btn-sm">Clear All</a>
-               </div>
-               <div>
-                  <div data-simplebar style="height: 300px">
-                     <div class="list-group list-group-flush">
-                        <a href="#"
-                           class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action active">
-                           <span>Alabama</span>
-                           <span>Min:$20</span>
-                        </a>
-                        <a href="#"
-                           class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
-                           <span>Alaska</span>
-                           <span>Min:$30</span>
-                        </a>
-                        <a href="#"
-                           class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
-                           <span>Arizona</span>
-                           <span>Min:$50</span>
-                        </a>
-                        <a href="#"
-                           class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
-                           <span>California</span>
-                           <span>Min:$29</span>
-                        </a>
-                        <a href="#"
-                           class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
-                           <span>Colorado</span>
-                           <span>Min:$80</span>
-                        </a>
-                        <a href="#"
-                           class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
-                           <span>Florida</span>
-                           <span>Min:$90</span>
-                        </a>
-                        <a href="#"
-                           class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
-                           <span>Arizona</span>
-                           <span>Min:$50</span>
-                        </a>
-                        <a href="#"
-                           class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
-                           <span>California</span>
-                           <span>Min:$29</span>
-                        </a>
-                        <a href="#"
-                           class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
-                           <span>Colorado</span>
-                           <span>Min:$80</span>
-                        </a>
-                        <a href="#"
-                           class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
-                           <span>Florida</span>
-                           <span>Min:$90</span>
-                        </a>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-</body>
-</html>
+	<!-- navigation -->
+	<nav class="navbar py-lg-4 py-3 px-0 border-bottom navbar-menu">
+		<div class="container-fluid">
+			<div class="row w-100 align-items-center g-0 gx-lg-3">
+				<div class="col-xxl-9 col-lg-8">
+					<div class="d-flex align-items-center">
+						<button class="navbar-toggler collapsed d-none d-lg-block" 
+							type="button" data-bs-toggle="offcanvas"
+							data-bs-target="#navbar-default2" aria-controls="navbar-default2">
+							<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+								class="bi bi-text-indent-right text-primary" viewBox="0 0 16 16">
+								<path
+									d="M2 3.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm10.646 2.146a.5.5 0 0 1 .708.708L11.707 8l1.647 1.646a.5.5 0 0 1-.708.708l-2-2a.5.5 0 0 1 0-.708l2-2zM2 6.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z" />
+							</svg>
+						</button>
+						<a class="navbar-brand d-none d-lg-block ms-4" href="/usr/index">
+							<img src="/assets/usr/template/FreshCart-1.4.0/images/logo/logo.png" />
+						</a>
+					</div>
+					<div class="d-flex justify-content-between w-100 d-lg-none align-items-center">
+						<button class="navbar-toggler collapsed" type="button" data-bs-toggle="offcanvas"
+							data-bs-target="#navbar-default2" aria-controls="navbar-default2">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+								class="bi bi-text-indent-left text-primary" viewBox="0 0 16 16">
+								<path
+									d="M2 3.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm.646 2.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L4.293 8 2.646 6.354a.5.5 0 0 1 0-.708zM7 6.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm-5 3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z" />
+							</svg>
+						</button>
+						<a class="navbar-brand" href="/usr/index">
+							<img src="/assets/usr/template/FreshCart-1.4.0/images/logo/logo.png" />
+						</a>
+						<div th:if="${session.sessSeqUsr ne null}" class="d-flex align-items-center lh-1">
+							<div class="list-inline me-2">
+								<div class="list-inline-item">
+									<ul class="list-unstyled d-flex align-items-center">
+										<li class="dropdown ms-4">
+											<a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+												<img class="avatar avatar-md rounded-circle" 
+													src="/assets/usr/template/FreshCart-1.4.0/images/avatar/avatar-1.jpg"/>
+											</a>
+											<div class="dropdown-menu dropdown-menu-end p-0">
+												<div class="lh-1 px-5 py-4 border-bottom">
+													<h5 class="mb-1 h6">[[${session.sessNameUsr}]]</h5>
+												</div>
+												<div class="px-5 py-3">
+													<a id="btnSignOut1" href="javascript:void(0);">Log Out</a>
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div th:if="${session.sessSeqUsr eq null}" class="d-flex align-items-center lh-1">
+							<div class="list-inline me-2">
+								<div class="list-inline-item">
+									<a href="/usr/member/MemberUsrSignIn" class="text-muted">
+										<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+											fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+											stroke-linejoin="round" class="feather feather-user">
+											<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+											<circle cx="12" cy="7" r="4"></circle>
+										</svg>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div th:if="${session.sessSeqUsr ne null}" 
+					class="col-xxl-3 col-lg-4 d-flex align-items-center justify-content-end">
+					<div class="list-inline d-lg-block d-none">
+						<div class="list-inline-item me-5">
+							<ul class="list-unstyled d-flex align-items-center">
+								<li class="dropdown ms-4">
+									<a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+										<img class="avatar avatar-md rounded-circle" 
+											src="/assets/usr/template/FreshCart-1.4.0/images/avatar/avatar-1.jpg"
+											alt="" />
+									</a>
+									<div class="dropdown-menu dropdown-menu-end p-0">
+										<div class="lh-1 px-5 py-4 border-bottom">
+											<h5 class="mb-1 h6">[[${session.sessNameUsr}]]</h5>
+										</div>
+										<div class="px-5 py-3">
+											<a id="btnSignOut2" href="javascript:void(0);">Log Out</a>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div th:if="${session.sessSeqUsr eq null}" 
+					class="col-xxl-3 col-lg-4 d-flex align-items-center justify-content-end">
+					<div class="list-inline d-lg-block d-none">
+						<div class="list-inline-item me-5">
+							<a href="/usr/member/MemberUsrSignIn" class="text-muted">
+								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+									fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+									stroke-linejoin="round" class="feather feather-user">
+									<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+									<circle cx="12" cy="7" r="4"></circle>
+								</svg>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="offcanvas offcanvas-start p-4 w-xxl-20 w-lg-30" id="navbar-default2">
+				<div class="d-flex justify-content-between align-items-center mb-2">
+					<a href="/usr/index"><img src="/assets/usr/template/FreshCart-1.4.0/images/logo/logo.png" /></a>
+					<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+				</div>
+				<div class="h-100" data-simplebar="">
+					<ul class="navbar-nav navbar-nav-offcanvac">
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+								aria-expanded="false">실종신고</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="../index.html">Home 1</a></li>
+								<li><a class="dropdown-item" href="../pages/index-2.html">Home 2</a></li>
+								<li><a class="dropdown-item" href="../pages/index-3.html">Home 3</a></li>
+								<li><a class="dropdown-item" href="../pages/index-4.html">Home 4</a></li>
+								<li><a class="dropdown-item" href="../pages/index-5.html">Home 5</a></li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+								aria-expanded="false">마이페이지</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/usr/member/MemberUsrAccountForm">기본 정보 수정</a></li>
+								<li><a class="dropdown-item" href="/usr/member/MemberUsrAccountPwdForm">비밀번호 수정</a></li>
+								<li><a class="dropdown-item" href="#">반려동물 등록/수정</a></li>
+								<li><a class="dropdown-item" href="/usr/member/MemberUsrWithdrawal">회원 탈퇴</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</nav>
 </th:block>
+</html>
   
