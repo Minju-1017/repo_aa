@@ -27,9 +27,16 @@ public class AnimalController {
 	}
 	
 	@RequestMapping(value = "AnimalInfoUsrForm")	
-	public String AnimalInfoUsrForm(Model model,AnimalDto animalDto)  {	
+	public String AnimalInfoUsrForm(Model model, AnimalDto animalDto)  {	
 		
-		model.addAttribute("item", service.selectOne(animalDto));
+		if (animalDto == null || animalDto.getUaSeq() == null ||
+				animalDto.getUaSeq().equals("0") || animalDto.getUaSeq().equals("")) {
+			// insert mode
+		} else {
+			// update mode	
+			model.addAttribute("item", service.selectOne(animalDto));
+		}
+		
 		return path_user + "AnimalInfoUsrForm";
 	}
 	
@@ -42,7 +49,7 @@ public class AnimalController {
 	
 	@RequestMapping(value = "AnimalInfoUsrUpdate")	
 	public String AnimalInfoUsrUpdate(AnimalDto animalDto)  {	
-		System.out.println(animalDto.getUaSeq());
+		System.out.println("##################" + animalDto.getUaSeq());
 		service.update(animalDto);
 		return   "redirect:/usr/animal/AnimalInfoUsr";
 	}

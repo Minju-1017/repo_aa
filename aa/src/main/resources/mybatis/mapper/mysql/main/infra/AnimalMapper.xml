@@ -73,13 +73,13 @@
 
 <update id="update">
 	UPDATE uAnimal set
-		uaCateCd = #{uaCateCd}
-		uaName = #{uaName} 
-		uaBOD = #{uaBOD}
-		uaGenderCd = #{uaGenderCd} 
-		uaBreed = #{uaBreed}
-		uaRegNo = #{uaRegNo} 
-		uaMofDate = #{uaMofDate}
+		uaCateCd = #{uaCateCd},
+		uaName = #{uaName},
+		uaBOD = #{uaBOD},
+		uaGenderCd = #{uaGenderCd},
+		uaBreed = #{uaBreed},
+		uaRegNo = #{uaRegNo}, 
+		uaMofDate = now()
 	WHERE 
 		uaSeq = #{uaSeq}
 </update>

@@ -250,14 +250,12 @@
 			    								</td>
 												<td th:text="${vo.totalRows - ((vo.currPage - 1) * vo.rowNumToShow + listStat.index)}"></td>
 												<td th:text="${list?.uDelNyStr}"></td>
-												</td>
 												<td th:text="${list?.uSeq}"></td>
 												<td th:text="${list?.uId}"></td>
 												<td th:text="${list?.uName}"></td>
 												<td>	
 													<a href="javascript:void(0);" th:text="${list?.uNickname}"
 														th:attr="onclick=|goForm('${list.uSeq}')|"></a>
-												</td>
 												</td>
 												<td th:text="${list?.uRegDate}"></td>
 												<td th:text="${list?.uMofDate}"></td>
@@ -297,7 +295,7 @@
 								</div>
 								<div class="d-flex flex-column flex-md-row gap-2">
 									<a href="#" class="btn btn-primary" id="excel"><i class="bi bi-table"></i></a>
-									<a href="#" class="btn btn-info" id="modify">U</a>
+									<!-- <a href="#" class="btn btn-info" id="modify">U</a> -->
 								</div>
 							</div>
 						 </div>
@@ -338,8 +336,8 @@
 <!-- Search / Paging -->
 <script type="text/javascript">
 	function goList(currPage) {
-			document.querySelector("input[name=currPage]").value = currPage;
-			submit(goUrlXdmList);
+		document.querySelector("input[name=currPage]").value = currPage;
+		submit(goUrlXdmList);
 	}
 	
 	document.getElementById("changeRowNum").onchange = function () {
@@ -347,8 +345,8 @@
 	    submit(goUrlXdmList);
 	}
 	
-     	document.getElementById("btnSearch").onclick = function () {
-     		submit(goUrlXdmList);
+   	document.getElementById("btnSearch").onclick = function () {
+   		submit(goUrlXdmList);
 	};
 </script>
 
@@ -356,10 +354,6 @@
 <script type="text/javascript">
 	document.getElementById("checkAll").onclick = function() {
 		allCheck("check", this.checked);
-	}
-	
-	document.getElementById("modify").onclick = function() {
-		modifyCheckedElement("1명의 회원");
 	}
 	
 	document.getElementById("uelete").onclick = function() {
