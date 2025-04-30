@@ -14,4 +14,5 @@ public interface AnimalDao {
 	public AnimalDto selectOne(AnimalDto animalDto);  
 	public int insert(AnimalDto animalDto);
 	public int update(AnimalDto animalDto);
+	public int uelete(AnimalDto animalDto);
 }

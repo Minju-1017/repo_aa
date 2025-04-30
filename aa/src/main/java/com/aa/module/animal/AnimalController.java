@@ -27,7 +27,7 @@ public class AnimalController {
 	}
 	
 	@RequestMapping(value = "AnimalInfoUsrForm")	
-	public String AnimalInfoUsrForm(Model model, AnimalDto animalDto)  {	
+	public String animalInfoUsrForm(Model model, AnimalDto animalDto)  {	
 		
 		if (animalDto == null || animalDto.getUaSeq() == null ||
 				animalDto.getUaSeq().equals("0") || animalDto.getUaSeq().equals("")) {
@@ -41,15 +41,22 @@ public class AnimalController {
 	}
 	
 	@RequestMapping(value = "AnimalInfoUsrinsert")	
-	public String AnimalInfoUsrinsert(AnimalDto animalDto)  {	
+	public String animalInfoUsrinsert(AnimalDto animalDto)  {	
 		
 		service.insert(animalDto);
 		return   "redirect:/usr/animal/AnimalInfoUsr";
 	}
 	
 	@RequestMapping(value = "AnimalInfoUsrUpdate")	
-	public String AnimalInfoUsrUpdate(AnimalDto animalDto)  {	
+	public String animalInfoUsrUpdate(AnimalDto animalDto)  {	
 		service.update(animalDto);
+		return   "redirect:/usr/animal/AnimalInfoUsr";
+	}
+	
+	@RequestMapping(value = "AnimalInfoUsrUelete")	
+	public String animalInfoUsrUelete(AnimalDto animalDto)  {	
+		service.uelete(animalDto);
+		
 		return   "redirect:/usr/animal/AnimalInfoUsr";
 	}
 }

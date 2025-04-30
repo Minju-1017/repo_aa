@@ -27,4 +27,7 @@ public class AnimalService {
 	public int update(AnimalDto animalDto) {
 		return dao.update(animalDto);
 	}
+	public int uelete(AnimalDto animalDto) {
+		return dao.uelete(animalDto);
+	}
 }

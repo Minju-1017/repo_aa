@@ -83,4 +83,11 @@
 	WHERE 
 		uaSeq = #{uaSeq}
 </update>
+
+<update id="uelete">
+	UPDATE uAnimal set
+		uaDelNy = 1
+	WHERE
+		uaSeq = #{uaSeq}
+</update>
 </mapper>
