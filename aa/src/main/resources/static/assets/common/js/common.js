@@ -118,6 +118,7 @@ function phoneValidation(obj) {
 	var value = obj.value.trim();				
 	if (value == ""
 			|| !REGEX_PHONE.test(value)
+			|| !REGEX_NUMBER.test(value)
 			|| parseInt(value) < 1 || isNaN(value)) return false;
 	
 	return true;

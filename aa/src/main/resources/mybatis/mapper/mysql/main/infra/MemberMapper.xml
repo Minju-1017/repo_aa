@@ -28,8 +28,18 @@
 	            <when test="shOption == 1">AND a.uSeq = #{shValue}</when>
 	            <when test="shOption == 2">AND a.uId LIKE CONCAT('%',#{shValue},'%')</when>
 	            <when test="shOption == 3">AND a.uName LIKE CONCAT('%',#{shValue},'%')</when>
-	            <when test="shOption == 4">AND a.uEmail LIKE CONCAT('%',#{shValue},'%')</when>
-	        </choose>
+	            <when test="shOption == 4">AND a.uNickname LIKE CONCAT('%',#{shValue},'%')</when>
+	            <when test="shOption == 5">AND a.uEmail LIKE CONCAT('%',#{shValue},'%')</when>
+	            <when test="shOption == 6">AND a.uPhone LIKE CONCAT('%',#{shValue},'%')</when>
+	            <when test="shOption == 7">
+	            	AND (a.uPostalCode LIKE CONCAT('%',#{shValue},'%') 
+            			OR a.uStreetAddr LIKE CONCAT('%',#{shValue},'%')
+            			OR a.uDetailAddr LIKE CONCAT('%',#{shValue},'%')
+            			OR a.uNoteAddr LIKE CONCAT('%',#{shValue},'%')
+            			OR a.uNoteAddr LIKE CONCAT('%',#{shValue},'%')
+	            	)
+	            </when>
+	        </choose>						
 		ORDER BY a.uSeq DESC
 	</sql>
 	
