@@ -25,26 +25,47 @@
 		
 </select>
 
-<insert id="insert">
-	INSERT INTO uAnimal
-	(
+<select id="selectOne" resultMap="resultMapObj">
+	select
+		uaSeq,
+		user_uSeq, 
 		uaCateCd, 
 		uaName, 
 		uaBOD,
 		uaGenderCd, 
 		uaBreed, 
 		uaRegNo, 
-		uaRegDate  
-	)
-	VALUE
+		uaRegDate,  
+		uaMofDate, 
+		uaDelNy
+	FROM
+		uAnimal
+	WHERE 1=1
+		
+</select>
+
+<insert id="insert">
+	INSERT INTO uAnimal
 	(
+		user_uSeq,
+		uaCateCd, 
+		uaName, 
+		uaBOD,
+		uaGenderCd, 
+		uaBreed, 
+		uaRegNo, 
+		uaRegDate
+	)
+	VALUES
+	(
+		#{user_uSeq},
 		#{uaCateCd}, 
 		#{uaName}, 
 		#{uaBOD},
 		#{uaGenderCd}, 
 		#{uaBreed}, 
 		#{uaRegNo}, 
-		now(),  
+		now()
 	)
 	
 </insert>
