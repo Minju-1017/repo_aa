@@ -22,6 +22,7 @@
 	FROM
 		uAnimal
 	WHERE 1=1
+		AND uaDelNy = 0
 		
 </select>
 
@@ -41,7 +42,7 @@
 	FROM
 		uAnimal
 	WHERE 1=1
-		
+		AND uaSeq = #{uaSeq}
 </select>
 
 <insert id="insert">
