@@ -47,9 +47,9 @@
 							</div>
 						</div>
 						
-						<form th:each="list, listindex : ${animalList}" 
+						<form th:each="list : ${animalList}" 
 							class="row g-5 needs-validation" novalidate
-							method="post" enctype="multipart/form-data" th:id="|form${listindex.index}|" name="|form${listindex.index}|">
+							method="post" enctype="multipart/form-data" th:id="|form${list?.uaSeq}|" name="|form${list?.uaSeq}|">
 							<input type="hidden" name="uaSeq" th:value="${list?.uaSeq}">
 							
 							<div class="row mb-8 g-5">
@@ -124,7 +124,7 @@
 													<div class="row">
 														<div class="col-12 mt-3">
 														<a href="javascript:void(0);" class="btn btn-primary"
-															th:attr="onclick=|goForm('${list?.uaSeq}', '${listindex.index}')|"><i class="bi bi-pencil"></i></a>
+															th:attr="onclick=|goForm('${list?.uaSeq}')|"><i class="bi bi-pencil"></i></a>
 														</div>
 													</div>
 													<div class="row">
@@ -161,10 +161,10 @@
 <script type="text/javascript">
 	let seq = document.querySelector("input[name=uaSeq]");
 	
-	goForm = function (keyValue, listIndex) {
+	goForm = function (keyValue) {
 	    seq.value = keyValue;
 	    
-	    var form = document.getElementById("form" + listIndex);
+	    var form = document.getElementById("form" + keyValue);
 	    form.action ="AnimalInfoUsrUpdate";
 	    form.submit();
 	}
