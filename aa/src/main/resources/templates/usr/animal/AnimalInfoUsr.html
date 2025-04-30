@@ -47,6 +47,16 @@
 							</div>
 						</div>
 						
+						<div class="row">
+							<div class="col">
+								<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+									<div></div>
+									<a href="/usr/animal/AnimalInfoUsrForm" class="btn btn-primary">+추가하기</a>
+								</div>
+								
+							</div>
+						</div>
+						
 						<form th:each="list : ${animalList}" 
 							class="row g-5 needs-validation" novalidate
 							method="post" enctype="multipart/form-data" th:id="|form${list?.uaSeq}|" name="|form${list?.uaSeq}|">
@@ -67,7 +77,7 @@
 																애완동물 종류
 																<span class="text-danger">*</span>
 															</label>
-															<select class="form-control" id="uaCateCd" name="uaCateCd">
+															<select class="form-select" id="uaCateCd" name="uaCateCd">
 															<option th:each="codeList : ${@codeService.selectListCachedCode(1)}"
 																th:value="${codeList.cSeq}" th:text="${codeList.cName}" 
 																th:selected="${#strings.equals(codeList.cSeq, list?.uaCateCd)}"></option>
@@ -96,7 +106,7 @@
 																성별
 																<span class="text-danger">*</span>
 															</label>
-															<select class="form-control" id="uaGenderCd" name="uaGenderCd">
+															<select class="form-select" id="uaGenderCd" name="uaGenderCd">
 															<option th:each="codeList : ${@codeService.selectListCachedCode(2)}"
 																th:value="${codeList.cSeq}" th:text="${codeList.cName}" 
 																th:selected="${#strings.equals(codeList.cSeq, list?.uaGenderCd)}"></option>
@@ -140,15 +150,6 @@
 								</div>
 							</div>
 						</form>
-						<div class="col-4">
-							<div class="card  border-0">
-								<div class="card-body d-flex flex-column gap-8 p-8">
-									<div class="col-lg-7 col-12 d-grid">
-										<a href="/usr/animal/AnimalInfoUsrForm" class="btn btn-primary">+추가하기</a>
-									</div>
-								</div>
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>

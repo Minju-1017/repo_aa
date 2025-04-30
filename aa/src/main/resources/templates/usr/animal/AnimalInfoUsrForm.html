@@ -56,7 +56,7 @@
 											<div class="row">
 												<div class="col-6">
 													<label for="uaCateCd" class="form-label">애완동물 종류</label>
-													<select class="form-control" id="uaCateCd" name="uaCateCd">
+													<select class="form-select" id="uaCateCd" name="uaCateCd">
 														<option th:each="codeList : ${@codeService.selectListCachedCode(1)}"
 														th:value="${codeList.cSeq}" th:text="${codeList.cName}" 
 														th:selected="${#strings.equals(codeList.cSeq, item?.uaCateCd)}"></option>
@@ -84,7 +84,7 @@
 											<div class="row">
 												<div class="col-6">
 													<label for="uaGenderCd" class="form-label">성별</label>
-													<select class="form-control" id="uaGenderCd" name="uaGenderCd">
+													<select class="form-select" id="uaGenderCd" name="uaGenderCd">
 														<option th:each="codeList : ${@codeService.selectListCachedCode(2)}"
 														th:value="${codeList.cSeq}" th:text="${codeList.cName}" 
 														th:selected="${#strings.equals(codeList.cSeq, item?.uaGenderCd)}"></option>
