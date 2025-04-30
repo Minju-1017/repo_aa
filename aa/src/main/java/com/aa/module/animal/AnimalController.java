@@ -39,4 +39,11 @@ public class AnimalController {
 		service.insert(animalDto);
 		return   "redirect:/usr/animal/AnimalInfoUsr";
 	}
+	
+	@RequestMapping(value = "AnimalInfoUsrUpdate")	
+	public String AnimalInfoUsrUpdate(AnimalDto animalDto)  {	
+		System.out.println(animalDto.getUaSeq());
+		service.update(animalDto);
+		return   "redirect:/usr/animal/AnimalInfoUsr";
+	}
 }

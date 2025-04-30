@@ -13,7 +13,7 @@
 							<li class="nav-item">
 								<ul class="nav flex-column nav-pills nav-pills-dark">
 									<li class="nav-item">
-										<a class="nav-link active" href="/usr/member/MemberUsrAccountForm">
+										<a class="nav-link " href="/usr/member/MemberUsrAccountForm">
 											<i class="feather-icon icon-settings me-2"></i> 기본 정보 수정
 										</a>
 									</li>
@@ -23,7 +23,7 @@
 										</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" href="#">
+										<a class="nav-link active" href="/usr/animal/AnimalInfoUsr">
 											<i class="feather-icon icon-heart me-2"></i> 반려동물 등록/수정
 										</a>
 									</li>
@@ -133,7 +133,6 @@
 	let form = document.getElementById("form");
 	
 document.getElementById("Save").onclick = function(){
-	alert("1234");
 	form.action = "AnimalInfoUsrinsert";
 	form.submit();
 }

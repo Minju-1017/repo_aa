@@ -48,6 +48,7 @@
 						</div>
 						<form class="row g-5 needs-validation" novalidate
 											method="post" enctype="multipart/form-data" id="form" name="form">
+											<input type="hidden" name="uaSeq">
 						<div class="row mb-8 g-5">
 							<div class="col-lg-12 col-12" th:each="list : ${animalList}">
 								<div class="card card-lg border-0" >
@@ -113,7 +114,8 @@
 											<div class="col-1">
 												<div class="row">
 													<div class="col-12 mt-3">
-														<button class="btn btn-primary" type="button" id="update"><i class="bi bi-pencil"></i></button>
+													<a href="javascript:void(0);" class="btn btn-primary"
+														th:attr="onclick=|goForm('${list.uaSeq}')|"><i class="bi bi-pencil"></i></a>
 													</div>
 												</div>
 												<div class="row">
@@ -149,13 +151,15 @@
 <!-- 변수 정의 / 공통 함수 -->
 <script type="text/javascript">
 	// Input
-	let uNickname = document.getElementById("uNickname");
-	let uEmail = document.getElementById("uEmail");
-	let uPhone = document.getElementById("uPhone");
-	let uPostalCode = document.getElementById("uPostalCode");
-	let uStreetAddr = document.getElementById("uStreetAddr");
-	let uDetailAddr = document.getElementById("uDetailAddr");
-	let uNoteAddr = document.getElementById("uNoteAddr");
+	let form = document.getElementById("form");
+	let seq = document.querySelector("input[name=uaSeq]");
+	
+	goForm = function (keyValue) {
+	    seq.value = keyValue;
+		alert(seq.value);
+	    form.action ="AnimalInfoUsrUpdate";
+	    form.submit();
+	}
 </script>
 
 <!-- 주소 -->
