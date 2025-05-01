@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.aa.Constants;
+import com.aa.module.animal.AnimalDto;
+import com.aa.module.animal.AnimalService;
 import com.aa.module.code.CodeService;
+import com.aa.module.file.FileService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -30,6 +33,12 @@ public class MemberController {
 	
 	@Autowired
 	CodeService codeService;
+	
+	@Autowired
+	AnimalService animalService;
+	
+	@Autowired
+	FileService fileService;
 	
 	////////////////////////////////////////////////////////////////
 	
@@ -371,6 +380,21 @@ public class MemberController {
 	@RequestMapping(value = "MemberUsrUeleProc")
 	public Map<String, Object> memberUsrUeleProc(MemberDto memberDto, HttpSession httpSession) {
 		Map<String, Object> returnMap = new HashMap<String, Object>();
+		
+		// 반려동물 리스트 삭제
+		List<AnimalDto> animalList = animalService.selectList(memberDto);
+		
+		for (AnimalDto animalDto : animalList) {
+			// 반려동물 사진 삭제
+			animalDto.setrSeq(animalDto.getUaSeq());
+			animalDto.setfDbTableName("uaImg");
+			fileService.ueleteFile(animalDto);
+			
+			// 반려동물 삭제
+			animalService.uelete(animalDto);
+		}
+		
+		// 유저 삭제	
 		int successCnt = service.uelete(memberDto);	
 		
 		if (successCnt == 1) {

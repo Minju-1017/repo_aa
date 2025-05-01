@@ -3,8 +3,7 @@
 
 <mapper namespace="com.aa.module.animal.AnimalDao">
 
-	<resultMap type="com.aa.module.animal.AnimalDto"
-		id="resultMapObj"></resultMap>
+	<resultMap type="com.aa.module.animal.AnimalDto" id="resultMapObj"></resultMap>
 	
 <select id="selectList" resultMap="resultMapObj">
 	select
@@ -28,6 +27,7 @@
 	FROM
 		uAnimal a
 	WHERE 1=1
+		AND a.user_uSeq=#{uSeq}
 		AND a.uaDelNy = 0
 		
 </select>
