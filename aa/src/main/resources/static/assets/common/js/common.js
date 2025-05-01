@@ -4,6 +4,7 @@
 
 // 정규식
 const REGEX_KOR_ENG_NUMBER = /^[a-z|A-Z|0-9|ㄱ-ㅎ|가-힣|\s]+$/;
+const REGEX_KOR_ENG = /^[a-z|A-Z|ㄱ-ㅎ|가-힣|\s]+$/;
 const REGEX_ENG_NUMBER = /^[a-z|A-Z|0-9|\s]+$/;
 const REGEX_NUMBER = /^[0-9]+$/; // 정수
 const REGEX_REAL_NUMBER = /^[\d]*\.?[\d]{0,2}$/; // 소수점 두자리 실수
@@ -38,6 +39,16 @@ function strKorEngNumberValidation(obj) {
 	
 	var value = obj.value.trim();
 	if (value == "" || !REGEX_KOR_ENG_NUMBER.test(value)) return false;
+	
+	return true;
+}
+
+// 문자열 체크 - 빈값, null, 한글/영어만
+function strKorEngValidation(obj) {
+	if (obj == null || (obj != null && obj.value == null)) return false;
+	
+	var value = obj.value.trim();
+	if (value == "" || !REGEX_KOR_ENG.test(value)) return false;
 	
 	return true;
 }
@@ -306,16 +317,19 @@ jQuery(function() {
 			})
 		}
 	});
-	
-	jQuery('#mBirth').datetimepicker({
+
+	jQuery('#uaBOD').datetimepicker({
 		format:'Y-m-d',
 		timepicker:false,
 		//minDate:'-1970/01/02',//yesterday is minimum date(for today use 0 or -1970/01/01)
 		maxDate:'+1970/01/01', //tomorrow is maximum date calendar
 		onChangeDateTime:function(dp, $input) {
-			if ($input.val() != null && $input.val() != '' 
-				&& !mBirth.classList.contains("is-valid")) {
-				mBirth.classList.add("is-valid");
+			resetValidation(uaBOD);
+			
+			if (!strValidation(uaBOD)) {
+				uaBOD.classList.add("is-invalid");
+			} else {
+				uaBOD.classList.add("is-valid");
 			}
 		}
 	});

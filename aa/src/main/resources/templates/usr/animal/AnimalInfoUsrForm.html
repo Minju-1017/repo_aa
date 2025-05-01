@@ -47,44 +47,88 @@
 							</div>
 						</div>
 						<form class="row g-5 needs-validation" novalidate
-											method="post" enctype="multipart/form-data" id="form" name="form">
-											<input type="hidden" name="user_uSeq" id="user_uSeq" th:value="${session.sessSeqUsr}">
-						<div class="row mb-8 g-5">
-							<div class="col-lg-8 col-4">
-								<div class="card card-lg border-0">
-									<div class="card-body d-flex flex-column gap-8 p-8">
+							method="post" enctype="multipart/form-data" id="form" name="form">
+							
+							<input type="hidden" name="user_uSeq" id="user_uSeq" th:value="${session.sessSeqUsr}">
+							<input type="hidden" name="fFileName" id="fFileName" th:value="${uaImg?.fFileName}" >
+						
+							<div class="row mb-8 g-5">
+								<div class="col-lg-8 col-4">
+									<div class="card card-lg border-0">
+										<div class="card-body d-flex flex-column gap-8 p-8">
+											<div class="row">
+												<div class="col-12">
+													<label for="fUploadFiles" class="form-label">사진</label>
+													<div class="mb-4 d-flex">
+														<div class="position-relative">
+															<img th:if="${uaImg?.fPath eq null or #strings.trim(uaImg?.fPath) eq ''}" 
+																class="image rounded-3" width="150px" id="uaImgFile"
+																src="/assets/usr/template/FreshCart-1.4.0/images/animal/placeholder-img.jpg" />
+															<img th:if="${uaImg?.fPath ne null and #strings.trim(uaImg?.fPath) ne ''}" 
+																class="image rounded-3" th:src="${uaImg?.fPath}" id="uaImgFile" width="150px" />
+													
+															<div class="file-upload position-absolute end-0 top-0 mt-n2 me-n1">
+																<input type="file" class="file-input" accept=".jpeg,.jpg,.png,.gif"
+																	name="fUploadFiles" id="fUploadFiles" />
+																<span class="icon-shape icon-sm rounded-circle bg-white">
+																	<svg xmlns="http://www.w3.org/2000/svg" 
+																		width="12" height="12" fill="currentColor" 
+																		class="bi bi-pencil-fill text-muted" viewBox="0 0 16 16">
+																		<path
+																			d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
+																	</svg>
+																</span>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
 											<div class="row">
 												<div class="col-6">
-													<label for="uaCateCd" class="form-label">애완동물 종류</label>
-													<select class="form-select" id="uaCateCd" name="uaCateCd">
+													<label for="uaCateCd" class="form-label">
+														종류
+														<span class="text-danger">*</span>
+													</label>
+													<select class="form-select" id="uaCateCd" name="uaCateCd" required>
 														<option th:each="codeList : ${@codeService.selectListCachedCode(1)}"
-														th:value="${codeList.cSeq}" th:text="${codeList.cName}" 
-														th:selected="${#strings.equals(codeList.cSeq, item?.uaCateCd)}"></option>
+															th:value="${codeList.cSeq}" th:text="${codeList.cName}" 
+															th:selected="${#strings.equals(codeList.cSeq, item?.uaCateCd)}"></option>
 													</select>
+												</div>
+												<div class="col-6">
+													<label for="uaCate" class="form-label">
+														상세 종류
+														<span class="text-danger">*</span>
+													</label>
+													<input type="text" class="form-control" name="uaCate" id="uaCate" value="강아지" readonly required />
+													<div class="invalid-feedback"> 기타를 선택하신 경우 입력해 주세요.<br>한글/영문만 허용</div>
 												</div>
 											</div>
 											<div class="row">
 												<div class="col-6">
 													<label for="uaName" class="form-label">
-														애완동물 이름
+														이름
 														<span class="text-danger">*</span>
 													</label>
-													<input type="text" class="form-control" name="uaName" id="uaName"
-														 />
+													<input type="text" class="form-control" name="uaName" id="uaName" required />
+													<div class="invalid-feedback"> 이름을 입력해 주세요.<br>한글/영문/숫자만 허용</div>
 												</div>
 												<div class="col-6">
 													<label for="uaBOD" class="form-label">
 														생년월일
 														<span class="text-danger">*</span>
 													</label>
-													<input type="text" class="form-control" name="uaBOD" id="uaBOD"
-														 />
+													<input type="text" class="form-control" name="uaBOD" id="uaBOD" readonly required />
+													<div class="invalid-feedback"> 생년월일을 선택해 주세요. </div>
 												</div>
 											</div>
 											<div class="row">
 												<div class="col-6">
-													<label for="uaGenderCd" class="form-label">성별</label>
-													<select class="form-select" id="uaGenderCd" name="uaGenderCd">
+													<label for="uaGenderCd" class="form-label">
+														성별
+														<span class="text-danger">*</span>
+													</label>
+													<select class="form-select" id="uaGenderCd" name="uaGenderCd" required>
 														<option th:each="codeList : ${@codeService.selectListCachedCode(2)}"
 														th:value="${codeList.cSeq}" th:text="${codeList.cName}" 
 														th:selected="${#strings.equals(codeList.cSeq, item?.uaGenderCd)}"></option>
@@ -97,27 +141,25 @@
 														품종
 														<span class="text-danger">*</span>
 													</label>
-													<input type="text" class="form-control" name="uaBreed" id="uaBreed"
-														  />
+													<input type="text" class="form-control" name="uaBreed" id="uaBreed" required />
+													<div class="invalid-feedback"> 품종을 입력해 주세요.<br>한글/영문만 허용</div>
 												</div>
 												<div class="col-6">
 													<label for="uaRegNo" class="form-label">
 														등록번호
-														<span class="text-danger">*</span>
 													</label>
-													<input type="text" class="form-control" name="uaRegNo" id="uaRegNo"
-														  />
+													<input type="text" class="form-control" name="uaRegNo" id="uaRegNo" />
 												</div>
 											</div>
 											<div class="row">
 												<div class="col-lg-6 col-6 d-grid">
-													<button class="btn btn-primary" type="button" id="Save">저장</button>
+													<button class="btn btn-primary" type="button" id="btnSave">저장</button>
 												</div>
 											</div>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
 						</form>
 					</div>
 				</div>
@@ -132,10 +174,38 @@
 <script type="text/javascript">
 	let form = document.getElementById("form");
 	
-document.getElementById("Save").onclick = function(){
-	form.action = "AnimalInfoUsrinsert";
-	form.submit();
-}
+	let fUploadFiles = document.getElementById("fUploadFiles");
+	let fFileName = document.getElementById("fFileName");
+	let uaImgFile = document.getElementById("uaImgFile");
+	let uaCateCd = document.getElementById("uaCateCd");
+	let uaCate = document.getElementById("uaCate");
+	let uaName = document.getElementById("uaName");
+	let uaBOD = document.getElementById("uaBOD");
+	let uaGenderCd = document.getElementById("uaGenderCd");
+	let uaBreed = document.getElementById("uaBreed");
+	let uaRegNo = document.getElementById("uaRegNo");
+</script>
+
+<!-- 종류 선택 -->
+<script type="text/javascript">
+	document.getElementById("uaCateCd").onclick = function() {
+		if (uaCateCd.value == 1) { // 강아지
+			uaCate.readOnly = true;
+			resetValidation(uaCate);
+			uaCate.classList.add("is-valid");
+			uaCate.value = "강아지";
+		} else if (uaCateCd.value == 2) { // 고양이
+			uaCate.readOnly = true;
+			resetValidation(uaCate);
+			uaCate.classList.add("is-valid");
+			uaCate.value = "고양이";
+		} else { // 기타
+			uaCate.value = "";
+			resetValidation(uaCate);
+			uaCate.classList.add("is-invalid");
+			uaCate.readOnly = false;
+		}
+	}
 </script>
 
 <!-- Validation: Bootstrap -->
@@ -144,149 +214,162 @@ document.getElementById("Save").onclick = function(){
 	document.getElementById("btnSave").onclick = function() {
 		var focus = false; // Validation 후 Focus 줘야 하는 Input
 		
-		// uNickname 체크
-		resetValidation(uNickname);
+		// uaCate 체크
+		resetValidation(uaCate);
 		
-		if (!strKorEngNumberValidation(uNickname)) {
-			uNickname.classList.add("is-invalid");
+		if (uaCateCd.value.trim() == 3 && !strKorEngValidation(uaCate)) {
+			uaCate.classList.add("is-invalid");
 			
 			if (!focus) {
-				uNickname.focus();
+				uaCate.focus();
 				focus = true;
 			}
 		} else {
-			uNickname.classList.add("is-valid");
+			uaCate.classList.add("is-valid");
 		}
 		
-		// uEmail 체크
-		resetValidation(uEmail);
+		// uaName 체크
+		resetValidation(uaName);
 		
-		if (!emailValidation(uEmail)) {
-			uEmail.classList.add("is-invalid");
+		if (!strKorEngNumberValidation(uaName)) {
+			uaName.classList.add("is-invalid");
 			
 			if (!focus) {
-				uEmail.focus();
+				uaName.focus();
 				focus = true;
 			}
 		} else {
-			uEmail.classList.add("is-valid");
+			uaName.classList.add("is-valid");
 		}
 		
-		// uPhone 체크
-		resetValidation(uPhone);
+		// uaBOD 체크
+		resetValidation(uaBOD);
 		
-		if (!phoneValidation(uPhone)) {
-			uPhone.classList.add("is-invalid");
+		if (!dateValidation_yyyyMMdd(uaBOD)) {
+			uaBOD.classList.add("is-invalid");
 			
 			if (!focus) {
-				uPhone.focus();
+				uaBOD.focus();
 				focus = true;
 			}
 		} else {
-			uPhone.classList.add("is-valid");
-		}
-
-		// uPostalCode 체크
-		resetValidation(uPostalCode);
-		
-		if (!strValidation(uPostalCode)) {
-			uPostalCode.classList.add("is-invalid");
-			
-			if (!focus) {
-				uPostalCode.focus();
-				focus = true;
-			}
-		} else {
-			uPostalCode.classList.add("is-valid");
+			uaBOD.classList.add("is-valid");
 		}
 		
-		// uStreetAddr 체크
-		resetValidation(uStreetAddr);
+		// uaBreed 체크
+		resetValidation(uaBreed);
 		
-		if (!strValidation(uStreetAddr)) {
-			uStreetAddr.classList.add("is-invalid");
+		if (!strKorEngValidation(uaBreed)) {
+			uaBreed.classList.add("is-invalid");
 			
 			if (!focus) {
-				uStreetAddr.focus();
+				uaBreed.focus();
 				focus = true;
 			}
 		} else {
-			uStreetAddr.classList.add("is-valid");
+			uaBreed.classList.add("is-valid");
 		}
 		
-		// uDetailAddr 체크
-		resetValidation(uDetailAddr);
+		// 디폴트값이 선택이므로, 벨리드 된 상태로 셋팅
+		uaCateCd.classList.add("is-valid");
+		uaGenderCd.classList.add("is-valid");
 		
-		if (!strValidation(uDetailAddr)) {
-			uDetailAddr.classList.add("is-invalid");
-			
-			if (!focus) {
-				uDetailAddr.focus();
-				focus = true;
+		// fUploadFiles, fFileName 체크
+		var file = fUploadFiles.files[0];
+		
+		// fUploadFiles이 빈값이나 null이면 허용하므로, 아닐때만 Validation
+		if (file != null && file.name != null && file.name.trim() != ""
+				&& fFileName.value != null && fFileName.value.trim() != "") {
+			if (!imgFileValidation(file, fFileName)) {
+				fUploadFiles = null;
+				fFileName.value = "";
+				showModalAlert("확인", "파일의 형식과 크기를 확인해 주세요. (JPG, JPEG, GIF, PNG / 최대 2MB)");
+				return false;
 			}
-		} else {
-			uDetailAddr.classList.add("is-valid");
 		}
 		
 		// Alert/Modal과 달리 모든  Input창을 한번에 확인해야 하므로 return false 시
 		// Focus 줘야 하는 Input(Validation에 처음으로 걸린 Input)이 있는지 확인
 		if (focus) return false;
 
-		uNickname.value = uNickname.value.trim();
-		uEmail.value = uEmail.value.trim();
-		uPhone.value = uPhone.value.trim();
-		uDetailAddr.value = uDetailAddr.value.trim();
+		uaCate.value = uaCate.value.trim();
+		uaName.value = uaName.value.trim();
+		uaBreed.value = uaBreed.value.trim();
+		uaRegNo.value = uaRegNo.value.trim();
 		
-		setAccount();
+		form.action = "AnimalInfoUsrinsert";
+		form.submit();
 	}
 	
-	// mNickname Input 시 체크
-	uNickname.addEventListener("input", function(){
-		resetValidation(uNickname);
+	// fUploadFiles, fFileName Change 시 체크
+	fUploadFiles.addEventListener("change", function() {
+		var file = fUploadFiles.files[0];
 		
-		if (!strKorEngNumberValidation(uNickname)) {
-			uNickname.classList.add("is-invalid");
-		} else {
-			uNickname.classList.add("is-valid");
-		}	
-	});
-	
-	// uEmail Input 시 체크
-	uEmail.addEventListener("input", function(){
-		resetValidation(uEmail);
+		// fUploadFiles이 빈값이나 null이면 허용하므로 리턴
+		if (file == null 
+				|| (file != null && file.name == null)
+				|| (file != null && file.name != null && file.name.trim() == "")) return;
 		
-		if (!emailValidation(uEmail)) {
-			uEmail.classList.add("is-invalid");
-		} else {
-			uEmail.classList.add("is-valid");
-		}	
-	});
-	
-	// uPhone Input 시 체크
-	uPhone.addEventListener("input", function(){
-		resetValidation(uPhone);
+		fFileName.value = file.name.trim();
 		
-		if (!phoneValidation(uPhone)) {
-			uPhone.classList.add("is-invalid");
-		} else {
-			uPhone.classList.add("is-valid");
-		}	
-	});
-	
-	// uDetailAddr Input 시 체크
-	uDetailAddr.addEventListener("input", function(){
-		resetValidation(uDetailAddr);
+		// gTnFileName이 빈값이나 null이면 허용하므로 리턴
+		if (fFileName.value == null
+				|| (fFileName.value != null && fFileName.value.trim() == "")) return;		
 		
-		if (!strValidation(uDetailAddr)) {
-			uDetailAddr.classList.add("is-invalid");
-		} else {
-			uDetailAddr.classList.add("is-valid");
-		}	
+		// Validation
+		if (!imgFileValidation(file, fFileName)) {
+			fUploadFiles = null;
+			fFileName.value = "";
+			showModalAlert("확인", "파일의 형식과 크기를 확인해 주세요. (JPG, JPEG, GIF, PNG / 최대 2MB)");
+		}
 	});
-	
 	
 	$("#modalAlert").on("hidden.bs.modal", function (e) {
-		location.href = "/usr/member/MemberUsrAccountForm";
+		uaImgFile.src = "/assets/usr/template/FreshCart-1.4.0/images/animal/placeholder-img.jpg";
+	});
+	
+	// uaCate Input 시 체크
+	uaCate.addEventListener("input", function(){
+		resetValidation(uaCate);
+		
+		if (uaCateCd.value.trim() == 3 && !strKorEngValidation(uaCate)) {
+			uaCate.classList.add("is-invalid");
+		} else {
+			uaCate.classList.add("is-valid");
+		}	
+	});
+	
+	// uaName Input 시 체크
+	uaName.addEventListener("input", function(){
+		resetValidation(uaName);
+		
+		if (!strKorEngNumberValidation(uaName)) {
+			uaName.classList.add("is-invalid");
+		} else {
+			uaName.classList.add("is-valid");
+		}	
+	});
+	
+	// uaBOD Input 시 체크
+	uaBOD.addEventListener("input", function(){
+		resetValidation(uaBOD);
+		
+		if (!dateValidation_yyyyMMdd(uaBOD)) {
+			uaBOD.classList.add("is-invalid");
+		} else {
+			uaBOD.classList.add("is-valid");
+		}	
+	});
+	
+	// uaBreed Input 시 체크
+	uaBreed.addEventListener("input", function(){
+		resetValidation(uaBreed);
+		
+		if (!strKorEngValidation(uaBreed)) {
+			uaBreed.classList.add("is-invalid");
+		} else {
+			uaBreed.classList.add("is-valid");
+		}	
 	});
 </script>
 

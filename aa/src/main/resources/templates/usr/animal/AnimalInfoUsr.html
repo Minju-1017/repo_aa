@@ -61,6 +61,7 @@
 							class="row g-5 needs-validation" novalidate
 							method="post" enctype="multipart/form-data" th:id="|form${list?.uaSeq}|" name="|form${list?.uaSeq}|">
 							<input type="hidden" name="uaSeq" th:value="${list?.uaSeq}">
+							<input type="hidden" name="fFileName" id="fFileName" th:value="${list?.fFileName}" >
 							
 							<div class="row mb-8 g-5">
 								<div class="col-lg-12 col-12">
@@ -68,28 +69,62 @@
 										<div class="card-body d-flex flex-column gap-8 p-8">
 											<div class="row align-items-center">
 												<div class="col-3 d-flex">
-													<img src="/assets/usr/template/FreshCart-1.4.0/images/animal/animal-1.png" width="150px">
+													<div class="position-relative">
+														<img th:if="${list?.fPath eq null or #strings.trim(list?.fPath) eq ''}" 
+															class="image rounded-3" width="150px" id="uaImgFile"
+															src="/assets/usr/template/FreshCart-1.4.0/images/animal/placeholder-img.jpg" />
+														<img th:if="${list?.fPath ne null and #strings.trim(list?.fPath) ne ''}" 
+															class="image rounded-3" th:src="${list?.fPath}" id="uaImgFile" width="150px" />
+												
+														<div class="file-upload position-absolute end-0 top-0 mt-n2 me-n1">
+															<input type="file" class="file-input" accept=".jpeg,.jpg,.png,.gif"
+																name="fUploadFiles" id="fUploadFiles" th:attr="onchange=|fUploadFilesChange('${list?.uaSeq}')|" />
+															<span class="icon-shape icon-sm rounded-circle bg-white">
+																<svg xmlns="http://www.w3.org/2000/svg" 
+																	width="12" height="12" fill="currentColor" 
+																	class="bi bi-pencil-fill text-muted" viewBox="0 0 16 16">
+																	<path
+																		d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
+																</svg>
+															</span>
+														</div>
+													</div>
 												</div>
 												<div class="col-8">
 													<div class="row">
 														<div class="col-4" >
 															<label for="uaCateCd" class="form-label">
-																애완동물 종류
+																종류
 																<span class="text-danger">*</span>
 															</label>
-															<select class="form-select" id="uaCateCd" name="uaCateCd">
+															<select class="form-select" id="uaCateCd" name="uaCateCd" 
+																th:attr="onchange=|uaCateCdOnchange('${list?.uaSeq}')|" required>
 															<option th:each="codeList : ${@codeService.selectListCachedCode(1)}"
 																th:value="${codeList.cSeq}" th:text="${codeList.cName}" 
 																th:selected="${#strings.equals(codeList.cSeq, list?.uaCateCd)}"></option>
 															</select>
 														</div>
 														<div class="col-4">
-															<label for="uaName" class="form-label">
-																애완동물 이름
+															<label for="uaCate" class="form-label">
+																상세 종류
 																<span class="text-danger">*</span>
 															</label>
-															<input type="text" class="form-control" name="uaName" id="uaName"
-																th:value="${list?.uaName}"  />
+															<input th:if="${list?.uaCateCd eq 3}" 
+																type="text" class="form-control" name="uaCate" id="uaCate" 
+																th:value="${list?.uaCate}" th:attr="oninput=|uaCateOninput('${list?.uaSeq}')|" required />
+															<input th:unless="${list?.uaCateCd eq 3}"
+																type="text" class="form-control" name="uaCate" id="uaCate" 
+																th:value="${list?.uaCate}" th:attr="oninput=|uaCateOninput('${list?.uaSeq}')|" readonly required />
+															<div class="invalid-feedback"> 기타를 선택하신 경우 입력해 주세요.<br>한글/영문만 허용</div>
+														</div>
+														<div class="col-4">
+															<label for="uaName" class="form-label">
+																이름
+																<span class="text-danger">*</span>
+															</label>
+															<input type="text" class="form-control" name="uaName" id="uaName" 
+																th:value="${list?.uaName}" th:attr="oninput=|uaNameOninput('${list?.uaSeq}')|" required />
+															<div class="invalid-feedback"> 이름을 입력해 주세요.<br>한글/영문/숫자만 허용</div>
 														</div>
 														<div class="col-4">
 															<label for="uaBOD" class="form-label">
@@ -97,7 +132,8 @@
 																<span class="text-danger">*</span>
 															</label>
 															<input type="text" class="form-control" name="uaBOD" id="uaBOD"
-																th:value="${list?.uaBOD}"  />
+																th:value="${list?.uaBOD}" th:attr="oninput=|uaBODOninput('${list?.uaSeq}')|" readonly required />
+															<div class="invalid-feedback"> 생년월일을 선택해 주세요. </div>
 														</div>
 													</div>
 													<div class="row mt-2">
@@ -106,7 +142,7 @@
 																성별
 																<span class="text-danger">*</span>
 															</label>
-															<select class="form-select" id="uaGenderCd" name="uaGenderCd">
+															<select class="form-select" id="uaGenderCd" name="uaGenderCd" required>
 															<option th:each="codeList : ${@codeService.selectListCachedCode(2)}"
 																th:value="${codeList.cSeq}" th:text="${codeList.cName}" 
 																th:selected="${#strings.equals(codeList.cSeq, list?.uaGenderCd)}"></option>
@@ -118,15 +154,15 @@
 																<span class="text-danger">*</span>
 															</label>
 															<input type="text" class="form-control" name="uaBreed" id="uaBreed"
-																th:value="${list?.uaBreed}"  />
+																th:value="${list?.uaBreed}" th:attr="oninput=|uaBreedOninput('${list?.uaSeq}')|" required />
+															<div class="invalid-feedback"> 품종을 입력해 주세요.<br>한글/영문만 허용</div>
 														</div>
 														<div class="col-4 ">
 															<label for="uaRegNo" class="form-label">
 																등록번호
-																<span class="text-danger">*</span>
 															</label>
 															<input type="text" class="form-control" name="uaRegNo" id="uaRegNo"
-																th:value="${list?.uaRegNo}"  />
+																th:value="${list?.uaRegNo}" />
 														</div>
 													</div>
 												</div>
@@ -162,13 +198,17 @@
 <!-- 변수 정의 / 공통 함수 -->
 <script type="text/javascript">
 	let seq = document.querySelector("input[name=uaSeq]");
+	let prevUaImgFile;
 	
 	goForm = function (keyValue) {
-	    seq.value = keyValue;
-	    
-	    var form = document.getElementById("form" + keyValue);
-	    form.action ="AnimalInfoUsrUpdate";
-	    form.submit();
+		var form = document.getElementById("form" + keyValue);
+		
+		if (validation(form)) { 
+		    seq.value = keyValue;
+		    
+		    form.action ="AnimalInfoUsrUpdate";
+		    form.submit();
+		}
 	}
 	
 	goUelete = function (keyValue) {
@@ -180,165 +220,221 @@
 	}
 </script>
 
-<!-- 주소 -->
+<!-- 종류 선택 -->
+<script type="text/javascript">
+	function uaCateCdOnchange(keyValue) {
+		var form = document.getElementById("form" + keyValue);
+		var uaCateCd = form.querySelector("#uaCateCd");
+		var uaCate = form.querySelector("#uaCate");
+		
+		if (uaCateCd.value == 1) { // 강아지
+			uaCate.readOnly = true;
+			resetValidation(uaCate);
+			uaCate.classList.add("is-valid");
+			uaCate.value = "강아지";
+		} else if (uaCateCd.value == 2) { // 고양이
+			uaCate.readOnly = true;
+			resetValidation(uaCate);
+			uaCate.classList.add("is-valid");
+			uaCate.value = "고양이";
+		} else { // 기타
+			uaCate.value = "";
+			resetValidation(uaCate);
+			uaCate.classList.add("is-invalid");
+			uaCate.readOnly = false;
+		}
+	}
+</script>
 
 <!-- Validation: Bootstrap -->
 <script type="text/javascript">
-	// btnSave 클릭시
-	document.getElementById("btnSave").onclick = function() {
+	function validation(form) {
+		var fUploadFiles = form.querySelector("#fUploadFiles");
+		var fFileName = form.querySelector("#fFileName");
+		var uaImgFile = form.querySelector("#uaImgFile");
+		var uaCateCd = form.querySelector("#uaCateCd");
+		var uaCate = form.querySelector("#uaCate");
+		var uaName = form.querySelector("#uaName");
+		var uaBOD = form.querySelector("#uaBOD");
+		var uaGenderCd = form.querySelector("#uaGenderCd");
+		var uaBreed = form.querySelector("#uaBreed");
+		var uaRegNo = form.querySelector("#uaRegNo");
+		
 		var focus = false; // Validation 후 Focus 줘야 하는 Input
 		
-		// uNickname 체크
-		resetValidation(uNickname);
+		// uaCate 체크
+		resetValidation(uaCate);
 		
-		if (!strKorEngNumberValidation(uNickname)) {
-			uNickname.classList.add("is-invalid");
+		if (uaCateCd.value.trim() == 3 && !strKorEngValidation(uaCate)) {
+			uaCate.classList.add("is-invalid");
 			
 			if (!focus) {
-				uNickname.focus();
+				uaCate.focus();
 				focus = true;
 			}
 		} else {
-			uNickname.classList.add("is-valid");
+			uaCate.classList.add("is-valid");
 		}
 		
-		// uEmail 체크
-		resetValidation(uEmail);
+		// uaName 체크
+		resetValidation(uaName);
 		
-		if (!emailValidation(uEmail)) {
-			uEmail.classList.add("is-invalid");
+		if (!strKorEngNumberValidation(uaName)) {
+			uaName.classList.add("is-invalid");
 			
 			if (!focus) {
-				uEmail.focus();
+				uaName.focus();
 				focus = true;
 			}
 		} else {
-			uEmail.classList.add("is-valid");
+			uaName.classList.add("is-valid");
 		}
 		
-		// uPhone 체크
-		resetValidation(uPhone);
+		// uaBOD 체크
+		resetValidation(uaBOD);
 		
-		if (!phoneValidation(uPhone)) {
-			uPhone.classList.add("is-invalid");
+		if (!dateValidation_yyyyMMdd(uaBOD)) {
+			uaBOD.classList.add("is-invalid");
 			
 			if (!focus) {
-				uPhone.focus();
+				uaBOD.focus();
 				focus = true;
 			}
 		} else {
-			uPhone.classList.add("is-valid");
-		}
-
-		// uPostalCode 체크
-		resetValidation(uPostalCode);
-		
-		if (!strValidation(uPostalCode)) {
-			uPostalCode.classList.add("is-invalid");
-			
-			if (!focus) {
-				uPostalCode.focus();
-				focus = true;
-			}
-		} else {
-			uPostalCode.classList.add("is-valid");
+			uaBOD.classList.add("is-valid");
 		}
 		
-		// uStreetAddr 체크
-		resetValidation(uStreetAddr);
+		// uaBreed 체크
+		resetValidation(uaBreed);
 		
-		if (!strValidation(uStreetAddr)) {
-			uStreetAddr.classList.add("is-invalid");
+		if (!strKorEngValidation(uaBreed)) {
+			uaBreed.classList.add("is-invalid");
 			
 			if (!focus) {
-				uStreetAddr.focus();
+				uaBreed.focus();
 				focus = true;
 			}
 		} else {
-			uStreetAddr.classList.add("is-valid");
+			uaBreed.classList.add("is-valid");
 		}
 		
-		// uDetailAddr 체크
-		resetValidation(uDetailAddr);
+		// 디폴트값이 선택이므로, 벨리드 된 상태로 셋팅
+		uaCateCd.classList.add("is-valid");
+		uaGenderCd.classList.add("is-valid");
 		
-		if (!strValidation(uDetailAddr)) {
-			uDetailAddr.classList.add("is-invalid");
-			
-			if (!focus) {
-				uDetailAddr.focus();
-				focus = true;
+		// fUploadFiles, fFileName 체크
+		var file = fUploadFiles.files[0];
+		
+		// fUploadFiles이 빈값이나 null이면 허용하므로, 아닐때만 Validation
+		if (file != null && file.name != null && file.name.trim() != ""
+				&& fFileName.value != null && fFileName.value.trim() != "") {
+			if (!imgFileValidation(file, fFileName)) {
+				fUploadFiles = null;
+				fFileName.value = "";
+				showModalAlert("확인", "파일의 형식과 크기를 확인해 주세요. (JPG, JPEG, GIF, PNG / 최대 2MB)");
+				return false;
 			}
-		} else {
-			uDetailAddr.classList.add("is-valid");
 		}
 		
 		// Alert/Modal과 달리 모든  Input창을 한번에 확인해야 하므로 return false 시
 		// Focus 줘야 하는 Input(Validation에 처음으로 걸린 Input)이 있는지 확인
 		if (focus) return false;
 
-		uNickname.value = uNickname.value.trim();
-		uEmail.value = uEmail.value.trim();
-		uPhone.value = uPhone.value.trim();
-		uDetailAddr.value = uDetailAddr.value.trim();
+		uaCate.value = uaCate.value.trim();
+		uaName.value = uaName.value.trim();
+		uaBreed.value = uaBreed.value.trim();
+		uaRegNo.value = uaRegNo.value.trim();
 		
-		setAccount();
+		return true;
 	}
 	
-	// mNickname Input 시 체크
-	uNickname.addEventListener("input", function(){
-		resetValidation(uNickname);
+	// fUploadFiles, fFileName Change 시 체크
+	function fUploadFilesChange(keyValue) {
+		var form = document.getElementById("form" + keyValue);
+		var fUploadFiles = form.querySelector("#fUploadFiles");
+		var fFileName = form.querySelector("#fFileName");
+		var file = fUploadFiles.files[0];
 		
-		if (!strKorEngNumberValidation(uNickname)) {
-			uNickname.classList.add("is-invalid");
-		} else {
-			uNickname.classList.add("is-valid");
-		}	
-	});
-	
-	// uEmail Input 시 체크
-	uEmail.addEventListener("input", function(){
-		resetValidation(uEmail);
+		// fUploadFiles이 빈값이나 null이면 허용하므로 리턴
+		if (file == null 
+				|| (file != null && file.name == null)
+				|| (file != null && file.name != null && file.name.trim() == "")) return;
 		
-		if (!emailValidation(uEmail)) {
-			uEmail.classList.add("is-invalid");
-		} else {
-			uEmail.classList.add("is-valid");
-		}	
-	});
-	
-	// uPhone Input 시 체크
-	uPhone.addEventListener("input", function(){
-		resetValidation(uPhone);
+		fFileName.value = file.name.trim();
 		
-		if (!phoneValidation(uPhone)) {
-			uPhone.classList.add("is-invalid");
-		} else {
-			uPhone.classList.add("is-valid");
-		}	
-	});
-	
-	// uDetailAddr Input 시 체크
-	uDetailAddr.addEventListener("input", function(){
-		resetValidation(uDetailAddr);
+		// gTnFileName이 빈값이나 null이면 허용하므로 리턴
+		if (fFileName.value == null
+				|| (fFileName.value != null && fFileName.value.trim() == "")) return;		
 		
-		if (!strValidation(uDetailAddr)) {
-			uDetailAddr.classList.add("is-invalid");
-		} else {
-			uDetailAddr.classList.add("is-valid");
-		}	
-	});
-	
+		// Validation
+		prevUaImgFile = null;
+		if (!imgFileValidation(file, fFileName)) {
+			prevUaImgFile = form.querySelector("#uaImgFile");
+			fUploadFiles = null;
+			fFileName.value = "";
+			showModalAlert("확인", "파일의 형식과 크기를 확인해 주세요. (JPG, JPEG, GIF, PNG / 최대 2MB)");
+		}
+	}
 	
 	$("#modalAlert").on("hidden.bs.modal", function (e) {
-		location.href = "/usr/member/MemberUsrAccountForm";
+		prevUaImgFile.src = "/assets/usr/template/FreshCart-1.4.0/images/animal/placeholder-img.jpg";
 	});
-</script>
-
-<!-- 로그아웃 -->
-<script type="text/javascript">
-	$("#btnSignOutAccount").on("click", function(){
-		signOut();
-	});
+	
+	// uaCate Input 시 체크
+	function uaCateOninput(keyValue) {
+		var form = document.getElementById("form" + keyValue);
+		var uaCate = form.querySelector("#uaCate");
+		
+		resetValidation(uaCate);
+		
+		if (uaCateCd.value.trim() == 3 && !strKorEngValidation(uaCate)) {
+			uaCate.classList.add("is-invalid");
+		} else {
+			uaCate.classList.add("is-valid");
+		}	
+	}
+	
+	// uaName Input 시 체크
+	function uaNameOninput(keyValue) {
+		var form = document.getElementById("form" + keyValue);
+		var uaName = form.querySelector("#uaName");
+		
+		resetValidation(uaName);
+		
+		if (!strKorEngNumberValidation(uaName)) {
+			uaName.classList.add("is-invalid");
+		} else {
+			uaName.classList.add("is-valid");
+		}	
+	}
+	
+	// uaBOD Input 시 체크
+	function uaBODOninput(keyValue) {
+		var form = document.getElementById("form" + keyValue);
+		var uaBOD = form.querySelector("#uaBOD");
+		
+		resetValidation(uaBOD);
+		
+		if (!dateValidation_yyyyMMdd(uaBOD)) {
+			uaBOD.classList.add("is-invalid");
+		} else {
+			uaBOD.classList.add("is-valid");
+		}	
+	}
+	
+	// uaBreed Input 시 체크
+	function uaBreedOninput(keyValue) {
+		var form = document.getElementById("form" + keyValue);
+		var uaBreed = form.querySelector("#uaBreed");
+		
+		resetValidation(uaBreed);
+		
+		if (!strKorEngValidation(uaBreed)) {
+			uaBreed.classList.add("is-invalid");
+		} else {
+			uaBreed.classList.add("is-valid");
+		}	
+	}
 </script>
 
 </body>

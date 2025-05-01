@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.aa.module.file.FileDao">
+	<resultMap id="resultMapObj" type="com.aa.module.file.FileDto"></resultMap>
+
+	<select id="selectOneCount" resultType="Integer">
+		SELECT COUNT(*)
+		FROM 
+			${fDbTableName}
+		WHERE 1=1
+			AND rSeq=#{rSeq}
+	</select>
+	
+	<select id="selectOne" resultMap="resultMapObj">
+		SELECT
+			fSeq,
+		    fPath,
+			fFileName,
+			fExt,
+			fSize,
+			rSeq
+		FROM 
+			${fDbTableName}
+		WHERE 1=1
+			AND rSeq=#{rSeq}
+	</select>
+	
+	<insert id="insertFile">
+		INSERT INTO ${fDbTableName} (
+			fPath,
+			fFileName,
+			fExt,
+			fSize,
+			rSeq
+		) values (
+			#{fPath},
+			#{fFileName},
+			#{fExt},
+			#{fSize},
+			#{rSeq}
+		)
+	</insert>
+	
+	<update id="updateFile">
+		UPDATE ${fDbTableName}
+		SET
+			fExt=#{fExt},
+			fSize=#{fSize}
+		WHERE
+			rSeq=#{rSeq}
+	</update>
+	
+	<update id="ueleteFile">
+		UPDATE ${fDbTableName}
+		SET
+			fDelNy = 1
+		WHERE
+			rSeq=#{rSeq}
+	</update>
+	
+</mapper>
