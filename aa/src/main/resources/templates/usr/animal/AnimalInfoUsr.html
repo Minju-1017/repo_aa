@@ -214,7 +214,11 @@
 	goUelete = function (keyValue) {
 	    seq.value = keyValue;
 	    
-	    var form = document.getElementById("form" + keyValue);
+	    showModalDeleteConfirm("확인", "정말 삭제 하시겠습니까?", '', 'none');
+	}
+
+	document.getElementById("btnModalUelete").onclick = function () {
+		var form = document.getElementById("form" + seq.value);
 	    form.action ="AnimalInfoUsrUelete";
 	    form.submit();
 	}
