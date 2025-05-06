@@ -6,6 +6,7 @@ public class MissDto extends AnimalDto{
 	public String uaSeq;
 	public String user_uSeq;
 	public String uaName;
+	public String fPath;
 	
 	public String mbSeq;
 	public String uAnimal_uaSeq;
@@ -24,9 +25,22 @@ public class MissDto extends AnimalDto{
 	public String mbDate;
 	public String mbDetailAddr;
 	
+	public String uNickname;
 	
 	
 	
+	public String getuNickname() {
+		return uNickname;
+	}
+	public void setuNickname(String uNickname) {
+		this.uNickname = uNickname;
+	}
+	public String getfPath() {
+		return fPath;
+	}
+	public void setfPath(String fPath) {
+		this.fPath = fPath;
+	}
 	public String getMbDetailAddr() {
 		return mbDetailAddr;
 	}

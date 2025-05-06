@@ -20,5 +20,11 @@ public class MissService {
 	public int mbInsert(MissDto dto) {
 		return dao.mbInsert(dto);
 	}
+	public List<MissDto> mbList(MissVo vo){
+		return dao.mbList(vo);
+	}
+	public int selectCount(MissVo vo) {
+		return dao.selectCount(vo);
+	}
 
 }

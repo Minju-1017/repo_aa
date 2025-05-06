@@ -3,38 +3,71 @@
 
 <mapper namespace="com.aa.module.miss.MissDao">
 
-	<resultMap
-		type="com.aa.module.miss.MissDto" id="resultMapObj"></resultMap>
+	<resultMap type="com.aa.module.miss.MissDto"
+		id="resultMapObj"></resultMap>
+	<sql id="selectCommon">
+		from missingBoard as a
+		left join uAnimal as b on b.uaSeq = a.uAnimal_uaSeq
+		left join user as c on b.user_uSeq = c.uSeq
+		left join uaImg as d on d.rSeq = b.uaSeq
+		where 1=1
+		and mbDelNy = 0
+<!-- 		<if test="shDelNy != null and !shDelNy.equals('')">AND a.bgDelNy = #{shDelNy}</if> -->
+
+<!-- 		<choose> -->
+<!-- 			<when test="shOptionDate == 1">AND a.bgReg BETWEEN #{shDateStartDB} AND -->
+<!-- 				#{shDateEndDB} -->
+<!-- 			</when> -->
+<!-- 			<when test="shOptionDate == 2">AND a.bgMof BETWEEN #{shDateStartDB} AND -->
+<!-- 				#{shDateEndDB} -->
+<!-- 			</when> -->
+<!-- 		</choose> -->
+
+<!-- 		<choose> -->
+<!-- 			<when test="shOption == 1">AND a.seq = #{shValue}</when> -->
+<!-- 			<when test="shOption == 2">AND a.title LIKE CONCAT('%',#{shValue},'%')</when> -->
+<!-- 			<when test="shOption == 3">AND b.name LIKE CONCAT('%',#{shValue},'%')</when> -->
+<!-- 		</choose> -->
+	</sql>
 	<select id="mbList" resultMap="resultMapObj">
-	
-	
-	
-	
-	
+		select
+		a.mbTitle,
+		a.mbDetailAddr,
+		a.mbDate,
+		a.mbRegDate,
+		c.uNickname,
+		d.fPath
+	<include refid="selectCommon"></include>
+		order by mbSeq desc
+		limit #{startRnumForMysql},#{rowNumToShow}
+	</select>
+	<select id="selectCount">
+		select count(*)
+		<include refid="selectCommon"></include>
 	</select>
 	<select id="uaList" resultMap="resultMapObj">
-	select 
-	a.uaSeq,
-	a.uaName
-	from
-	uAnimal as a
-	where 1=1 and
-	a.uaDelNy = 0
-	and
-	a.user_uSeq = #{user_uSeq}
-</select>
+		select
+		a.uaSeq,
+		a.uaName
+		from
+		uAnimal as a
+		where 1=1 and
+		a.uaDelNy = 0
+		and
+		a.user_uSeq = #{user_uSeq}
+	</select>
 
 	<select id="uaOne" resultMap="resultMapObj">
-	select 
-	a.uaName,
-	a.uaBOD,
-	a.uaBreed,
-	a.uaGenderCd,
-	(select b.cName from code as b where b.cSeq = a.uaGenderCd) as cName
-	from uAnimal as a
-	where 1=1 and
-	
-	a.uaSeq = #{uAnimal_uaSeq}
+		select
+		a.uaName,
+		a.uaBOD,
+		a.uaBreed,
+		a.uaGenderCd,
+		(select b.cName from code as b where b.cSeq = a.uaGenderCd) as cName
+		from uAnimal as a
+		where 1=1 and
+
+		a.uaSeq = #{uAnimal_uaSeq}
 	</select>
 	<insert id="mbInsert">
 		insert into missingBoard
@@ -66,6 +99,6 @@
 		#{mbTitle},
 		#{mbDate}
 		)
-	
+
 	</insert>
 </mapper>

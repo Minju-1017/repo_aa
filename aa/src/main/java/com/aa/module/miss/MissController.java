@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -19,7 +20,9 @@ public class MissController {
 	MissService service;
 	
 	@RequestMapping(value = "/missUsrList")
-	public String missUsrList() {
+	public String missUsrList(@ModelAttribute("vo")MissVo vo,Model model) {
+		vo.setParamsPaging(service.selectCount(vo));
+		model.addAttribute("list",service.mbList(vo));
 		return "/usr/miss/MissUsrList";
 	}
 	@RequestMapping(value = "/missUsrView")
