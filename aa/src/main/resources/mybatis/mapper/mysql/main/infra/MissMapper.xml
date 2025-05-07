@@ -23,11 +23,12 @@
 <!-- 			</when> -->
 <!-- 		</choose> -->
 
-<!-- 		<choose> -->
-<!-- 			<when test="shOption == 1">AND a.seq = #{shValue}</when> -->
-<!-- 			<when test="shOption == 2">AND a.title LIKE CONCAT('%',#{shValue},'%')</when> -->
-<!-- 			<when test="shOption == 3">AND b.name LIKE CONCAT('%',#{shValue},'%')</when> -->
-<!-- 		</choose> -->
+		<choose>
+			<when test="shOption == 1">AND b.uaName  LIKE CONCAT('%',#{shValue},'%')</when>
+			<when test="shOption == 2">AND a.mbTitle LIKE CONCAT('%',#{shValue},'%')</when>
+			<when test="shOption == 3">AND a.mbDetailAddr LIKE CONCAT('%',#{shValue},'%')</when>
+			<when test="shOption == 4">AND c.uNickname LIKE CONCAT('%',#{shValue},'%')</when>
+		</choose>
 	</sql>
 	<select id="mbList" resultMap="resultMapObj">
 		select
