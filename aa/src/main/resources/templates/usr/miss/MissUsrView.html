@@ -9,7 +9,8 @@
 				type="hidden" id="rowNumToShow" name="rowNumToShow"
 				th:value="${vo.rowNumToShow}" />
 				<input type="hidden" name="mbSeq" th:value="${one.mbSeq}">
-				<input type="hidden" name="user_uSeq" th:value="${session.sessSeqUsr}">
+				<input type="hidden" name="user_uSeq" th:value="${one.user_uSeq}">
+				<input type="hidden" name="uSeq" th:value="${session.sessSeqUsr}">
 		<div class="mt-4">
 			<div class="container">
 				<!-- row -->
@@ -138,8 +139,8 @@
 						<div class="row">
 						<div class="col-lg-4"></div>
 						<div class="col-lg-4"></div>
-						<div class="col-lg-2"><a type="button" class="btn btn-outline-primary" onclick="missUpdt()">수정</a></div>
-						<div class="col-lg-2"><a type="button" class="btn btn-outline-danger" onclick="missUele()">삭제</a></div>
+						<div class="col-lg-2"><a style="display:none;" type="button" class="btn btn-outline-primary user" onclick="missUpdt()">수정</a></div>
+						<div class="col-lg-2"><a style="display:none;" type="button" class="btn btn-outline-danger user" onclick="missUele()">삭제</a></div>
 						</div>
 					</div>
 					
@@ -372,6 +373,15 @@
 <div th:replace="~{/usr/include/footer :: footer}"></div> 
 <script type="text/javascript">
 let form = document.querySelector("#formList");
+let user = document.querySelector("input[name=user_uSeq]");
+let uSeq = document.querySelector("input[name=uSeq]");
+let button = document.querySelectorAll(".user");
+
+if(user.value == uSeq.value){
+	for(let i = 0 ; i < button.length; i++){
+		button[i].style.display = "";
+	}
+}
 
 document.getElementById("writeReview").onclick = function(){
 	document.getElementById("createReview").scrollIntoView({behavior:"smooth"});

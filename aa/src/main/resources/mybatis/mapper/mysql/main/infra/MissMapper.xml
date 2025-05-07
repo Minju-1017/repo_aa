@@ -64,6 +64,7 @@
 		b.uaName,
 		b.uaBreed,
 		b.uaBOD,
+		b.user_uSeq,
 		b.uaSeq,
 		 TIMESTAMPDIFF(YEAR, DATE(b.uaBOD), CURDATE()) AS age,
 		c.uNickname,
