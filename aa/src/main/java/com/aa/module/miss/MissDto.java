@@ -3,10 +3,9 @@ package com.aa.module.miss;
 import com.aa.module.animal.AnimalDto;
 
 public class MissDto extends AnimalDto{
-	public String uaSeq;
 	public String user_uSeq;
-	public String uaName;
 	public String fPath;
+	
 	
 	public String mbSeq;
 	public String uAnimal_uaSeq;
@@ -14,7 +13,7 @@ public class MissDto extends AnimalDto{
 	public String mbPostalCode;
 	public String mbStreetAddr;
 	public String mbEtc;
-	public int mbReward;
+	public Integer mbReward;
 	public Double mbLat;
 	public Double mbLon;
 	public String mbRegDate;
@@ -26,9 +25,39 @@ public class MissDto extends AnimalDto{
 	public String mbDetailAddr;
 	
 	public String uNickname;
+	public String age;
+	
+	public String mbRewardformat;
+	
+	public String mbcComment;
+	public String mbcRegDate;
 	
 	
 	
+	public String getMbcComment() {
+		return mbcComment;
+	}
+	public void setMbcComment(String mbcComment) {
+		this.mbcComment = mbcComment;
+	}
+	public String getMbcRegDate() {
+		return mbcRegDate;
+	}
+	public void setMbcRegDate(String mbcRegDate) {
+		this.mbcRegDate = mbcRegDate;
+	}
+	public String getMbRewardformat() {
+		return mbRewardformat;
+	}
+	public void setMbRewardformat(String mbRewardformat) {
+		this.mbRewardformat = mbRewardformat;
+	}
+	public String getAge() {
+		return age;
+	}
+	public void setAge(String age) {
+		this.age = age;
+	}
 	public String getuNickname() {
 		return uNickname;
 	}
@@ -65,23 +94,11 @@ public class MissDto extends AnimalDto{
 	public void setcName(String cName) {
 		this.cName = cName;
 	}
-	public String getUaSeq() {
-		return uaSeq;
-	}
-	public void setUaSeq(String uaSeq) {
-		this.uaSeq = uaSeq;
-	}
 	public String getUser_uSeq() {
 		return user_uSeq;
 	}
 	public void setUser_uSeq(String user_uSeq) {
 		this.user_uSeq = user_uSeq;
-	}
-	public String getUaName() {
-		return uaName;
-	}
-	public void setUaName(String uaName) {
-		this.uaName = uaName;
 	}
 	public String getMbSeq() {
 		return mbSeq;
@@ -119,10 +136,10 @@ public class MissDto extends AnimalDto{
 	public void setMbEtc(String mbEtc) {
 		this.mbEtc = mbEtc;
 	}
-	public int getMbReward() {
+	public Integer getMbReward() {
 		return mbReward;
 	}
-	public void setMbReward(int mbReward) {
+	public void setMbReward(Integer mbReward) {
 		this.mbReward = mbReward;
 	}
 	public Double getMbLat() {

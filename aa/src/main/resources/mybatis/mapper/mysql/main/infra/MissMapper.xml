@@ -31,6 +31,7 @@
 	</sql>
 	<select id="mbList" resultMap="resultMapObj">
 		select
+		a.mbSeq,
 		a.mbTitle,
 		a.mbDetailAddr,
 		a.mbDate,
@@ -44,6 +45,42 @@
 	<select id="selectCount">
 		select count(*)
 		<include refid="selectCommon"></include>
+	</select>
+	<select id="mbOne" resultMap="resultMapObj">
+		select
+		a.mbSeq,
+		e.cName,
+		a.mbTitle,
+		a.mbDetailAddr,
+		a.mbDate,
+		a.mbRegDate,
+		a.mbReward,
+		format(a.mbReward,0) as mbRewardformat,
+		b.uaName,
+		b.uaBreed,
+		b.uaBOD,
+		 TIMESTAMPDIFF(YEAR, DATE(b.uaBOD), CURDATE()) AS age,
+		c.uNickname,
+		d.fPath
+		from missingBoard as a
+		left join uAnimal as b on b.uaSeq = a.uAnimal_uaSeq
+		left join user as c on b.user_uSeq = c.uSeq
+		left join uaImg as d on d.rSeq = b.uaSeq
+		left join code as e on e.cSeq = b.uaGenderCd
+		where 1=1
+		and mbDelNy = 0
+		and a.mbSeq = #{mbSeq}
+	</select>
+	<select id="reviewList" resultMap="resultMapObj">
+		select
+		a.mbcComment,
+		a.mbcRegDate,
+		b.uNickname
+		from mbComment as a
+		left join user as b on a.user_uSeq = b.uSeq
+		where 1=1
+		and a.missingBoard_mbSeq = #{mbSeq}
+	
 	</select>
 	<select id="uaList" resultMap="resultMapObj">
 		select

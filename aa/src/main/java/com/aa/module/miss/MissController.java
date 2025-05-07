@@ -26,7 +26,10 @@ public class MissController {
 		return "/usr/miss/MissUsrList";
 	}
 	@RequestMapping(value = "/missUsrView")
-	public String missUsrView() {
+	public String missUsrView(@ModelAttribute("vo")MissVo vo,Model model, MissDto dto) {
+		model.addAttribute("one",service.mbOne(dto));
+		model.addAttribute("list",service.mbList(vo));
+		model.addAttribute("reviewList",service.reviewList(vo));
 		return "/usr/miss/MissUsrView";
 	}
 	@RequestMapping(value = "/missUsrForm")

@@ -26,5 +26,11 @@ public class MissService {
 	public int selectCount(MissVo vo) {
 		return dao.selectCount(vo);
 	}
+	public MissDto mbOne(MissDto dto) {
+		return dao.mbOne(dto);
+	}
+	public List<MissDto> reviewList(MissVo vo){
+		return dao.reviewList(vo);
+	}
 
 }

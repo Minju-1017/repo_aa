@@ -7,6 +7,7 @@
 	<input type="hidden" name="thisPage" th:value="${vo.thisPage}" /> <input
 				type="hidden" id="rowNumToShow" name="rowNumToShow"
 				th:value="${vo.rowNumToShow}" />
+	<input type="hidden" name="mbSeq">
 	
 		<!-- section -->
 		<div class="mt-4">
@@ -55,17 +56,17 @@
 					</div>
 					<div class="col-12 col-md-6 col-lg-4 mb-10" th:if="${!#lists.isEmpty(list)}" th:each="list:${list}">
 						<div class="mb-4" >
-							<a href="/missUsrView">
+							<a href="javascript:void(0);" th:onclick="missView([[${list.mbSeq}]])">
 								<!-- img -->
 								<div class="img-zoom" >
 									<img style="height:300px;" th:src="${list.fPath}" alt="" class="img-fluid w-100" />
 								</div>
 							</a>
 						</div>
-						<div class="mb-3"><a href="javascript:void(0);" th:text="${list.uNickname}"></a></div>
+						<div class="mb-3"><a href="javascript:void(0);" th:onclick="missView([[${list.mbSeq}]])" th:text="${list.uNickname}"></a></div>
 						<!-- text -->
 						<div>
-							<h3 ><a href="/missUsrView" class="text-inherit" th:text="${list.mbTitle}"></a>
+							<h3 ><a href="javascript:void(0);" th:onclick="missView([[${list.mbSeq}]])" class="text-inherit" th:text="${list.mbTitle}"></a>
 							</h3>
 							<h4 ><i class="feather-icon icon-map-pin me-2">
 							<span th:text="${list.mbDetailAddr}"></span>
@@ -129,6 +130,11 @@
 		form.submit();
 	}
 	
+	function missView(num){
+		document.querySelector("input[name=mbSeq]").value = num;
+		form.action = "missUsrView";
+		form.submit();
+	}
 	
 	
 	</script>

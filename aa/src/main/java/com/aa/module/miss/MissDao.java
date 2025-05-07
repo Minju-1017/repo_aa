@@ -12,4 +12,6 @@ public interface MissDao {
 	public int mbInsert(MissDto dto);
 	public List<MissDto> mbList(MissVo vo);
 	public int selectCount(MissVo vo);
+	public MissDto mbOne(MissDto dto);
+	public List<MissDto> reviewList(MissVo vo);
 }
