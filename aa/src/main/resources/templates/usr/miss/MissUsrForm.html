@@ -27,15 +27,16 @@
 								<div class="d-flex flex-column gap-4" >
 									<form class="row g-3 needs-validation" id="formList" method="post" novalidate>
 									<input type="hidden" name="user_uSeq" th:value="${session.sessSeqUsr}">
-										<input type="hidden" id="mbLat" name="mbLat"> <input
-											type="hidden" id="mbLon" name="mbLon"> <input
+										<input type="hidden" id="mbLat" name="mbLat" th:value="${one?.mbLat}"> <input
+											type="hidden" id="mbLon" name="mbLon" th:valeu="${one?.mbLon}"> <input
 											type="hidden" id="mbPostalCode" name="mbPostalCode">
+											<input type="hidden" id="mbSeq" name="mbSeq" th:value="${one?.mbSeq}">
 										<div class="col-lg-4 col-12">
 										<label class="form-label" for="uAnimal_uaSeq">회원님의 반려동물 정보</label>
-											<select class="form-select" id="uAnimal_uaSeq" name="uAnimal_uaSeq" onchange="uaSelect()">
+											<select class="form-select" id="uAnimal_uaSeq" name="uAnimal_uaSeq" onchange="uaSelect()" th:value="${one?.uaSeq}">
 											<option value="">반려동물을 선택해주세요</option>
-												<option th:each="uaList:${uaList}" th:text="${uaList.uaName}" th:value="${uaList.uaSeq}"
-												></option>
+												<option th:each="uaList:${uaList}" th:text="${uaList?.uaName}" th:value="${uaList?.uaSeq}"
+												th:selected="${one?.uaSeq == uaList?.uaSeq}"></option>
 												
 											</select>
 										</div>
@@ -44,11 +45,11 @@
 										</div>
 										<div class="col-lg-4 col-12">
 										<label for="mbReward" class="form-label">사례금</label>
-										<input type="text" class="form-control" id="mbReward" name="mbReward">
+										<input type="text" class="form-control" id="mbReward" name="mbReward" th:value="${one?.mbReward}" autocomplete="off">
 										</div>
 										<div class="col-lg-12 col-12">
 										<label for="mbTitle" class="form-label">제목</label>
-										<input type="text" class="form-control" id="mbTitle" name="mbTitle">
+										<input type="text" class="form-control" id="mbTitle" name="mbTitle" th:value="${one?.mbTitle}" autocomplete="off">
 										</div>
 										<div class="mb" th:fragment="uaFragment">
 										<div class="row">
@@ -57,7 +58,7 @@
 												<!-- input -->
 												<label for="uaName" class="form-label">
 													반려동물 이름 <span class="text-danger">*</span>
-												</label> <input type="text" class="form-control"
+												</label> <input type="text" class="form-control pet"
 													id="uaName" name="uaName" th:value="${item?.uaName}" required readonly/>
 												<div class="invalid-feedback">Please enter customer
 													name</div>
@@ -68,7 +69,7 @@
 												<!-- input -->
 												<label for="uaBOD" class="form-label">
 													반려동물 생년월일 <span class="text-danger">*</span>
-												</label> <input type="text" class="form-control"
+												</label> <input type="text" class="form-control pet"
 													id="uaBOD" name="uaBOD" th:value="${item?.uaBOD}" required readonly/>
 												<div class="invalid-feedback">Please enter email</div>
 											</div>
@@ -77,7 +78,7 @@
 											<div>
 												<!-- input -->
 												<label for="uaBreed" class="form-label">반려동물
-													품종</label> <input type="text" class="form-control"
+													품종</label> <input type="text" class="form-control pet"
 													id="uaBreed" name="uaBreed" th:value="${item?.uaBreed}" required readonly/>
 												<div class="invalid-feedback">Please enter phone</div>
 											</div>
@@ -85,8 +86,8 @@
 
 										<div class="col-lg-6 col-12 "  >
 											<label class="form-label" for="uaGenderCd">반려동물
-												성별</label> <input type="text" class="form-control flatpickr"
-												id="uaGenderCd" name="uaGenderCd" th:value="${item?.cName}"  required readonly/>
+												성별</label> <input type="text" class="form-control pet"
+												id="uaGenderCd" name="uaGenderCd"  th:value="${item?.cName}"  required readonly/>
 											<div class="invalid-feedback">Please enter date</div>
 										</div>
 										</div>
@@ -94,13 +95,13 @@
 										<div class="col-lg-7 col-12">
 											<label class="form-label" for="mbStreetAddr">실종 위치</label> <input
 												type="text" class="form-control flatpickr" id="mbStreetAddr"
-												name="mbStreetAddr" required readonly/>
+												name="mbStreetAddr" th:value="${one?.mbStreetAddr}" required readonly/>
 											<div class="invalid-feedback">Please enter date</div>
 										</div>
 										<div class="col-lg-3 col-12">
 											<label class="form-label" for="mbEtc">실종위치 <span
 												style="font-size: small">(참고사항)</span></label> <input type="text"
-												class="form-control flatpickr" id="mbEtc" name="mbEtc"
+												class="form-control flatpickr" id="mbEtc" name="mbEtc" th:value="${one?.mbEtc}"
 												required readonly/>
 											<div class="invalid-feedback">Please enter date</div>
 										</div>
@@ -112,14 +113,14 @@
 										<div class="col-lg-12 col-12">
 											<label class="form-label" for="mbDetailAddr">실종 상세 위치</label>
 											<input type="text" class="form-control flatpickr"
-												id="mbDetailAddr" name="mbDetailAddr"
+												id="mbDetailAddr" name="mbDetailAddr" th:value="${one?.mbDetailAddr}"
 												placeholder="실종 상세 위치를 적어주세요" required />
 											<div class="invalid-feedback">Please enter date</div>
 										</div>
 										<div class="col-lg-6 col-12">
 											<label class="form-label" for="mbDate">실종 날짜 & 시간</label>
 											<input type="text" class="form-control flatpickr" id="dateTimePicker"
-												 name="mbDate"
+												 name="mbDate" th:value="${one?.mbDate}"
 												readonly required />
 											<div class="invalid-feedback">Please enter date</div>
 										</div>
@@ -317,7 +318,13 @@ let form = document.getElementById("formList");
 		      }
 		    });
 	}
+	window.onload = function(){
+		uaSelect();
+	}
 	function missSave(){
+		let mbSeq = document.querySelector("input[name=mbSeq]");
+		if(mbSeq.value === "" || mbSeq.value === null){
+		
 		$.ajax({
 			async: true 
 			,cache: false
@@ -346,6 +353,14 @@ let form = document.getElementById("formList");
 				alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
 			}
 		});
+		}else{
+		  let pet = document.querySelectorAll(".pet");
+		  for(let i = 0 ; i < pet.length; i++){
+			  pet[i].disabled = true;
+		  }
+			form.action = "/missUsrUpdt";
+			form.submit();
+		}
 	}
 	
 	

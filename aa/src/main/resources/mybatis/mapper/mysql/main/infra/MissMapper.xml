@@ -51,7 +51,12 @@
 		a.mbSeq,
 		e.cName,
 		a.mbTitle,
+		a.mbLat,
+		a.mbLon,
 		a.mbDetailAddr,
+		a.mbStreetAddr,
+		a.mbPostalCode,
+		a.mbEtc,
 		a.mbDate,
 		a.mbRegDate,
 		a.mbReward,
@@ -59,6 +64,7 @@
 		b.uaName,
 		b.uaBreed,
 		b.uaBOD,
+		b.uaSeq,
 		 TIMESTAMPDIFF(YEAR, DATE(b.uaBOD), CURDATE()) AS age,
 		c.uNickname,
 		d.fPath
@@ -80,7 +86,15 @@
 		left join user as b on a.user_uSeq = b.uSeq
 		where 1=1
 		and a.missingBoard_mbSeq = #{mbSeq}
-	
+		order by a.mbcSeq desc
+		limit #{startRnumForMysql},#{rowNumToShow}
+	</select>
+	<select id="reviewCount" resultType="integer">
+		select count(*)
+		from mbComment as a
+		left join user as b on a.user_uSeq = b.uSeq
+		where 1=1
+		and a.missingBoard_mbSeq = #{mbSeq}
 	</select>
 	<select id="uaList" resultMap="resultMapObj">
 		select
@@ -136,6 +150,46 @@
 		#{mbTitle},
 		#{mbDate}
 		)
-
+	</insert>
+	<update id="mbUpdate">
+		update missingBoard
+		set
+		mbDetailAddr = #{mbDetailAddr},
+		uAnimal_uaSeq = #{uAnimal_uaSeq},
+		mbFindCd = #{mbFindCd},
+		mbPostalCode = #{mbPostalCode},
+		mbStreetAddr = #{mbStreetAddr},
+		mbEtc = #{mbEtc},
+		mbReward = #{mbReward},
+		mbLat = #{mbLat},
+		mbLon = #{mbLon},
+		mbTitle = #{mbTitle},
+		mbDate = #{mbDate},
+		mbMofDate = now()
+		where 1=1 
+		and mbSeq = #{mbSeq}
+	
+	</update>
+	<update id="mbUelete">
+		update missingBoard
+		set
+		mbDelNy = 1
+		where 1=1 
+		and mbSeq = #{mbSeq}
+	</update>
+	<insert id="reviewInsert">
+		insert into mbComment
+		(
+		user_uSeq,
+		missingBoard_mbSeq,
+		mbcComment,
+		mbcRegDate
+		)values
+		(
+		#{user_uSeq},
+		#{mbSeq},
+		#{mbcComment},
+		now()
+		)
 	</insert>
 </mapper>

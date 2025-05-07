@@ -32,5 +32,17 @@ public class MissService {
 	public List<MissDto> reviewList(MissVo vo){
 		return dao.reviewList(vo);
 	}
+	public int reviewCount(MissVo vo) {
+		return dao.reviewCount(vo);
+	}
+	public int reviewInsert(MissDto dto) {
+		return dao.reviewInsert(dto);
+	}
+	public int mbUpdate(MissDto dto) {
+		return dao.mbUpdate(dto);
+	}
+	public int mbUelete(MissDto dto) {
+		return dao.mbUelete(dto);
+	}
 
 }

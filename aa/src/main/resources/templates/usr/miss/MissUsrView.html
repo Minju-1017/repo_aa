@@ -5,6 +5,11 @@
 
 	<main>
 	<form id="formList" method="post" novalidate>
+	<input type="hidden" name="thisPage" th:value="${vo.thisPage}" /> <input
+				type="hidden" id="rowNumToShow" name="rowNumToShow"
+				th:value="${vo.rowNumToShow}" />
+				<input type="hidden" name="mbSeq" th:value="${one.mbSeq}">
+				<input type="hidden" name="user_uSeq" th:value="${session.sessSeqUsr}">
 		<div class="mt-4">
 			<div class="container">
 				<!-- row -->
@@ -24,7 +29,7 @@
 						<!-- img slide -->
 						<div class="product" id="product">
 							<div class="zoom" onmousemove="zoom(event)"
-								th:style="'background-image: url('+${one.fPath}+')'">
+								th:style="'background-image: url('+${one.fPath}+'); background-repeat:no-repeat; background-size:150%;'">
 								<!-- img -->
 								<!-- img -->
 								<img th:src="${one.fPath}" alt="" />
@@ -44,7 +49,7 @@
 								<!-- rating -->
 								<!-- rating -->
 								
-								<a href="#" class="ms-2">(30 reviews)</a>
+								<a href="javascript:void(0);" id="reviewCount" class="ms-2">댓글수 : [[${reviewCount}]]</a>
 							</div>
 							<div class="fs-4">
 								<!-- price -->
@@ -127,11 +132,20 @@
 										</li>
 									</ul>
 								</div>
+						
 							</div>
 						</div>
+						<div class="row">
+						<div class="col-lg-4"></div>
+						<div class="col-lg-4"></div>
+						<div class="col-lg-2"><a type="button" class="btn btn-outline-primary" onclick="missUpdt()">수정</a></div>
+						<div class="col-lg-2"><a type="button" class="btn btn-outline-danger" onclick="missUele()">삭제</a></div>
+						</div>
 					</div>
+					
 				</div>
 			</div>
+		
 		</section>
 		<section class="mt-lg-14 mt-8">
 			<div class="container">
@@ -170,21 +184,16 @@
 										</div>
 										<!-- col -->
 										<div class="col-md-8">
+										<div class="mbReview" th:fragment="reviewFragment">
 											<div class="mb-10">
 												<div class="d-flex justify-content-between align-items-center mb-8">
 													<div>
 														<!-- heading -->
-														<h4>댓글</h4>
-													</div>
-													<div>
-														<select class="form-select" onchange="getNum()">
-															<option value="5" th:selected="${vo.rowNumToShow == 5}">5</option>
-															<option value="10" th:selected="${vo.rowNumToShow == 10}">10</option>
-														</select>
+														<h4 id="reviewView">댓글</h4>
 													</div>
 												</div>
 												<div class="d-flex border-bottom pb-6 mb-6" th:if="${#lists.isEmpty(reviewList)}">
-												등록된 리뷰가 없습니다.
+												등록된 댓글이 없습니다.
 												
 												</div>
 												<div class="d-flex border-bottom pb-6 mb-6" th:if="${!#lists.isEmpty(reviewList)}"
@@ -209,9 +218,34 @@
 														<!-- icon -->
 													</div>
 												</div>
-												<div>
-													<a href="#" class="btn btn-outline-gray-400 text-muted" id="createReview">e
-														</a>
+												<div class="row">
+												<div class="col-lg-4"></div>
+												<div class="col-lg-4" style="display:flex; justify-content:center;">
+												<nav>
+							<ul class="pagination">
+								<li th:if="${vo.startPage gt vo.pageNumToShow}"
+									class="page-item" style="cursor: pointer;"><a
+									class="page-link" href="javascript:goList(${vo.startPage - 1})"
+									th:attr="onclick=|goList('${vo.startPage - 1}')|"> <i
+										class="fa-solid fa-angle-left"></i>
+								</a></li>
+								<li
+									th:each="num: ${#numbers.sequence(vo.startPage, vo.endPage)}"
+									th:classappend="${num eq vo.thisPage} ? active : ''"
+									class="page-item" style="cursor: pointer;"><a
+									class="page-link" th:attr="onclick=|goList('${num}')|"
+									th:text="${num}"> <!-- ${i.index} -->
+								</a></li>
+								<li th:if="${vo.endPage ne vo.totalPages}" class="page-item"
+									style="cursor: pointer;"><a class="page-link"
+									th:attr="onclick=|goList('${vo.endPage + 1}')|"> <i
+										class="fa-solid fa-angle-right"></i>
+								</a></li>
+							</ul>
+						</nav>
+						</div>
+						<div class="col-lg-4"></div>
+						
 												</div>
 											</div>
 											<div>
@@ -220,12 +254,13 @@
 												
 												<div class="py-4 mb-4">
 													<!-- heading -->
-													<textarea class="form-control" rows="3"
+													<textarea class="form-control" rows="3" name="mbcComment"
 														placeholder="댓글에 조롱 및 비하섞인 발언은 삼가해주세요"></textarea>
+												</div>
 												</div>
 												<!-- button -->
 												<div class="d-flex justify-content-end">
-													<a href="javascript:void(0);" class="btn btn-primary">리뷰 저장</a>
+													<a href="javascript:void(0);" onclick="reviewSave()" class="btn btn-primary">리뷰 저장</a>
 												</div>
 											</div>
 										</div>
@@ -259,7 +294,7 @@
 								<!-- badge -->
 
 								<div class="text-center position-relative">
-									<a href="javascript:void(0);">
+									<a href="javascript:void(0);" th:onclick="missView([[${list.mbSeq}]])">
 										<!-- img -->
 										<img th:src="${list.fPath}"
 											alt="Grocery Ecommerce Template" class="mb-3 img-fluid" />
@@ -268,16 +303,16 @@
 								</div>
 								<!-- heading -->
 								<div class="text-small mb-1">
-									<a href="javascript:void(0);" class="text-decoration-none text-muted"><small th:text="${list.uNickname}"> 
+									<a href="javascript:void(0);" th:onclick="missView([[${list.mbSeq}]])" class="text-decoration-none text-muted"><small th:text="${list.uNickname}"> 
 											</small></a>
 								</div>
-								<h2 class="fs-6"><a href="javascript:void(0);" class="text-inherit text-decoration-none">
+								<h2 class="fs-6"><a href="javascript:void(0);" th:onclick="missView([[${list.mbSeq}]])" class="text-inherit text-decoration-none">
 								<span th:text="${list.mbTitle}"></span>
 								</a></h2>
-								<h2 class="fs-6"><a href="javascript:void(0);" class="text-inherit text-decoration-none">
+								<h2 class="fs-6"><a href="javascript:void(0);" th:onclick="missView([[${list.mbSeq}]])" class="text-inherit text-decoration-none">
 								<i class="feather-icon icon-map-pin me-2"></i><span th:text="${list.mbDetailAddr}"></span>
 								</a></h2>
-								<h2 class="fs-6"><a href="javascript:void(0);" class="text-inherit text-decoration-none">
+								<h2 class="fs-6"><a href="javascript:void(0);" th:onclick="missView([[${list.mbSeq}]])" class="text-inherit text-decoration-none">
 								<i class="bi bi-alarm"></i>&nbsp;<span th:text="${list.mbRegDate}"></span>
 								</a></h2>
 								<!-- price -->
@@ -290,14 +325,147 @@
 				</div>
 			</div>
 		</section>
+		<div class="modal fade" id="reviewModal" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog ">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="modalHead"></h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body" id="modalText"></div>
+				<div class="modal-footer">
+					<a class="btn btn-secondary" data-bs-dismiss="modal"
+						onclick="btnOnclick()">취소</a>
+					<a class="btn btn-primary" data-bs-dismiss="modal"
+						onclick="btnClick()">확인</a>
+					<!--         <button type="button" class="btn btn-primary">Save changes</button> -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="modalConfirm" data-bs-backdrop="static"
+		data-bs-keyboard="false" tabindex="-1"
+		aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modalConfirmTitle">title</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body" id="modalConfirmBody">body</div>
+				<div class="modal-footer">
+					<button type="button"
+						class="btn btn-outline-secondary btn-sm btn_custom" id="btnModalReturn"
+						data-bs-dismiss="modal">취소</button>
+					
+					<button type="button" class="btn btn-danger btn-sm btn_custom"
+						name="" id="btnModalUelete">삭제</button>
+				</div>
+			</div>
+		</div>
+	</div>
 		</form>
 	</main>
 <div th:replace="~{/usr/include/footer :: footer}"></div> 
 <script type="text/javascript">
+let form = document.querySelector("#formList");
+
 document.getElementById("writeReview").onclick = function(){
 	document.getElementById("createReview").scrollIntoView({behavior:"smooth"});
 }
+document.getElementById("reviewCount").onclick = function(){
+	document.getElementById("reviewView").scrollIntoView({behavior:"smooth"});
+}
+
+function goList(num){
+	document.querySelector("input[name=thisPage]").value = num;
+	  $.ajax({
+	      type: "post",
+	      url: "/missUsrView",
+	      headers: { "X-Requested-With": "XMLHttpRequest" },
+	      data:{fragmentType:"review",
+	    	  thisPage:$("input[name=thisPage]").val()},// 중요!
+	      success: function(fragmentHtml) {
+	        $(".mbReview").html(fragmentHtml); // 리뷰 부분만 갱신
+	      }
+	    });
+}
+
+function reviewSave(){
+	let user_uSeq = document.querySelector("input[name=user_uSeq]");
+	let mbcComment = document.querySelector("textarea[name=mbcComment]");
+	let flag = true;
+	if(mbcComment.value === null || mbcComment.value === ""){
+		mbcComment.classList.add("is-invalid");
+		flag = false;
+	}
+	
+	if(flag){
+	if(user_uSeq.value === "" || user_uSeq.value === null){
+		document.querySelector("#modalHead").textContent ="확인";
+		document.querySelector("#modalText").textContent ="로그인이 되어야 가능합니다, 로그인 하시겠습니까?";
+		$("#reviewModal").modal("show");
+	}else{
+	$.ajax({
+		  type: "post",
+		  url: "/reviewUsrInst",
+		  data: {
+		    user_uSeq: $("input[name=user_uSeq]").val(),
+		    mbSeq: $("input[name=mbSeq]").val(),
+		    mbcComment: $("textarea[name=mbcComment]").val()
+		  },
+		  success: function() {
+		    $.ajax({
+		      type: "post",
+		      url: "/missUsrView",
+		      headers: { "X-Requested-With": "XMLHttpRequest" },
+		      data:{fragmentType:"review"},// 중요!
+		      success: function(fragmentHtml) {
+		        $(".mbReview").html(fragmentHtml); // 리뷰 부분만 갱신
+		      }
+		    });
+		  }
+		});
+	}
+	}
+}
+function btnOnclick(){
+	return false;
+}
+
+function btnClick(){
+	form.action = "/usr/member/MemberUsrSignIn";
+	form.submit();
+}
+
+function missView(num){
+	document.querySelector("input[name=mbSeq]").value = num;
+	form.action = "missUsrView";
+	form.submit();
+}
+
+function missUpdt(){
+	form.action = "missUsrForm";
+	form.submit();
+}
+
+function missUele(){
+	document.getElementById("modalConfirmTitle").textContent = "확인";
+	document.getElementById("modalConfirmBody").textContent = "해당 실종 현황을 삭제 하시겠습니까?";
+	$("#modalConfirm").modal("show");
+}
+
+document.getElementById("btnModalReturn").onclick = function(){
+	return false;
+}
 
 
+document.getElementById("btnModalUelete").onclick = function(){
+	form.action ="missUsrUele";
+	form.submit();
+}
 </script>
 	</body>
