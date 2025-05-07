@@ -50,7 +50,9 @@
 						<div class="row">
 							<div class="col">
 								<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center">
-									<div></div>
+									<div>
+									<a href="/missUsrForm" class="btn btn-orange">실종신고</a>
+									</div>
 									<a href="/usr/animal/AnimalInfoUsrForm" class="btn btn-primary">+추가하기</a>
 								</div>
 								
@@ -178,15 +180,6 @@
 																th:attr="onclick=|goUelete('${list?.uaSeq}')|"
 																data-bs-toggle="tooltip" data-bs-placement="top" title="삭제">
 																<i class="bi bi-trash3"></i>
-															</a>
-														</div>
-													</div>
-													<div class="row">
-														<div class="col-12 mt-3">
-															<a href="javascript:void(0);" class="btn btn-orange"
-																th:attr="onclick=|goUelete('${list?.uaSeq}')|"
-																data-bs-toggle="tooltip" data-bs-placement="top" title="실종 신고">
-																<i class="bi bi-bell"></i>
 															</a>
 														</div>
 													</div>
