@@ -10,85 +10,37 @@
             <div class="row">
                <div class="col-xxl-8 col-xl-7">
                   <!-- hero slider -->
-                  <div class="hero-slider">
-                     <div
-                        style="background: url(/assets/usr/template/FreshCart-1.4.0/images/slider/slider-image-1.jpg) no-repeat; background-size: cover; border-radius: 0.5rem">
-                        <div class="ps-lg-12 py-lg-16 col-xxl-7 col-lg-9 py-14 px-8 text-xs-center">
+                  <div class="hero-slider" >
+                  <form th:each="list : ${list}" method="post"  enctype="multipart/form-data" id="form" name="form">
+                  <input type="hidden" name="mbSeq" >
+                     <div 
+                        th:style="'background: url(' + ${list?.fPath} + ') no-repeat; background-size: cover; border-radius: 0.5rem'">
+                        <div class="ps-lg-12 py-lg-16 col-xxl-7 col-lg-9 py-14 px-8 text-xs-center" >
                            <!-- badge -->
                            <div class="d-flex align-items-center mb-4">
-                              <span>Exclusive Offer</span>
-                              <span class="badge bg-danger ms-2">15%</span>
+                              <span id="mbTitle" name="mbTitle" th:text="${list?.mbTitle}"></span>
                            </div>
                            <!-- title -->
-                           <h2 class="text-dark display-5 fw-bold mb-3">Best Online Deals, Free Stuff</h2>
-                           <p class="fs-5 text-dark">Only on this week... Don’t miss</p>
+                           <h2 class="text-dark display-5 fw-bold mb-3" id="mbDetailAddr" name="mbDetailAddr" th:text="${list?.mbDetailAddr}"></h2>
+                           <p class="fs-5 text-dark" id="mbDate" name="mbDate" th:text="${list?.mbDate}"></p>
                            <!-- price -->
                            <div class="mb-4 mt-4">
-                              <span class="text-dark">
-                                 Start from
-                                 <span class="fs-4 text-danger ms-1">$5.99</span>
-                              </span>
                            </div>
                            <!-- btn -->
-                           <a href="#!" class="btn btn-primary">
+                           <a href="javascript:void(0);" th:attr="onclick=|goForm('${list.mbSeq}')|" class="btn btn-primary">
                               Get Best Deal
                               <i class="feather-icon icon-arrow-right ms-1"></i>
                            </a>
+                           <br>
+                           <br>
+                           <br>
+                           <br>
+                           <br>
+                           <br>
                         </div>
                      </div>
                      <!-- img -->
-                     <div
-                        style="background: url(/assets/usr/template/FreshCart-1.4.0/images/slider/slider-image-2.jpg) no-repeat; background-size: cover; border-radius: 0.5rem">
-                        <div class="ps-lg-12 py-lg-16 col-xxl-7 col-lg-9 py-14 ps-8 text-xs-center">
-                           <!-- badge -->
-                           <div class="d-flex align-items-center mb-4">
-                              <span>Exclusive Offer</span>
-                              <span class="badge bg-danger ms-2">35%</span>
-                           </div>
-
-                           <!-- title -->
-                           <h2 class="text-dark display-5 fw-bold mb-3">Chocozay wafer-rolls Deals</h2>
-                           <!-- para -->
-                           <p class="fs-5 text-dark">Only on this week... Don’t miss</p>
-                           <div class="mb-4 mt-4">
-                              <span class="text-dark">
-                                 Start from
-                                 <span class="fs-4 text-danger ms-1">$34.99</span>
-                              </span>
-                           </div>
-                           <!-- btn -->
-                           <a href="#!" class="btn btn-primary">
-                              Shop Deals Now
-                              <i class="feather-icon icon-arrow-right ms-1"></i>
-                           </a>
-                        </div>
-                     </div>
-                     <!-- img -->
-                     <div
-                        style="background: url(/assets/usr/template/FreshCart-1.4.0/images/slider/slider-image-3.jpg) no-repeat; background-size: cover; border-radius: 0.5rem">
-                        <div class="ps-lg-12 py-lg-16 col-xxl-7 col-lg-9 py-14 ps-8 text-xs-center">
-                           <!-- badge -->
-                           <div class="d-flex align-items-center mb-4">
-                              <span>Exclusive Offer</span>
-                              <span class="badge bg-danger ms-2">20%</span>
-                           </div>
-                           <!-- title -->
-                           <h2 class="text-dark display-5 fw-bold mb-3">Cokoladni Kolutici Lasta</h2>
-                           <!-- para -->
-                           <p class="fs-5 text-dark">Only on this week... Don’t miss</p>
-                           <div class="mb-4 mt-4">
-                              <span class="text-dark">
-                                 Start from
-                                 <span class="fs-4 text-primary ms-1">$5.99</span>
-                              </span>
-                           </div>
-                           <!-- btn -->
-                           <a href="#!" class="btn btn-primary">
-                              Shop This Week Offer
-                              <i class="feather-icon icon-arrow-right ms-1"></i>
-                           </a>
-                        </div>
-                     </div>
+                     </form>
                   </div>
                </div>
                <div class="col-xxl-4 col-xl-5 col-12 d-lg-flex d-xl-block gap-3 gap-xl-0">
@@ -331,6 +283,19 @@
 
    <!-- modal -->
    <!-- Modal -->
+<script type="text/javascript">
+let seq = document.querySelector("input[name=mbSeq]");
+let form = document.querySelector("form[name=form]");
 
+goForm = function (keyValue) {
+		alert(keyValue);
+	    seq.value = keyValue;
+	    
+	    form.action ="/missUsrView";
+		alert("asdfasdf");
+	    form.submit();
+}
+</script>
 </html>
+
 <div th:replace="~{/usr/include/footer :: footer}"></div>
