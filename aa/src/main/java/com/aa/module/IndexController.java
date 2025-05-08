@@ -27,6 +27,9 @@ public class IndexController {
 	@RequestMapping(value = "/usr/index")	
 	public String usrIndex(Model model,@ModelAttribute("vo")MissVo vo) {	
 		List<MissDto> asdf = missService.mbList(vo);
+		if(!asdf.isEmpty()) {
+		asdf.get(0).setUp("1");
+		}
 		System.out.println("#################" + asdf.size());
 		model.addAttribute("list",asdf);
 		return path_user + "index";

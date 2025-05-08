@@ -12,11 +12,12 @@
                   <!-- hero slider -->
                   <div class="hero-slider" >
                   <form th:each="list : ${list}" method="post"  enctype="multipart/form-data" id="form" name="form">
+               
                   <input type="hidden" name="mbSeq" >
                      <div 
                      th:style="'background: url(' + ${list?.fPath} + ') no-repeat center right; background-size: contain; background-color: #f5f5f5; border-radius: 0.5rem'">
-                     
                         <div class="ps-lg-12 py-lg-16 col-xxl-7 col-lg-9 py-14 px-8 text-xs-center" >
+                     <span th:if="${list.up == '1'}" class="badge bg-danger">up</span>
                            <!-- badge -->
                            <br>
                            <br>

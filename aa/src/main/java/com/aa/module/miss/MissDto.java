@@ -32,8 +32,15 @@ public class MissDto extends AnimalDto{
 	public String mbcComment;
 	public String mbcRegDate;
 	
+	public String up;
 	
 	
+	public String getUp() {
+		return up;
+	}
+	public void setUp(String up) {
+		this.up = up;
+	}
 	public String getMbcComment() {
 		return mbcComment;
 	}
