@@ -63,7 +63,7 @@
 					<div class="col-12 col-md-6 col-lg-4 mb-10" th:if="${#lists.isEmpty(list)}">
 					등록된 현황이 없습니다.
 					</div>
-					<div class="col-12 col-md-6 col-lg-4 mb-10" th:if="${!#lists.isEmpty(list)}" th:each="list:${list}">
+					<div class="col-3" th:if="${!#lists.isEmpty(list)}" th:each="list:${list}">
 						<div class="mb-4" >
 							<a href="javascript:void(0);" th:onclick="missView([[${list.mbSeq}]])">
 								<!-- img -->

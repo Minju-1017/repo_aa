@@ -14,26 +14,26 @@
                   <form th:each="list : ${list}" method="post"  enctype="multipart/form-data" id="form" name="form">
                   <input type="hidden" name="mbSeq" >
                      <div 
-                        th:style="'background: url(' + ${list?.fPath} + ') no-repeat; background-size: cover; border-radius: 0.5rem'">
+                     th:style="'background: url(' + ${list?.fPath} + ') no-repeat center right; background-size: contain; background-color: #f5f5f5; border-radius: 0.5rem'">
+                     
                         <div class="ps-lg-12 py-lg-16 col-xxl-7 col-lg-9 py-14 px-8 text-xs-center" >
                            <!-- badge -->
+                           <br>
+                           <br>
                            <div class="d-flex align-items-center mb-4">
-                              <span id="mbTitle" name="mbTitle" th:text="${list?.mbTitle}"></span>
+                              <h2 id="mbTitle" name="mbTitle" th:text="${list?.mbTitle}"></h2>
                            </div>
                            <!-- title -->
-                           <h2 class="text-dark display-5 fw-bold mb-3" id="mbDetailAddr" name="mbDetailAddr" th:text="${list?.mbDetailAddr}"></h2>
+                           <h1 class="text-dark display-5 fw-bold mb-3 " id="mbDetailAddr" name="mbDetailAddr" th:text="${list?.mbDetailAddr}"></h1>
                            <p class="fs-5 text-dark" id="mbDate" name="mbDate" th:text="${list?.mbDate}"></p>
                            <!-- price -->
                            <div class="mb-4 mt-4">
                            </div>
                            <!-- btn -->
                            <a href="javascript:void(0);" th:attr="onclick=|goForm('${list.mbSeq}')|" class="btn btn-primary">
-                              Get Best Deal
+                              실종신고 정보
                               <i class="feather-icon icon-arrow-right ms-1"></i>
                            </a>
-                           <br>
-                           <br>
-                           <br>
                            <br>
                            <br>
                            <br>
@@ -288,11 +288,9 @@ let seq = document.querySelector("input[name=mbSeq]");
 let form = document.querySelector("form[name=form]");
 
 goForm = function (keyValue) {
-		alert(keyValue);
 	    seq.value = keyValue;
 	    
 	    form.action ="/missUsrView";
-		alert("asdfasdf");
 	    form.submit();
 }
 </script>
