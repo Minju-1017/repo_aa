@@ -39,3 +39,4 @@ out/
 ### Custom ###
 logs/
 application-external.properties
+firebase-adminsdk.json
