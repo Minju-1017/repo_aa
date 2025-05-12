@@ -44,5 +44,5 @@ public class MissService {
 	public int mbUelete(MissDto dto) {
 		return dao.mbUelete(dto);
 	}
-
+	
 }

@@ -170,6 +170,10 @@
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script
 	src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=3595fd95168217ecefbded46f50a7404&libraries=services"></script>
+	<script type="module" src="/firebase-module.js"></script>
+
+
+
 <script type="text/javascript">
 	let form = document.getElementById("formList");
 	let map, marker, mapContainer;
@@ -374,9 +378,22 @@
 				},
 				success : function(response) {
 					if (response.rt == "success") {
-
-						form.action = "/missUsrList";
-						form.submit();
+						$.ajax({
+							  type: "POST",
+							  url: "/api/sendTestPush",
+							  data: {
+							    uaName: $("input[name=uaName]").val(),
+							    uaBreed: $("input[name=uaBreed]").val(),
+							    mbDetailAddr: $("#mbDetailAddr").val()
+							  },
+// 							  success: function () {
+// 							    form.action = "/missUsrList";
+// 							    form.submit();
+// 							  },
+							  error: function () {
+							    alert("푸시 전송 실패!");
+							  }
+							});
 
 					} else {
 						return false;

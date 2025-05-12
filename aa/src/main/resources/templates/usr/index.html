@@ -2,133 +2,338 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <div th:replace="~{/usr/include/head :: head}"></div>
-   <main>
-      <!-- section -->
-      <section class="mt-8">
-         <div class="container">
-            <!-- row -->
-            <div class="row">
-               <div class="col-xxl-8 col-xl-7">
-                  <!-- hero slider -->
-                  <div class="hero-slider" >
-                  <form th:each="list : ${list}" method="post"  enctype="multipart/form-data" id="form" name="form">
-               
-                  <input type="hidden" name="mbSeq" >
-                     <div 
-                     th:style="'background: url(' + ${list?.fPath} + ') no-repeat center right; background-size: contain; background-color: #f5f5f5; border-radius: 0.5rem'">
-                        <div class="ps-lg-12 py-lg-16 col-xxl-7 col-lg-9 py-14 px-8 text-xs-center" >
-                     <span th:if="${list.up == '1'}" class="badge bg-danger">up</span>
-                           <!-- badge -->
-                           <br>
-                           <br>
-                           <div class="d-flex align-items-center mb-4">
-                              <h2 id="mbTitle" name="mbTitle" th:text="${list?.mbTitle}"></h2>
-                           </div>
-                           <!-- title -->
-                           <h1 class="text-dark display-5 fw-bold mb-3 " id="mbDetailAddr" name="mbDetailAddr" th:text="${list?.mbDetailAddr}"></h1>
-                           <p class="fs-5 text-dark" id="mbDate" name="mbDate" th:text="${list?.mbDate}"></p>
-                           <!-- price -->
-                           <div class="mb-4 mt-4">
-                           </div>
-                           <!-- btn -->
-                           <a href="javascript:void(0);" th:attr="onclick=|goForm('${list.mbSeq}')|" class="btn btn-primary">
-                              실종신고 정보
-                              <i class="feather-icon icon-arrow-right ms-1"></i>
-                           </a>
-                           <br>
-                           <br>
-                           <br>
-                        </div>
-                     </div>
-                     <!-- img -->
-                     </form>
-                  </div>
-               </div>
-               <div class="col-xxl-4 col-xl-5 col-12 d-lg-flex d-xl-block gap-3 gap-xl-0">
-                  <div class="flex-fill px-8 py-9 mb-6 rounded"
-                     style="background: url(/assets/usr/template/FreshCart-1.4.0/images/banner/ad-banner-1.jpg) no-repeat; background-size: cover">
-                     <div>
-                        <h3 class="mb-0 fw-bold">
-                           10% cashback on
-                           <br />
-                           personal care
-                        </h3>
-                        <div class="mt-4 mb-5 fs-5">
-                           <p class="mb-0">Max cashback: $12</p>
-                           <span>
-                              Code:
-                              <span class="fw-bold text-dark">CARE12</span>
-                           </span>
-                        </div>
-                        <a href="#" class="btn btn-dark">Shop Now</a>
-                     </div>
-                  </div>
+<main>
+	<!-- section -->
+	<section class="mt-8">
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+				<div class="col-xxl-8 col-xl-7">
+					<!-- hero slider -->
+					<div class="hero-slider">
+						<form th:each="list : ${list}" method="post"
+							enctype="multipart/form-data" id="form" name="form">
 
-                  <div class="flex-fill px-8 py-8 rounded"
-                     style="background: url(/assets/usr/template/FreshCart-1.4.0/images/banner/ad-banner-2.jpg) no-repeat; background-size: cover">
-                     <!-- Banner Content -->
-                     <div>
-                        <!-- Banner Content -->
-                        <h3 class="fw-bold mb-3">
-                           Say yes to
-                           <br />
-                           season’s fresh
-                        </h3>
-                        <div class="mt-4 mb-5 fs-5">
-                           <p class="fs-5 mb-0">
-                              Refresh your day
-                              <br />
-                              the fruity way
-                           </p>
-                        </div>
+							<input type="hidden" name="mbSeq">
+							<input type="hidden" name="uSeq" th:value="${session.sessSeqUsr}">
+							<div
+								th:style="'background: url(' + ${list?.fPath} + ') no-repeat center right; background-size: contain; background-color: #f5f5f5; border-radius: 0.5rem'">
+								<div
+									class="ps-lg-12 py-lg-16 col-xxl-7 col-lg-9 py-14 px-8 text-xs-center">
+									<span th:if="${list.up == '1'}" class="badge bg-danger">up</span>
+									<!-- badge -->
+									<br> <br>
+									<div class="d-flex align-items-center mb-4">
+										<h2 id="mbTitle" name="mbTitle" th:text="${list?.mbTitle}"></h2>
+									</div>
+									<!-- title -->
+									<h1 class="text-dark display-5 fw-bold mb-3 " id="mbDetailAddr"
+										name="mbDetailAddr" th:text="${list?.mbDetailAddr}"></h1>
+									<p class="fs-5 text-dark" id="mbDate" name="mbDate"
+										th:text="${list?.mbDate}"></p>
+									<!-- price -->
+									<div class="mb-4 mt-4"></div>
+									<!-- btn -->
+									<a href="javascript:void(0);"
+										th:attr="onclick=|goForm('${list.mbSeq}')|"
+										class="btn btn-primary"> 실종신고 정보 <i
+										class="feather-icon icon-arrow-right ms-1"></i>
+									</a> <br> <br> <br>
+								</div>
+							</div>
+							<!-- img -->
+						</form>
+					</div>
+				</div>
+				<div
+					class="col-xxl-4 col-xl-5 col-12 d-lg-flex d-xl-block gap-3 gap-xl-0">
+					<div class="flex-fill px-8 py-9 mb-6 rounded"
+						style="background: url(/assets/usr/template/FreshCart-1.4.0/images/banner/ad-banner-1.jpg) no-repeat; background-size: cover">
+						<div>
+							<h3 class="mb-0 fw-bold">
+								10% cashback on <br /> personal care
+							</h3>
+							<div class="mt-4 mb-5 fs-5">
+								<p class="mb-0">Max cashback: $12</p>
+								<span> Code: <span class="fw-bold text-dark">CARE12</span>
+								</span>
+							</div>
+							<a href="#" class="btn btn-dark">Shop Now</a>
+						</div>
+					</div>
 
-                        <a href="#" class="btn btn-dark">Shop Now</a>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </section>
-      <!-- section category -->
-      <section>
-         <div class="container">
-            <div class="row">
-               <div class="col-12">
-                  <div class="mb-10 bg-light d-lg-flex justify-content-between align-items-center rounded">
-                     <div class="p-10">
-                        <h2 class="mb-1 fw-bold">One Stop Grocery Shop</h2>
-                        <p class="mb-0 lead">
-                           Shopping for your furry friend? Find food,
-                           <br />
-                           treats, and more in one easy spot.
-                        </p>
-                        <a href="#" class="btn btn-dark mt-5">Get Discount on Share</a>
-                     </div>
-                     <div class="p-6 d-lg-block d-none"><img src="/assets/usr/template/FreshCart-1.4.0/images/svg-graphics/store-graphics.svg"
-                           alt="" class="img-fluid" /></div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </section>
-      <!-- section -->
-      
-      <!-- section cta -->
-   </main>
+					<div class="flex-fill px-8 py-8 rounded"
+						style="background: url(/assets/usr/template/FreshCart-1.4.0/images/banner/ad-banner-2.jpg) no-repeat; background-size: cover">
+						<!-- Banner Content -->
+						<div>
+							<!-- Banner Content -->
+							<h3 class="fw-bold mb-3">
+								Say yes to <br /> season’s fresh
+							</h3>
+							<div class="mt-4 mb-5 fs-5">
+								<p class="fs-5 mb-0">
+									Refresh your day <br /> the fruity way
+								</p>
+							</div>
 
-   <!-- modal -->
-   <!-- Modal -->
+							<a href="#" class="btn btn-dark">Shop Now</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- section category -->
+	<section class="my-lg-14 my-8">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="mb-6">
+						<!-- heading    -->
+						<h3 class="mb-0">Shop Popular Categories</h3>
+					</div>
+				</div>
+				<div class="row">
+					<!-- col -->
+					<div class="col-lg-2 col-md-4 col-6">
+						<div class="text-center mb-10">
+							<!-- img -->
+							<a href="#"><img
+								src="/assets/usr/template/FreshCart-1.4.0/images/category/dairy-bread-eggs.png"
+								alt="" class="card-image rounded-circle" /></a>
+							<!-- text -->
+							<div class="mt-4">
+								<h5 class="fs-6 mb-0">
+									<a href="shop-grid.html" class="text-inherit">Dairy, Bread
+										& Eggs</a>
+								</h5>
+							</div>
+						</div>
+					</div>
+					<!-- col -->
+					<div class="col-lg-2 col-md-4 col-6">
+						<div class="text-center mb-10">
+							<!-- img -->
+							<a href="#"><img
+								src="/assets/usr/template/FreshCart-1.4.0/images/category/fruits-vegetables.png"
+								alt="" class="card-image rounded-circle" /></a>
+							<div class="mt-4">
+								<!-- text -->
+								<h5 class="fs-6 mb-0">
+									<a href="shop-grid.html" class="text-inherit">Fruits &
+										Vegetables</a>
+								</h5>
+							</div>
+						</div>
+					</div>
+					<!-- col -->
+					<div class="col-lg-2 col-md-4 col-6">
+						<div class="text-center mb-10">
+							<!-- img -->
+							<a href="#"><img
+								src="/assets/usr/template/FreshCart-1.4.0/images/category/snack-munchies.png"
+								alt="" class="card-image rounded-circle" /></a>
+							<!-- text -->
+							<div class="mt-4">
+								<h5 class="fs-6 mb-0">
+									<a href="shop-grid.html" class="text-inherit">Snack &
+										Munchies</a>
+								</h5>
+							</div>
+						</div>
+					</div>
+					<!-- col -->
+					<div class="col-lg-2 col-md-4 col-6">
+						<div class="text-center mb-10">
+							<!-- img -->
+							<a href="#"><img
+								src="/assets/usr/template/FreshCart-1.4.0/images/category/bakery-biscuits.png"
+								alt="" class="card-image rounded-circle" /></a>
+							<!-- text -->
+							<div class="mt-4">
+								<h5 class="fs-6 mb-0">
+									<a href="shop-grid.html" class="text-inherit">Bakery &
+										Biscuits</a>
+								</h5>
+							</div>
+						</div>
+					</div>
+					<!-- col -->
+					<div class="col-lg-2 col-md-4 col-6">
+						<div class="text-center mb-10">
+							<!-- img -->
+							<a href="#"><img
+								src="/assets/usr/template/FreshCart-1.4.0/images/category/instant-food.png"
+								alt="" class="card-image rounded-circle" /></a>
+							<!-- text -->
+							<div class="mt-4">
+								<h5 class="fs-6 mb-0">
+									<a href="shop-grid.html" class="text-inherit">Instant Food</a>
+								</h5>
+							</div>
+						</div>
+					</div>
+					<!-- col -->
+					<div class="col-lg-2 col-md-4 col-6">
+						<div class="text-center mb-10">
+							<!-- img -->
+							<a href="#"><img
+								src="/assets/usr/template/FreshCart-1.4.0/images/category/tea-coffee-drinks.png"
+								alt="" class="card-image rounded-circle" /></a>
+							<!-- text -->
+							<div class="mt-4">
+								<h5 class="fs-6 mb-0">
+									<a href="shop-grid.html" class="text-inherit">Tea, Coffee &
+										Drinks</a>
+								</h5>
+							</div>
+						</div>
+					</div>
+					<!-- col -->
+					<div class="col-lg-2 col-md-4 col-6">
+						<div class="text-center mb-10">
+							<!-- img -->
+							<a href="#"><img
+								src="/assets/usr/template/FreshCart-1.4.0/images/category/cold-drinks-juices.png"
+								alt="" class="card-image rounded-circle" /></a>
+							<!-- text -->
+							<div class="mt-4">
+								<h5 class="fs-6 mb-0">
+									<a href="shop-grid.html" class="text-inherit">Cold Drinks &
+										Juices</a>
+								</h5>
+							</div>
+						</div>
+					</div>
+					<!-- col -->
+					<div class="col-lg-2 col-md-4 col-6">
+						<div class="text-center mb-10">
+							<!-- img -->
+							<a href="#"><img
+								src="/assets/usr/template/FreshCart-1.4.0/images/category/chicken-meat-fish.png"
+								alt="" class="card-image rounded-circle" /></a>
+							<!-- text -->
+							<div class="mt-4">
+								<h5 class="fs-6 mb-0">
+									<a href="shop-grid.html" class="text-inherit">Chicken, Meat
+										& Fish</a>
+								</h5>
+							</div>
+						</div>
+					</div>
+					<!-- col -->
+					<div class="col-lg-2 col-md-4 col-6">
+						<!-- text -->
+						<div class="text-center mb-10">
+							<!-- img -->
+							<a href="#"><img
+								src="/assets/usr/template/FreshCart-1.4.0/images/category/baby-care.png"
+								alt="" class="card-image rounded-circle" /></a>
+							<!-- text -->
+							<div class="mt-4">
+								<h5 class="fs-6 mb-0">
+									<a href="shop-grid.html" class="text-inherit">Baby Care</a>
+								</h5>
+							</div>
+						</div>
+					</div>
+					<!-- col -->
+					<div class="col-lg-2 col-md-4 col-6">
+						<div class="text-center mb-10">
+							<!-- img -->
+							<a href="#"><img
+								src="/assets/usr/template/FreshCart-1.4.0/images/category/cleaning-essentials.png"
+								alt="" class="card-image rounded-circle" /></a>
+							<!-- img -->
+							<div class="mt-4">
+								<h5 class="fs-6 mb-0">
+									<a href="shop-grid.html" class="text-inherit">Cleaning
+										Essentials</a>
+								</h5>
+							</div>
+						</div>
+					</div>
+					<!-- col -->
+					<div class="col-lg-2 col-md-4 col-6">
+						<div class="text-center mb-10">
+							<!-- img -->
+							<a href="#"><img
+								src="/assets/usr/template/FreshCart-1.4.0/images/category/pet-care.png"
+								alt="" class="card-image rounded-circle" /></a>
+							<!-- text -->
+							<div class="mt-4">
+								<h5 class="fs-6 mb-0">
+									<a href="shop-grid.html" class="text-inherit">Pet Care</a>
+								</h5>
+							</div>
+						</div>
+					</div>
+					<!-- col -->
+					<div class="col-lg-2 col-md-4 col-6">
+						<div class="text-center mb-10">
+							<!-- img -->
+							<a href="#"><img
+								src="/assets/usr/template/FreshCart-1.4.0/images/category/atta-rice-dal.png"
+								alt="" class="card-image rounded-circle" /></a>
+							<!-- text -->
+							<div class="mt-4">
+								<h5 class="fs-6 mb-0">
+									<a href="shop-grid.html" class="text-inherit">Atta, Rice &
+										Dal</a>
+								</h5>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div
+						class="mb-10 bg-light d-lg-flex justify-content-between align-items-center rounded">
+						<div class="p-10">
+							<h2 class="mb-1 fw-bold">One Stop Grocery Shop</h2>
+							<p class="mb-0 lead">
+								Shopping for your furry friend? Find food, <br /> treats, and
+								more in one easy spot.
+							</p>
+							<a href="#" class="btn btn-dark mt-5">Get Discount on Share</a>
+						</div>
+						<div class="p-6 d-lg-block d-none">
+							<img
+								src="/assets/usr/template/FreshCart-1.4.0/images/svg-graphics/store-graphics.svg"
+								alt="" class="img-fluid" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- section -->
+
+	<!-- section cta -->
+</main>
+<div th:replace="~{/usr/include/footer :: footer}"></div>
+<!-- Toastify 연결 -->
+
+
+<!-- modal -->
+<!-- Modal -->
+<script type="module" src="/firebase-module.js"></script>
+
+
 <script type="text/javascript">
-let seq = document.querySelector("input[name=mbSeq]");
-let form = document.querySelector("form[name=form]");
+	let seq = document.querySelector("input[name=mbSeq]");
+	let form = document.querySelector("form[name=form]");
 
-goForm = function (keyValue) {
-	    seq.value = keyValue;
-	    
-	    form.action ="/missUsrView";
-	    form.submit();
-}
+	goForm = function(keyValue) {
+		seq.value = keyValue;
+
+		form.action = "/missUsrView";
+		form.submit();
+	}
 </script>
 </html>
-
-<div th:replace="~{/usr/include/footer :: footer}"></div>
