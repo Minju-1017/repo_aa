@@ -50,19 +50,19 @@
 						style="background: url(/assets/usr/template/FreshCart-1.4.0/images/banner/ad-banner-1.jpg) no-repeat; background-size: cover">
 						<div>
 							<h3 class="mb-0 fw-bold">
-								10% cashback on <br /> personal care
+								근처  <br /> 동물병원 <br>
 							</h3>
-							<div class="mt-4 mb-5 fs-5">
-								<p class="mb-0">Max cashback: $12</p>
-								<span> Code: <span class="fw-bold text-dark">CARE12</span>
-								</span>
-							</div>
-							<div class="list-inline-item">
+<!-- 							<div class="mt-4 mb-5 fs-5"> -->
+<!-- 								<p class="mb-0">Max cashback: $12</p> -->
+<!-- 								<span> Code: <span class="fw-bold text-dark">CARE12</span> -->
+<!-- 								</span> -->
+<!-- 							</div> -->
+							<div class="list-inline-item mb-3 mt-5">
 								<!-- Button trigger modal -->
 								<a href="#" class="text-reset d-none d-md-block btn btn-dark" data-bs-toggle="modal"
 									data-bs-target="#locationSecondModal">
-									<i class="feather-icon icon-map-pin me-2"></i>
-									검색하기
+									<i class="feather-icon icon-map-pin me-2" style="color:white;"></i>
+									<span style="color:white;">검색하기</span>
 								</a>
 							</div>
                      	</div>
@@ -185,6 +185,14 @@ function initMap() {
   map = new kakao.maps.Map(container, options);
 }
 
+//모달이 열릴 때 map 크기 재조정
+const locationModal = document.getElementById('locationSecondModal');
+locationModal.addEventListener('shown.bs.modal', function () {
+  if (map) {
+    map.relayout(); // 지도 크기 재계산
+  }
+});
+
 // 기존 마커 전부 제거하는 함수
 function clearMarkers() {
   markers.forEach(marker => marker.setMap(null));
@@ -226,8 +234,12 @@ document.getElementById("locationSearchForm").addEventListener("submit", functio
 
         // 결과 리스트 출력
         const item = document.createElement("div");
-        item.style.marginBottom = "10px";
-        item.innerHTML = `<strong>${place.place_name}</strong><br>${place.address_name}`;
+  		item.style.marginBottom = "10px";
+  		item.innerHTML = `
+    		<a href="${place.place_url}" target="_blank" style="text-decoration: none; color: blue;">
+      			<strong>${place.place_name}</strong><br><span style="color: gray;">${place.address_name}
+    		</a>
+  		`;
         resultsDiv.appendChild(item);
       });
 
