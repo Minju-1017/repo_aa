@@ -60,7 +60,7 @@ Toastify({
   });
 
   //세션에 로그인값이 없다면 ! 알림은 물어보지도 말자!
-let uSeq = document.querySelector("input[name=uSeq]").value;
+let uSeq = document.querySelector("input[name=uSeq]")?.value;
 if(uSeq != null && uSeq !== ""){
   requestPermissionAndGetToken(uSeq);
 }
