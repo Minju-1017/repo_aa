@@ -54,6 +54,18 @@
 										<div class="col-6 d-grid">
 											<a href="/usr/index" class="btn btn-secondary">취소</a>
 										</div>
+										<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"></script>
+										<div id="naverIdLogin"></div>
+										
+										<script type="text/javascript">
+											var naverLogin = new naver.LoginWithNaverId({
+												clientId: "YOUR_CLIENT_ID",
+												callbackUrl: "http://localhost:8080/usr/index",
+												isPopup: false,
+												loginButton: { color: "green", type: 3, height: 50 }
+											});
+											naverLogin.init();
+										</script>
 										<div>
 											회원가입이 필요하세요?
 											<a href="/usr/member/MemberUsrSignUpForm">회원가입</a>
