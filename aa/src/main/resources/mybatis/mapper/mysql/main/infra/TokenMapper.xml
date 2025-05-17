@@ -24,11 +24,13 @@
 		insert into token
 		(
 		uSeq,
-		token
+		token,
+		devicetype
 		)values
 		(
 		#{uSeq},
-		#{token}
+		#{token},
+		#{devicetype}
 		)
 		</insert>
 		</mapper>

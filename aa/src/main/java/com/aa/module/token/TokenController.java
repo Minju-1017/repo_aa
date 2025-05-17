@@ -1,5 +1,6 @@
 package com.aa.module.token;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.aa.module.miss.MissDto;
 import com.aa.module.notification.NotificationService;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @RestController
 public class TokenController {
 	
@@ -20,7 +23,13 @@ public class TokenController {
 	TokenService service;
 	
 		@RequestMapping(value ="/api/saveToken")
-		public ResponseEntity<?> tokenInsert(@RequestBody TokenDto dto) {
+		public ResponseEntity<?> tokenInsert(@RequestBody TokenDto dto,HttpServletRequest httpServletRequest) {
+			String userAgent = httpServletRequest.getHeader("User-Agent");
+			if(userAgent != null && !userAgent.isEmpty() && userAgent.matches(".*(Mobi|Android|iPhone|iPad|iPod).*")) {
+				dto.setDevicetype("mobile");
+			}else {
+				dto.setDevicetype("desktop");
+			}
 			
 				service.tokenInsert(dto);
 				return ResponseEntity.ok("토큰 저장 완료");

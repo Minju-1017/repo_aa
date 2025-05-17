@@ -386,10 +386,10 @@
 							    uaBreed: $("input[name=uaBreed]").val(),
 							    mbDetailAddr: $("#mbDetailAddr").val()
 							  },
-// 							  success: function () {
-// 							    form.action = "/missUsrList";
-// 							    form.submit();
-// 							  },
+							  success: function () {
+							    form.action = "/missUsrList";
+							    form.submit();
+							  },
 							  error: function () {
 							    alert("푸시 전송 실패!");
 							  }
@@ -420,6 +420,7 @@
 		$("#dateTimePicker").datetimepicker({
 			timepicker : true,
 			format : "Y-m-d H:i",
+			maxDate : new Date(),
 			onChangeDateTime : function(ss, $input) {
 				let input = $input.val();
 				if (!input) {
