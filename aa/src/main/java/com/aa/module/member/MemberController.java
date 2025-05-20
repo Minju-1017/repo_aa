@@ -3,6 +3,7 @@ package com.aa.module.member;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,6 +19,8 @@ import com.aa.module.animal.AnimalDto;
 import com.aa.module.animal.AnimalService;
 import com.aa.module.code.CodeService;
 import com.aa.module.file.FileService;
+import com.aa.module.naver.NaverDto;
+import com.aa.module.naver.NaverService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -39,6 +42,9 @@ public class MemberController {
 	
 	@Autowired
 	FileService fileService;
+	
+	@Autowired
+	NaverService naverService;
 	
 	////////////////////////////////////////////////////////////////
 	
@@ -115,7 +121,11 @@ public class MemberController {
 	 * @return
 	 */
 	@RequestMapping(value = "MemberUsrSignUpForm")	
-	public String memberUsrSignUpForm() throws Exception {				
+	public String memberUsrSignUpForm() throws Exception {
+		
+		
+		
+		
 		return path_user + "MemberUsrSignUpForm";
 	}
 	
@@ -172,7 +182,11 @@ public class MemberController {
 	 * @return
 	 */
 	@RequestMapping(value = "MemberUsrSignIn")	
-	public String memberUsrSignIn() throws Exception {				
+	public String memberUsrSignIn(Model model) throws Exception {
+		String state = String.valueOf(UUID.randomUUID());
+		
+		model.addAttribute("state",state);
+		
 		return path_user + "MemberUsrSignIn";
 	}
 	
@@ -584,6 +598,32 @@ public class MemberController {
 		}
 
 		return returnMap;
+	}
+	
+	@RequestMapping(value = "naverUsrProc")
+	public String naverUsrProc(@RequestParam(value="code")String code,
+			@RequestParam(value="state")String state,MemberDto dto,HttpSession httpSession
+			) throws Exception{
+		NaverDto userInfo = naverService.getUserInfo(code, state);
+		System.out.println(userInfo.getMessage());
+		System.out.println(userInfo);
+		if (userInfo != null && userInfo.getMessage().equals("success")) {
+			dto.setuId(userInfo.getId());
+			dto.setuName(userInfo.getName());
+			dto.setuNickname(userInfo.getNickName());
+			dto.setuEmail(userInfo.getEmail());
+			MemberDto value = service.loginOne(dto);
+			if (value != null && value.getuDelNy() == 0) {
+				httpSession.setAttribute("sessSeqUsr", value.getuSeq());
+				httpSession.setAttribute("sessIdUsr", value.getuId());
+				httpSession.setAttribute("sessNicknameUsr", value.getuNickname());
+				
+			} else if (value == null) {
+				service.insert(dto);
+			}
+		}
+		
+		return "redirect:/usr/index";
 	}
 	
 }

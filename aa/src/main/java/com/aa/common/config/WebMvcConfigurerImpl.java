@@ -27,7 +27,8 @@ public class WebMvcConfigurerImpl implements WebMvcConfigurer {
 					"/usr/member/MemberUsrSignInForgotPwdProc",
 					"/missUsrInst",
 					"/api/saveToken",
-					"/api/sendTestPush"
+					"/api/sendTestPush",
+					"/usr/member/naverUsrProc"
 		);
 	}
 

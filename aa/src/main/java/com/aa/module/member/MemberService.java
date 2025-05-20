@@ -66,5 +66,8 @@ public class MemberService {
 	public int listUelete(List<String> seqList) {
 		return dao.listUelete(seqList);
 	}
+	public MemberDto loginOne(MemberDto dto){
+		return dao.loginOne(dto);
+	}
 	
 }

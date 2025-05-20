@@ -19,7 +19,21 @@ public class MemberDto {
 	private String uMofDate;
 	private int uDelNy;
 	private String uDelNyStr;
+	private String state;
 	
+	
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public void setuDelNyStr(String uDelNyStr) {
+		this.uDelNyStr = uDelNyStr;
+	}
+
 	public String getuSeq() {
 		return uSeq;
 	}

@@ -21,5 +21,5 @@ public interface MemberDao {
 	public int uelete(MemberDto memberDto);
 	public int listDelete(List<String> seqList);
 	public int listUelete(List<String> seqList);
-	
+	public MemberDto loginOne(MemberDto dto); 
 }

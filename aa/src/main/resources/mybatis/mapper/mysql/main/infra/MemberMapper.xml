@@ -73,6 +73,18 @@
 		<include refid="selectCommon"/>
 		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
 	</select>
+	<select id="loginOne" resultMap="resultMapObj">
+	select 
+	a.uSeq,
+	a.uId,
+	a.uPwd,
+	a.uEmail,
+	a.uNickname,
+	a.uPhone
+	from user as a
+	where a.uDelNy = 0
+	and a.uId = #{uId}
+	</select>
 	
 	<select id="selectOne" resultMap="resultMapObj">
 		SELECT
