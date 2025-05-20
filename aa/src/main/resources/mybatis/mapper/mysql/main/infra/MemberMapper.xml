@@ -73,6 +73,16 @@
 		<include refid="selectCommon"/>
 		LIMIT #{rowNumToShow} OFFSET #{startRnumForMysql}
 	</select>
+	
+	<select id="selectAllList" resultMap="resultMapObj">
+		SELECT
+			<include refid="selectCommonColumn"/>
+		FROM 
+			user a
+		WHERE 1=1
+			AND a.uDelNy = 0
+	</select>
+	
 	<select id="loginOne" resultMap="resultMapObj">
 	select 
 	a.uSeq,

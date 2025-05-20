@@ -54,7 +54,7 @@ public class MissDto extends AnimalDto{
 		this.mbcRegDate = mbcRegDate;
 	}
 	public String getMbRewardformat() {
-		return mbRewardformat;
+		return (mbRewardformat == null || mbRewardformat.equals("")) ? "없음" : mbRewardformat;
 	}
 	public void setMbRewardformat(String mbRewardformat) {
 		this.mbRewardformat = mbRewardformat;

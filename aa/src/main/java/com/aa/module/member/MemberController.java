@@ -21,6 +21,7 @@ import com.aa.module.code.CodeService;
 import com.aa.module.file.FileService;
 import com.aa.module.naver.NaverDto;
 import com.aa.module.naver.NaverService;
+import com.aa.common.mail.MailService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -45,6 +46,9 @@ public class MemberController {
 	
 	@Autowired
 	NaverService naverService;
+	
+	@Autowired
+	MailService mailService;
 	
 	////////////////////////////////////////////////////////////////
 	
@@ -122,10 +126,6 @@ public class MemberController {
 	 */
 	@RequestMapping(value = "MemberUsrSignUpForm")	
 	public String memberUsrSignUpForm() throws Exception {
-		
-		
-		
-		
 		return path_user + "MemberUsrSignUpForm";
 	}
 	
@@ -167,6 +167,17 @@ public class MemberController {
 			
 			if (cntSuccess == 1) {
 				returnMap.put("rt", "success");
+				
+				// 가입 축하 메일 보내기(SMTP 이용) - 오래 걸리므로, 새로운 쓰레드에서 보낸다.
+				new Thread() {
+					public void run() {
+						try {
+							mailService.sendMailWelcome(memberDto);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				}.start();
 			} else {
 				returnMap.put("rt", "fail");
 			}

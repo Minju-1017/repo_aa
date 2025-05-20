@@ -1,6 +1,7 @@
 package com.aa.module.miss;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.aa.common.mail.MailService;
+import com.aa.module.member.MemberDto;
+import com.aa.module.member.MemberService;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
@@ -19,6 +24,12 @@ public class MissController {
 	
 	@Autowired
 	MissService service;
+	
+	@Autowired
+	MailService mailService;
+	
+	@Autowired
+	MemberService memberService;
 	
 	@RequestMapping(value = "/missUsrList")
 	public String missUsrList(@ModelAttribute("vo")MissVo vo,Model model) {
@@ -65,6 +76,27 @@ public class MissController {
 		int inst = service.mbInsert(dto);
 		if(inst > 0 ) {
 			result.put("rt", "success");
+			
+			// 실종 알림 메일 보내기(SMTP 이용) - 오래 걸리므로, 새로운 쓰레드에서 보낸다.
+			new Thread() {
+				public void run() {
+					try {
+						// 회원 전체 리스트
+						List<MemberDto> memberDtoList = memberService.selectAllList();
+						
+						// 추가한 실종 신고 정보
+						dto.setMbSeq(dto.getMbSeq());
+						MissDto missDto = service.mbOne(dto);
+						
+						// 메일 보내기
+						for (MemberDto memberDto : memberDtoList) {
+							mailService.sendMailMissAlert(memberDto, missDto);
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}.start();
 		}else {
 			result.put("rt", "fail");
 		}

@@ -152,6 +152,10 @@
 		#{mbTitle},
 		#{mbDate}
 		)
+		
+		<selectKey resultType="String" keyProperty="mbSeq" order="AFTER">
+			SELECT last_insert_id()
+		</selectKey>
 	</insert>
 	<update id="mbUpdate">
 		update missingBoard
