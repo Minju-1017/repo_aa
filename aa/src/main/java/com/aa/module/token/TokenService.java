@@ -28,4 +28,7 @@ public class TokenService {
 		return dao.tokenList();
 	}
 	
+	public int deleteToken(String dto) {
+		return dao.deleteToken(dto);
+	}
 }

@@ -33,4 +33,8 @@
 		#{devicetype}
 		)
 		</insert>
+		<delete id="deleteToken">
+		delete from token
+		where token = #{token}
+		</delete>
 		</mapper>

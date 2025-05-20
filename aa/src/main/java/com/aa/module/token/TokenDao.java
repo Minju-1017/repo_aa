@@ -10,4 +10,5 @@ public interface TokenDao {
 	public int tokenOne(TokenDto dto);
 	public int tokenInsert(TokenDto dto);
 	public List<TokenDto> tokenList();
+	public int deleteToken(String dto);
 }

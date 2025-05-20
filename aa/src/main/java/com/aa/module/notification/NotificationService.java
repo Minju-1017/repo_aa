@@ -12,7 +12,7 @@ import com.google.firebase.messaging.FirebaseMessagingException;
 @Service
 public class NotificationService {
 	
-	public void sendNotification(String token, String title, String body) {
+	public void sendNotification(String token, String title, String body) throws Exception{
 		Message message = Message.builder()
 			    .setToken(token)
 			    .setNotification(
@@ -22,11 +22,7 @@ public class NotificationService {
 			            .build()
 			    )
 			    .build();
-        try {
             String response = FirebaseMessaging.getInstance().send(message);
             System.out.println("푸시 성공: " + response);
-        } catch (FirebaseMessagingException e) {
-            e.printStackTrace();
         }
     }
-}

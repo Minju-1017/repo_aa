@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.aa.module.miss.MissDto;
 import com.aa.module.notification.NotificationService;
+import com.google.firebase.messaging.FirebaseMessagingException;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -41,10 +42,30 @@ public class TokenController {
 	        List<TokenDto> tokenList = service.tokenList();
 
 	        for (TokenDto token : tokenList) {
-	        	if(token.getToken() != null && !token.getToken().equals("")) {
-	            notificationService.sendNotification(token.getToken(), "📢 실종 알림 ", "반려동물 이름: "+
-	        	missDto.getUaName()+"/ 품종: "+missDto.getUaBreed()+"/ 실종 위치: "+missDto.getMbDetailAddr());
-	        	}
+	            String fcmToken = token.getToken();
+	            if (fcmToken != null && !fcmToken.isEmpty()) {
+	                try {
+	                    notificationService.sendNotification(
+	                        fcmToken,
+	                        "📢 실종 알림",
+	                        "반려동물 이름: " + missDto.getUaName()
+	                        + "/ 품종: " + missDto.getUaBreed()
+	                        + "/ 실종 위치: " + missDto.getMbDetailAddr()
+	                    );
+	                } catch (FirebaseMessagingException e) {
+	                    if ("UNREGISTERED".equals(e.getMessagingErrorCode().name())) {
+	                        System.out.println("⛔ 유효하지 않은 토큰: " + fcmToken);
+	                        // DB에서 해당 토큰 삭제 또는 무효 처리
+	                        service.deleteToken(fcmToken);
+	                    } else {
+	                        // 기타 예외는 로그만 출력
+	                        System.out.println("⚠️ 푸시 전송 오류: " + e.getMessage());
+	                    }
+	                } catch (Exception e) {
+	                    // 예기치 않은 예외 방지
+	                    System.out.println("⚠️ 예외 발생: " + e.getMessage());
+	                }
+	            }
 	        }
 
 	        return ResponseEntity.ok("전체 푸시 전송 완료");
