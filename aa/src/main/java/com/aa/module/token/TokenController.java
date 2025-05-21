@@ -53,7 +53,7 @@ public class TokenController {
 	                        + "/ 실종 위치: " + missDto.getMbDetailAddr()
 	                    );
 	                } catch (FirebaseMessagingException e) {
-	                    if ("UNREGISTERED".equals(e.getMessagingErrorCode().name())) {
+	                    if (e.getMessagingErrorCode() != null && "UNREGISTERED".equals(e.getMessagingErrorCode().name())) {
 	                        System.out.println("⛔ 유효하지 않은 토큰: " + fcmToken);
 	                        // DB에서 해당 토큰 삭제 또는 무효 처리
 	                        service.deleteToken(fcmToken);
