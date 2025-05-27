@@ -35,7 +35,7 @@ public class MissController {
 	public String missUsrList(@ModelAttribute("vo")MissVo vo,Model model) {
 		vo.setParamsPaging(service.selectCount(vo));
 		model.addAttribute("list",service.mbList(vo));
-		return "/usr/miss/MissUsrList";
+		return "usr/miss/MissUsrList";
 	}
 	@RequestMapping(value = "/missUsrView")
 	public String missUsrView(@RequestParam(value = "fragmentType" ,required=false) String fragmentType,@ModelAttribute("vo")MissVo vo,Model model, MissDto dto,HttpServletRequest request,
@@ -56,7 +56,7 @@ public class MissController {
 	        	return "usr/miss/MissUsrView :: reviewFragment";
 	        }
 	    }
-		return "/usr/miss/MissUsrView";
+		return "usr/miss/MissUsrView";
 	}
 	@RequestMapping(value = "/missUsrForm")
 	public String missUsrForm(HttpSession httpSession,HttpServletRequest request, MissDto dto,Model model) {
@@ -67,7 +67,7 @@ public class MissController {
 		if ("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))) {
 	        return "usr/miss/MissUsrForm :: uaFragment";
 	    }
-		return "/usr/miss/MissUsrForm";
+		return "usr/miss/MissUsrForm";
 	}
 	@RequestMapping(value = "/missUsrInst")
 	@ResponseBody
