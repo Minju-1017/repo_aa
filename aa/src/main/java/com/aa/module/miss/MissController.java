@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -30,6 +31,9 @@ public class MissController {
 	
 	@Autowired
 	MemberService memberService;
+	
+	@Value("${kakao.api.key}")
+    private String kakaoApiKey;
 	
 	@RequestMapping(value = "/missUsrList")
 	public String missUsrList(@ModelAttribute("vo")MissVo vo,Model model) {
@@ -64,6 +68,7 @@ public class MissController {
 		model.addAttribute("uaList",service.uaList(dto));
 		model.addAttribute("item",service.uaOne(dto));
 		model.addAttribute("one",service.mbOne(dto));
+		model.addAttribute("kakaoApiKey", kakaoApiKey);
 		if ("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))) {
 	        return "usr/miss/MissUsrForm :: uaFragment";
 	    }

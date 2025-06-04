@@ -168,8 +168,7 @@
 <div th:replace="~{usr/include/footer :: footer}"></div>
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script
-	src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=cfc3b253c46dc92fe67dc68bbe3c0296&libraries=services"></script>
+<script th:src="'//dapi.kakao.com/v2/maps/sdk.js?appkey=' + ${kakaoApiKey} + '&libraries=services'"></script>
 	<script type="module" src="/firebase-module.js"></script>
 
 

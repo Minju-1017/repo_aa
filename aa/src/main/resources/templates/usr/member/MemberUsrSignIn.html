@@ -75,109 +75,117 @@
      	<div th:replace="~{usr/include/footer :: footer}"></div> <!-- 중복되는 footer 처리 -->
      	<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"></script>
 <script type="module" src="/firebase-module.js"></script>
-	<!-- 변수 정의 -->
-	<script type="text/javascript">
-		// Form
-		let uId = document.getElementById("uId");
-		let uPwd = document.getElementById("uPwd");
-	</script>
+
+<!-- 변수 정의 -->
+<script type="text/javascript">
+	// Form
+	let uId = document.getElementById("uId");
+	let uPwd = document.getElementById("uPwd");
+</script>
 	
-	<!-- Validation: Bootstrap -->
-	<script type="text/javascript">
-		// btnSave 클릭시
-		document.getElementById("btnSignIn").onclick = function() {
-			var focus = false; // Validation 후 Focus 줘야 하는 Input
+<!-- Validation: Bootstrap -->
+<script type="text/javascript">
+	// btnSave 클릭시
+	document.getElementById("btnSignIn").onclick = function() {
+		var focus = false; // Validation 후 Focus 줘야 하는 Input
+		
+		// uId 체크
+		resetValidation(uId);
+		
+		if (!strValidation(uId)) {
+			uId.classList.add("is-invalid");
 			
-			// uId 체크
-			resetValidation(uId);
-			
-			if (!strValidation(uId)) {
-				uId.classList.add("is-invalid");
-				
-				if (!focus) {
-					uId.focus();
-					focus = true;
-				}
-			} else {
-				uId.classList.add("is-valid");
+			if (!focus) {
+				uId.focus();
+				focus = true;
 			}
-			
-			// uPwd 체크
-			resetValidation(uPwd);
-			
-			if (!strValidation(uPwd)) {
-				uPwd.classList.add("is-invalid");
-				
-				if (!focus) {
-					uPwd.focus();
-					focus = true;
-				}
-			} else {
-				uPwd.classList.add("is-valid");
-			}
-			
-			if (focus) return false;
-			
-			uId.value = uId.value.trim();
-			uPwd.value = uPwd.value.trim();
-			
-			signIn();
+		} else {
+			uId.classList.add("is-valid");
 		}
 		
-		// uId Input 시 체크
-		uId.addEventListener("input", function() {
-			resetValidation(uId);
-			
-			if (!strValidation(uId)) {
-				uId.classList.add("is-invalid");
-			} else {
-				uId.classList.add("is-valid");
-			}		
-		});
+		// uPwd 체크
+		resetValidation(uPwd);
 		
-		// uPwd Input 시 체크
-		uPwd.addEventListener("input", function() {
-			resetValidation(uPwd);
+		if (!strValidation(uPwd)) {
+			uPwd.classList.add("is-invalid");
 			
-			if (!strValidation(uPwd)) {
-				uPwd.classList.add("is-invalid");
-			} else {
-				uPwd.classList.add("is-valid");
-			}		
-		});
-		
-		function signIn() {
-			$.ajax({
-				async: true 
-				,cache: false
-				,type: "post"
-				,url: "/usr/member/MemberUsrSignInProc"
-				,data : { 
-					"uId" : $("#uId").val(), 
-					"uPwd" : $("#uPwd").val(), 
-					"autoLogin" : $("#autoLogin").is(":checked") 
-				}
-				,success: function(response) {
-					if (response.rt == "success") {
-						location.href = "/usr/index";
-					} else {  
-						resetValidation(uId);
-						resetValidation(uPwd);
-						showModalAlert("확인", "일치하는 회원이 존재하지 않습니다!");
-					}
-				}
-				,error : function(jqXHR, textStatus, errorThrown){
-					alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
-				}
-			});
+			if (!focus) {
+				uPwd.focus();
+				focus = true;
+			}
+		} else {
+			uPwd.classList.add("is-valid");
 		}
-	</script>
-		<script th:inline="javascript">
-	document.querySelector("#naver").onclick = function(){
-		let state = /*[[${state}]]*/ "";
-		location.href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=cnxFA1KJ0igtYBKWDLQ6&state="+state+"&redirect_uri=https://www.animalalert.shop/usr/member/naverUsrProc"
+		
+		if (focus) return false;
+		
+		uId.value = uId.value.trim();
+		uPwd.value = uPwd.value.trim();
+		
+		signIn();
 	}
 	
-	</script>
+	// uId Input 시 체크
+	uId.addEventListener("input", function() {
+		resetValidation(uId);
+		
+		if (!strValidation(uId)) {
+			uId.classList.add("is-invalid");
+		} else {
+			uId.classList.add("is-valid");
+		}		
+	});
+	
+	// uPwd Input 시 체크
+	uPwd.addEventListener("input", function() {
+		resetValidation(uPwd);
+		
+		if (!strValidation(uPwd)) {
+			uPwd.classList.add("is-invalid");
+		} else {
+			uPwd.classList.add("is-valid");
+		}		
+	});
+	
+	function signIn() {
+		$.ajax({
+			async: true 
+			,cache: false
+			,type: "post"
+			,url: "/usr/member/MemberUsrSignInProc"
+			,data : { 
+				"uId" : $("#uId").val(), 
+				"uPwd" : $("#uPwd").val(), 
+				"autoLogin" : $("#autoLogin").is(":checked") 
+			}
+			,success: function(response) {
+				if (response.rt == "success") {
+					location.href = "/usr/index";
+				} else {  
+					resetValidation(uId);
+					resetValidation(uPwd);
+					showModalAlert("확인", "일치하는 회원이 존재하지 않습니다!");
+				}
+			}
+			,error : function(jqXHR, textStatus, errorThrown){
+				alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
+			}
+		});
+	}
+</script>
+
+<script th:inline="javascript">
+	document.querySelector("#naver").onclick = function() {
+		let state = /*[[${state}]]*/ "";
+		let clientId = /*[[${naverClientId}]]*/ "";
+		let redirectUri = /*[[${naverClientCallback}]]*/ "";
+
+		location.href = "https://nid.naver.com/oauth2.0/authorize?response_type=code"
+			+ "&client_id=" + clientId
+			+ "&state=" + state
+			+ "&redirect_uri=" + redirectUri + "/usr/member/naverUsrProc";
+	}
+</script>
+
 </body>
 </html>

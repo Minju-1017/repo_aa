@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,13 +16,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.aa.Constants;
+import com.aa.common.mail.MailService;
 import com.aa.module.animal.AnimalDto;
 import com.aa.module.animal.AnimalService;
 import com.aa.module.code.CodeService;
 import com.aa.module.file.FileService;
 import com.aa.module.naver.NaverDto;
 import com.aa.module.naver.NaverService;
-import com.aa.common.mail.MailService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -49,6 +50,15 @@ public class MemberController {
 	
 	@Autowired
 	MailService mailService;
+	
+	@Value("${kakao.api.key}")
+    private String kakaoApiKey;
+	
+	@Value("${naver.client.id}")
+    private String naverClientId;
+	
+	@Value("${naver.client.callback}")
+    private String naverClientCallback;
 	
 	////////////////////////////////////////////////////////////////
 	
@@ -125,7 +135,8 @@ public class MemberController {
 	 * @return
 	 */
 	@RequestMapping(value = "MemberUsrSignUpForm")	
-	public String memberUsrSignUpForm() throws Exception {
+	public String memberUsrSignUpForm(Model model) throws Exception {
+		model.addAttribute("kakaoApiKey", kakaoApiKey);
 		return path_user + "MemberUsrSignUpForm";
 	}
 	
@@ -197,6 +208,10 @@ public class MemberController {
 		String state = String.valueOf(UUID.randomUUID());
 		
 		model.addAttribute("state",state);
+		model.addAttribute("naverClientId", naverClientId);
+		model.addAttribute("naverClientCallback", naverClientCallback);
+		
+		System.out.println("##############" + naverClientId + ", " + naverClientCallback);
 		
 		return path_user + "MemberUsrSignIn";
 	}
@@ -292,6 +307,7 @@ public class MemberController {
 		
 		memberDto.setuSeq(String.valueOf(httpSession.getAttribute("sessSeqUsr")));
 		model.addAttribute("memberItem", service.selectOne(memberDto));
+		model.addAttribute("kakaoApiKey", kakaoApiKey);
 		
 		return path_user + "MemberUsrAccountForm";
 	}

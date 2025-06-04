@@ -42,4 +42,3 @@ application-external.properties
 firebase-adminsdk.json
 firebase-messaging-sw.js
 firebase-module.js
-NaverService.java

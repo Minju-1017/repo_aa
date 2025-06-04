@@ -143,7 +143,8 @@
 
 <!-- 주소 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=73d5a4f6e79c017e97e6ec3b058999cd&libraries=services"></script>
+<script th:src="'//dapi.kakao.com/v2/maps/sdk.js?appkey=' + ${kakaoApiKey} + '&libraries=services'"></script>
+
 <script type="module" src="/firebase-module.js"></script>
 <script type="text/javascript">
 	var mapContainer = document.getElementById("map"), // 지도를 표시할 div
