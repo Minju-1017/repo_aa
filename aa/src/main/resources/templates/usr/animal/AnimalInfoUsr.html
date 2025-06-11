@@ -61,8 +61,9 @@
 						<form th:each="list : ${animalList}" 
 							class="row g-5 needs-validation" novalidate
 							method="post" enctype="multipart/form-data" th:id="|form${list?.uaSeq}|" name="|form${list?.uaSeq}|">
-							<input type="hidden" name="uaSeq" th:value="${list?.uaSeq}">
+							<input type="hidden" name="uaSeq">
 							<input type="hidden" name="fFileName" id="fFileName" th:value="${list?.fFileName}" >
+							<input type="hidden" name="uaBOD">
 							
 							<div class="row mb-8 g-5">
 								<div class="col-lg-12 col-12">
@@ -124,11 +125,11 @@
 														</div>
 														
 														<div class="col-4">
-															<label for="uaBOD" class="form-label">
+															<label  th:for="|uaBOD-${list?.uaSeq}|" class="form-label">
 																생년월일
 																<span class="text-danger">*</span>
 															</label>
-															<input type="text" class="form-control" name="uaBOD" id="uaBOD"
+															<input type="text" class="form-control" th:name="|uaBOD-${list?.uaSeq}|" th:id="|uaBOD-${list?.uaSeq}|"
 																th:value="${list?.uaBOD}" th:attr="oninput=|uaBODOninput('${list?.uaSeq}')|" readonly required />
 															<div class="invalid-feedback"> 생년월일을 선택해 주세요. </div>
 														</div>
@@ -201,13 +202,14 @@
 <script type="module" src="/firebase-module.js"></script>
 <!-- 변수 정의 / 공통 함수 -->
 <script type="text/javascript">
-	let seq = document.querySelector("input[name=uaSeq]");
 	let prevUaImgFile;
+	let prevFocusId = document.getElementById("prevFocusId");
 	
 	goForm = function (keyValue) {
 		var form = document.getElementById("form" + keyValue);
 		
-		if (validation(form)) { 
+		if (validation(form, keyValue)) { 
+			var seq = form.querySelector("input[name=uaSeq]");
 		    seq.value = keyValue;
 		    
 		    form.action ="AnimalInfoUsrUpdate";
@@ -216,13 +218,17 @@
 	}
 	
 	goUelete = function (keyValue) {
+		var seq = (document.getElementById("form" + keyValue)).querySelector("input[name=uaSeq]");
 	    seq.value = keyValue;
+	    prevFocusId.value = keyValue;
 	    
 	    showModalDeleteConfirm("확인", "정말 삭제 하시겠습니까?", '', 'none');
 	}
 
 	document.getElementById("btnModalUelete").onclick = function () {
-		var form = document.getElementById("form" + seq.value);
+		alert(prevFocusId.value);
+		var form = document.getElementById("form" + prevFocusId.value);
+		
 	    form.action ="AnimalInfoUsrUelete";
 	    form.submit();
 	}
@@ -256,14 +262,15 @@
 
 <!-- Validation: Bootstrap -->
 <script type="text/javascript">
-	function validation(form) {
+	function validation(form, keyValue) {
 		var fUploadFiles = form.querySelector("#fUploadFiles");
 		var fFileName = form.querySelector("#fFileName");
 		var uaImgFile = form.querySelector("#uaImgFile");
 		var uaCateCd = form.querySelector("#uaCateCd");
 		var uaCate = form.querySelector("#uaCate");
 		var uaName = form.querySelector("#uaName");
-		var uaBOD = form.querySelector("#uaBOD");
+		var aBOD = form.querySelector("#uaBOD-" + keyValue);
+		var uaBOD = form.querySelector("input[name=uaBOD]");
 		var uaGenderCd = form.querySelector("#uaGenderCd");
 		var uaBreed = form.querySelector("#uaBreed");
 		var uaRegNo = form.querySelector("#uaRegNo");
@@ -299,17 +306,17 @@
 		}
 		
 		// uaBOD 체크
-		resetValidation(uaBOD);
+		resetValidation(aBOD);
 		
-		if (!dateValidation_yyyyMMdd(uaBOD)) {
-			uaBOD.classList.add("is-invalid");
+		if (!dateValidation_yyyyMMdd(aBOD)) {
+			aBOD.classList.add("is-invalid");
 			
 			if (!focus) {
-				uaBOD.focus();
+				aBOD.focus();
 				focus = true;
 			}
 		} else {
-			uaBOD.classList.add("is-valid");
+			aBOD.classList.add("is-valid");
 		}
 		
 		// uaBreed 체크
@@ -352,6 +359,9 @@
 		uaName.value = uaName.value.trim();
 		uaBreed.value = uaBreed.value.trim();
 		uaRegNo.value = uaRegNo.value.trim();
+		
+		// datetimepicker 때문에 uaBOD ID를 uaBOD-seq로 설정해서 uaBOD를 전송전 다시 세팅
+		uaBOD.value = aBOD.value;
 		
 		return true;
 	}
@@ -419,14 +429,14 @@
 	// uaBOD Input 시 체크
 	function uaBODOninput(keyValue) {
 		var form = document.getElementById("form" + keyValue);
-		var uaBOD = form.querySelector("#uaBOD");
+		var aBOD = form.querySelector("#uaBOD-" + keyValue);
 		
-		resetValidation(uaBOD);
+		resetValidation(aBOD);
 		
-		if (!dateValidation_yyyyMMdd(uaBOD)) {
-			uaBOD.classList.add("is-invalid");
+		if (!dateValidation_yyyyMMdd(aBOD)) {
+			aBOD.classList.add("is-invalid");
 		} else {
-			uaBOD.classList.add("is-valid");
+			aBOD.classList.add("is-valid");
 		}	
 	}
 	

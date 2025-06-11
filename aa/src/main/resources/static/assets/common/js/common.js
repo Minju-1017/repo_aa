@@ -324,6 +324,8 @@ jQuery(function() {
 		//minDate:'-1970/01/02',//yesterday is minimum date(for today use 0 or -1970/01/01)
 		maxDate:'+1970/01/01', //tomorrow is maximum date calendar
 		onChangeDateTime:function(dp, $input) {
+			$input.datetimepicker('hide');
+			
 			resetValidation(uaBOD);
 			
 			if (!strValidation(uaBOD)) {
@@ -332,5 +334,28 @@ jQuery(function() {
 				uaBOD.classList.add("is-valid");
 			}
 		}
+	});
+	
+	jQuery(function() {
+	    // 반복된 uaBOD ID 선택
+	    $("input[id^='uaBOD-']").each(function() {
+	        const $this = $(this);
+	        $this.datetimepicker({
+	            format:'Y-m-d',
+	            timepicker:false,
+	            maxDate:'+1970/01/01',
+	            onChangeDateTime:function(dp, $input) {
+					$input.datetimepicker('hide');
+					
+	                resetValidation(this);
+
+	                if (!strValidation(this)) {
+	                    this.classList.add("is-invalid");
+	                } else {
+	                    this.classList.add("is-valid");
+	                }
+	            }
+	        });
+	    });
 	});
 });
