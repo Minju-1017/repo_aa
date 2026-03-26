@@ -57,6 +57,11 @@ public class FileService {
 		        metadata.setContentLength(fUploadFile.getSize());
 		        metadata.setContentType(fUploadFile.getContentType());
 		        
+		        // 캐시 사용 안하고 이미지 보여주기
+		        metadata.addUserMetadata("Cache-Control", "no-cache, no-store, must-revalidate");
+		        metadata.addUserMetadata("Pragma", "no-cache");
+		        metadata.addUserMetadata("Expires", "0");
+		        
 		        // AWS 파일 업로드
 		        amazonS3Client.putObject(awsBucket, fPath + fFileName, fUploadFile.getInputStream(), metadata);
 		    

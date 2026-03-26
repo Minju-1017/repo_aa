@@ -76,7 +76,9 @@
 															class="image rounded-3" width="150px" id="uaImgFile"
 															src="/assets/usr/template/FreshCart-1.4.0/images/animal/placeholder-img.jpg" />
 														<img th:if="${list?.fPath ne null and #strings.trim(list?.fPath) ne ''}" 
-															class="image rounded-3" th:src="${list?.fPath}" id="uaImgFile" width="150px" />
+															class="image rounded-3" 
+															th:src="${list?.fPath} + '?v=' + ${#dates.createNow().getTime()}"
+															id="uaImgFile" width="150px" />
 														<div class="col-11 mt-3">
 															<input type="text" class="form-control" name="uaName" id="uaName" 
 																th:value="${list?.uaName}" th:attr="oninput=|uaNameOninput('${list?.uaSeq}')|" placeholder="이름을 입력해주세요" required />

@@ -1,5 +1,5 @@
 # alpine linux included openjdk 17
-FROM openjdk:21-jdk
+FROM eclipse-temurin:21-jdk
 
 # project directory
 ENV project="aa"
@@ -14,4 +14,4 @@ RUN mkdir ${project}
 COPY build/libs/*.jar /${project}/${project}.jar
 
 # exec jar without env
-ENTRYPOINT ["sh", "-c", "java -jar /${project}/${project}.jar"]
+ENTRYPOINT ["sh", "-c", "exec java -jar /${project}/${project}.jar"]

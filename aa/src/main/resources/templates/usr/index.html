@@ -17,8 +17,8 @@
 							<input type="hidden" name="mbSeq">
 							<input type="hidden" name="uSeq" th:value="${session.sessSeqUsr}">
 							<div
-								th:style="' background: url(' + ${list?.fPath} + ') no-repeat  right; background-size: contain; background-color: #f5f5f5; border-radius: 0.5rem;'">
-								<div
+								th:style="' background: url(' + ${list?.fPath} + '?v=' + ${#dates.createNow().getTime()} + ') no-repeat  right; background-size: contain; background-color: #f5f5f5; border-radius: 0.5rem;'">
+								<div 
 									class="ps-lg-12 py-lg-16 col-xxl-7 col-lg-9 py-14 px-8 text-xs-center">
 									<span th:if="${list.up == '1'}" class="badge bg-danger">up</span>
 									<!-- badge -->

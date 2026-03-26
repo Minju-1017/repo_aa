@@ -68,7 +68,9 @@
 							<a href="javascript:void(0);" th:onclick="missView([[${list.mbSeq}]])">
 								<!-- img -->
 								<div class="img-zoom" >
-									<img style="height:300px;" th:src="${list.fPath}" alt="" class="img-fluid w-100" />
+									<img style="height:300px;" 
+										th:src="${list?.fPath} + '?v=' + ${#dates.createNow().getTime()}" 
+										alt="" class="img-fluid w-100" />
 								</div>
 							</a>
 						</div>

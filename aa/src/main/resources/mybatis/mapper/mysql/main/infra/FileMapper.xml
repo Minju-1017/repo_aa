@@ -45,6 +45,8 @@
 	<update id="updateFile">
 		UPDATE ${fDbTableName}
 		SET
+			fPath=#{fPath},
+			fFileName=#{fFileName},
 			fExt=#{fExt},
 			fSize=#{fSize}
 		WHERE

@@ -65,7 +65,9 @@
 																class="image rounded-3" width="150px" id="uaImgFile"
 																src="/assets/usr/template/FreshCart-1.4.0/images/animal/placeholder-img.jpg" />
 															<img th:if="${uaImg?.fPath ne null and #strings.trim(uaImg?.fPath) ne ''}" 
-																class="image rounded-3" th:src="${uaImg?.fPath}" id="uaImgFile" width="150px" />
+																class="image rounded-3" 
+																th:src="${uaImg?.fPath} + '?v=' + ${#dates.createNow().getTime()}"
+																id="uaImgFile" width="150px" />
 													
 															<div class="file-upload position-absolute end-0 top-0 mt-n2 me-n1">
 																<input type="file" class="file-input" accept=".jpeg,.jpg,.png,.gif"
